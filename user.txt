@@ -1,0 +1,21 @@
+[AKUN DUMMY]
+ada di tabel Personnel Area
+
+UNIT
+>>username: disjabar
+>>pw: disjabar
+>>nip: 5115100006
+
+>>username: divdas
+>>pw: divdas
+>>nip: 5115115115
+
+SDM
+>>username: sdm
+>>pw: sdm
+>>nip: 123456SDM
+
+Karir2
+>>username: karir2
+>>pw: karir2
+>>nip: karir2
