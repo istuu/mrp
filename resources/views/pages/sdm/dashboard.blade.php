@@ -453,7 +453,7 @@ use Carbon\Carbon;
 												</button>
 											</td>
 											<td class="text-center">
-												@if ($mrp->formasi_jabatan_id)
+												@if ($mrp->formasi_jabatan_tujuan)
 													@if ($mrp->status == 1)
 														Belum ada respon
 													@elseif ($mrp->status == 2)
@@ -467,7 +467,7 @@ use Carbon\Carbon;
 											</td>
 											<td class="text-center">
 												@if ($mrp->status == 1 || $mrp->status == 97)
-													<a href="/download/{{ $mrp->registry_number }}/{{ $mrp->filename_dokumen_unit_usul }}" class="btn btn-3d btn-sm btn-primary">
+													<a href="{{ asset('storage/uploads') }}/{{ $mrp->filename_dokumen_unit_usul }}" class="btn btn-3d btn-sm btn-primary">
 														<i class="fa fa-arrow-circle-down"></i>
 														<span>Download</span>
 													</a>
@@ -475,8 +475,8 @@ use Carbon\Carbon;
 													<div class="btn-group">
 													<button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">Download <span class="caret"></span></button>
 													<ul class="dropdown-menu" role="menu">
-														<li><a href="/download/{{ $mrp->registry_number }}/{{ $mrp->filename_dokumen_unit_usul }}"><i class="fa fa-question-circle"></i> Usulan</a></li>
-														<li><a href="/download/{{ $mrp->registry_number }}/{{ $mrp->filename_dokumen_unit_jawab }}"><i class="fa fa-edit"></i> Lolos Butuh</a></li>
+														<li><a href="{{ asset('storage/uploads') }}/{{ $mrp->filename_dokumen_unit_usul }}"><i class="fa fa-question-circle"></i> Usulan</a></li>
+														<li><a href="{{ asset('storage/uploads') }}/{{ $mrp->filename_dokumen_unit_jawab }}"><i class="fa fa-edit"></i> Lolos Butuh</a></li>
 													</ul>
 												</div>
 												@endif

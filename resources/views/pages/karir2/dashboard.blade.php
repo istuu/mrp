@@ -1,4 +1,4 @@
-<?php 
+<?php
 use Carbon\Carbon;
 
 ?>
@@ -22,7 +22,7 @@ use Carbon\Carbon;
 @section('content')
 	<div id="content" class="padding-20">
 
-		<!-- 
+		<!--
 			PANEL CLASSES:
 				panel-default
 				panel-danger
@@ -55,7 +55,7 @@ use Carbon\Carbon;
 					<ul class="dropdown-menu " role="menu">
 						<li class="divider"></li>
 						<li><a href="/dashboard/dataevaluasi" onClick ="$('#customers').tableExport({type:'excel',escape:'false'});"> <img src='/assets/icons/xls.png' width='24px'> XLS</a></li>
-						<li><a href="#" onClick ="$('#customers').tableExport({type:'pdf',pdfFontSize:'7',escape:'false'});"><img src='/assets/icons/pdf.png' width='24px'> PDF</a></li>	
+						<li><a href="#" onClick ="$('#customers').tableExport({type:'pdf',pdfFontSize:'7',escape:'false'});"><img src='/assets/icons/pdf.png' width='24px'> PDF</a></li>
 					</ul>
 				</div> -->
 
@@ -118,10 +118,10 @@ use Carbon\Carbon;
 							</td> <!-- pengusul -->
 
 							<td>
-								<a href="/download/{{ $mrp->registry_number }}/{{ $mrp->filename_dokumen_respon_sdm }}" class="btn btn-info">{{ $mrp->no_dokumen_respon_sdm }}</a>
+								<a href="{{ asset('storage/uploads') }}/{{ $mrp->filename_dokumen_respon_sdm }}" class="btn btn-info">{{ $mrp->no_dokumen_respon_sdm }}</a>
 							</td> <!-- surat perintah -->
 							<td>
-								<a href="/download/{{ $mrp->registry_number }}/{{ $mrp->filename_dokumen_unit_usul }}" class="btn btn-info">{{ $mrp->no_dokumen_unit_usul }}</a>
+								<a href="{{ asset('storage/uploads') }}/{{ $mrp->filename_dokumen_unit_usul }}" class="btn btn-info">{{ $mrp->no_dokumen_unit_usul }}</a>
 							</td> <!-- surat perintah -->
 							<td>
 								 {{$mrp->registry_number}} <!-- registry number -->
@@ -139,11 +139,11 @@ use Carbon\Carbon;
 							</td> <!-- tindak lanjut -->
 
 							<td>{{$mrp->pegawai->ps_group}}</td><!-- ps group -->
-							
+
 							<td><strong>{{$mrp->formasi_jabatan_asal->formasi}} {{$mrp->formasi_jabatan_asal->jabatan}}</strong> <br>{{$mrp->formasi_jabatan_asal->posisi}}<br></td><!-- jabatan lama -->
-							
+
 							<td><strong>{{ $mrp->formasi_jabatan_tujuan->formasi}} {{ $mrp->formasi_jabatan_tujuan->jabatan }}</strong> <br> {{ $mrp->formasi_jabatan_tujuan->posisi}}<br></td> <!-- jabatan baru -->
-							
+
 							<td></td>
 
 							<td>
@@ -185,7 +185,7 @@ use Carbon\Carbon;
 								 {{ $mrp->requested_tgl_aktivasi->format('d F Y') }} <!-- tanggal aktivasi -->
 							</td>
 						</tr>
-						
+
 						@endforeach
 					</tbody>
 				</table>
@@ -232,7 +232,7 @@ use Carbon\Carbon;
 				</form>
 			</div>
 		</div>
-    </div>	
+    </div>
 
 	<form action="/dashboard/karir2_respond" method="POST" id="respond_form">
 		{{ csrf_field() }}
@@ -248,8 +248,8 @@ use Carbon\Carbon;
 	$(document).ready(function(){
 		loadScript(plugin_path + "footable/dist/footable.min.js", function(){
 			loadScript(plugin_path + "footable/dist/footable.sort.min.js", function(){
-				loadScript(plugin_path + "footable/dist/footable.paginate.min.js", function(){ 
-					loadScript(plugin_path + "footable/dist/footable.filter.min.js", function(){ 
+				loadScript(plugin_path + "footable/dist/footable.paginate.min.js", function(){
+					loadScript(plugin_path + "footable/dist/footable.filter.min.js", function(){
 
 						// footable
 						var $ftable = jQuery('.footable');
@@ -289,7 +289,7 @@ use Carbon\Carbon;
 			});
 		});
 	});
-		
+
 	</script>
 
 	<script>

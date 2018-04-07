@@ -83,8 +83,7 @@
 								<td>
 									@if($mrps->status == 1)
 										<span class="label label-primary">Diajukan</span>
-									<!-- @elseif($mrps->status == 2 || $mrps->status == 3 || ($mrps->status == 97 && $mrps->tipe != 1))
-										<span class="label label-warning">Proses Evaluasi (Kantor Pusat)</span> -->
+							
 
 									@elseif(in_array($mrps->status, [2,3,4]))
 										<span class="label label-warning">Proses Evaluasi (Pusat)</span>

@@ -44,10 +44,10 @@ use Carbon\Carbon;
 									</ul>
 								@endif
 								@if ($detail->no_dokumen_respon_sdm && $detail->status == 99)
-									<a href="/download/{{ $detail->registry_number }}/{{ $detail->filename_dokumen_respon_sdm }}" class="btn btn-sm btn-3d btn-red">{{ $detail->filename_dokumen_respon_sdm }}</a>
+									<a href="{{ asset('storage/uploads') }}/{{ $detail->filename_dokumen_respon_sdm }}" class="btn btn-sm btn-3d btn-red">{{ $detail->filename_dokumen_respon_sdm }}</a>
 								@endif
 								@if ($detail->skstg)
-									<a href="/download/{{ $detail->registry_number }}/{{ $detail->skstg->filename_dokumen_sk }}" class="btn btn-sm btn-3d btn-red">{{ $detail->skstg->filename_dokumen_sk }}</a>
+									<a href="{{ asset('storage/uploads') }}/{{ $detail->skstg->filename_dokumen_sk }}" class="btn btn-sm btn-3d btn-red">{{ $detail->skstg->filename_dokumen_sk }}</a>
 								@endif
 							</div>
 							<div class="col-md-3 col-xs-3 text-right">

@@ -347,7 +347,7 @@ class MRPController extends Controller
 
                 $nestedData['unit_pengusul'] = $mrp->personnel_area_pengusul->nama;
                 $nestedData['created_at'] = $mrp->created_at->format("d F Y h:i:s");
-                if($mrp->tipe == 2){
+                if($mrp->status == 2){
                     $nestedData['action'] =
                     '
                     <div class="btn-group">

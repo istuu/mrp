@@ -222,7 +222,7 @@ class MutasiController extends Controller
             $foldername = $mrp->registry_number.'/';
             $filename = 'USUL_'.Carbon::now('Asia/Jakarta')->year.'_'.str_replace('/', '_', $mrp->no_dokumen_unit_usul).'.'.$file->getClientOriginalExtension();
             // dd($foldername, $filename);
-            $file->move(base_path(). '/public/storage/uploads/'.$foldername, $filename);
+            $file->move(public_path().'/storage/uploads/', $filename);
             $mrp->filename_dokumen_unit_usul = $filename;
             $mrp->save();
 
@@ -273,7 +273,7 @@ class MutasiController extends Controller
             $foldername = $mrp->registry_number.'/';
             $filename = 'USUL_'.Carbon::now('Asia/Jakarta')->year.'_'.str_replace('/', '.', $mrp->no_dokumen_unit_usul).'.'.$file->getClientOriginalExtension();
 
-            $file->move(base_path(). '/public/storage/uploads/'.$foldername, $filename);
+            $file->move(public_path().'/storage/uploads/', $filename);
             $mrp->filename_dokumen_unit_usul = $filename;
             $mrp->save();
 

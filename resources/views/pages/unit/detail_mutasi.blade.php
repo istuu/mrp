@@ -1,4 +1,4 @@
-<?php 
+<?php
 use Carbon\Carbon;
 
 ?>
@@ -58,16 +58,16 @@ use Carbon\Carbon;
 							</div>
 							<div class="col-md-3 col-xs-3 text-right">
 								@if ($detail->no_dokumen_unit_usul)
-									<a href="/download/{{ $detail->registry_number }}/{{ $detail->filename_dokumen_unit_usul }}" class="btn btn-sm btn-3d btn-blue">{{ $detail->filename_dokumen_unit_usul }}</a>
+									<a href="{{ asset('storage/uploads') }}/{{ $detail->filename_dokumen_unit_usul }}" class="btn btn-sm btn-3d btn-blue">{{ $detail->filename_dokumen_unit_usul }}</a>
 								@endif
 								@if ($detail->no_dokumen_unit_jawab)
-									<a href="/download/{{ $detail->registry_number }}/{{ $detail->filename_dokumen_unit_jawab }}" class="btn btn-sm btn-3d btn-info">{{ $detail->filename_dokumen_unit_jawab }}</a>
+									<a href="{{ asset('storage/uploads') }}/{{ $detail->filename_dokumen_unit_jawab }}" class="btn btn-sm btn-3d btn-info">{{ $detail->filename_dokumen_unit_jawab }}</a>
 								@endif
 								@if ($detail->status == 99 && $detail->no_dokumen_respon_sdm)
-									<a href="/download/{{ $detail->registry_number }}/{{ $detail->filename_dokumen_respon_sdm }}" class="btn btn-sm btn-3d btn-red">{{ $detail->filename_dokumen_respon_sdm }}</a>
+									<a href="{{ asset('storage/uploads') }}/{{ $detail->filename_dokumen_respon_sdm }}" class="btn btn-sm btn-3d btn-red">{{ $detail->filename_dokumen_respon_sdm }}</a>
 								@endif
 								@if ($detail->skstg)
-									<a href="/download/{{ $detail->registry_number }}/{{ $detail->skstg->filename_dokumen_sk }}" class="btn btn-sm btn-3d btn-red">{{ $detail->skstg->filename_dokumen_sk }}</a>
+									<a href="{{ asset('storage/uploads') }}/{{ $detail->skstg->filename_dokumen_sk }}" class="btn btn-sm btn-3d btn-red">{{ $detail->skstg->filename_dokumen_sk }}</a>
 								@endif
 							</div>
 						</div>
