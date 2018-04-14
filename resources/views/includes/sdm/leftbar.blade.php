@@ -17,12 +17,17 @@
 		</li>
 	</ul>
 
-</nav>
+	<h3>Superadmin</h3>
+	<ul class="nav nav-list">
+		<li>
+			<a href="#">
+				<i class="fa fa-menu-arrow pull-right"></i>
+				<i class="main-icon fa fa-users"></i> <span>User Managements</span>
+			</a>
+			<ul>
+				<li><a href="{{ url('roles') }}"><span>Roles</span></a></li>
+			</ul>
+		</li>
+	</ul>
 
-@section('sdm_leftbar_scripts')
-	<script>
-		$("body").addClass('min');
-		$("#mobileMenuBtn").addClass('active');
-		$("#middle").css("margin-left", "0px")
-	</script>
-@append
+</nav>

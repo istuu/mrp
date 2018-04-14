@@ -1,4 +1,4 @@
-<?php 
+<?php
 use Carbon\Carbon;
 
 ?>
@@ -15,7 +15,7 @@ use Carbon\Carbon;
 
 		<!-- CORE CSS -->
 		<link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-		
+
 		<!-- THEME CSS -->
 		<link href="/assets/css/essentials.css" rel="stylesheet" type="text/css" />
 		<link href="/assets/css/layout.css" rel="stylesheet" type="text/css" />
@@ -46,17 +46,19 @@ use Carbon\Carbon;
 								<h4><strong>Download</strong> Dokumen</h4>
 								<ul class="list-unstyled ">
 									@if ($mrp->no_dokumen_unit_usul)
-										<a href="/download/{{ $mrp->registry_number }}/{{ $mrp->filename_dokumen_unit_usul }}" class="btn btn-sm btn-3d btn-blue">{{ $mrp->no_dokumen_unit_usul }}</a>
+										<a href="{{ asset('storage/uploads') }}/{{ $mrp->filename_dokumen_unit_usul }}" class="btn btn-sm btn-3d btn-blue">{{ $mrp->no_dokumen_unit_usul }}</a>
 									@endif
 									@if ($mrp->no_dokumen_unit_jawab)
-										<a href="/download/{{ $mrp->registry_number }}/{{ $mrp->filename_dokumen_unit_jawab }}" class="btn btn-sm btn-3d btn-info">{{ $mrp->no_dokumen_unit_jawab }}</a>
+										<a href="{{ asset('storage/uploads') }}/{{ $mrp->filename_dokumen_unit_jawab }}" class="btn btn-sm btn-3d btn-info">{{ $mrp->no_dokumen_unit_jawab }}</a>
 									@endif
+									{{--
 									@if ($mrp->no_dokumen_respon_sdm)
-										<a href="/download/{{ $mrp->registry_number }}/{{ $mrp->filename_dokumen_respon_sdm }}" class="btn btn-sm btn-3d btn-red">{{ $mrp->skstg->no_dokumen_proses_sk }}</a>
+										<a href="{{ asset('storage/uploads') }}/{{ $mrp->filename_dokumen_respon_sdm }}" class="btn btn-sm btn-3d btn-red">{{ $mrp->skstg->no_dokumen_proses_sk }}</a>
 									@endif
 									@if ($mrp->sk_stg_id)
-										<a href="/download/{{ $mrp->registry_number }}/{{ $mrp->skstg->filename_dokumen_proses_sk }}" class="btn btn-sm btn-3d btn-red">{{ $mrp->skstg->no_dokumen_proses_sk }}</a>
+										<a href="{{ asset('storage/uploads') }}/{{ $mrp->skstg->filename_dokumen_proses_sk }}" class="btn btn-sm btn-3d btn-red">{{ $mrp->skstg->no_dokumen_proses_sk }}</a>
 									@endif
+									--}}
 								</ul>
 							</div>
 						</div>
@@ -116,7 +118,7 @@ use Carbon\Carbon;
 												<span class="label label-success">Ditolak (SDM Pusat)</span>
 											@elseif($mrp->status == 98)
 												<span class="label label-success">Ditolak (Karir II Pusat)</span>
-											@else											   
+											@else
 												<span class="label label-danger">???</span>
 											@endif
 										</td>
@@ -135,7 +137,7 @@ use Carbon\Carbon;
 
 
 
-	
+
 		<!-- JAVASCRIPT FILES -->
 		<script type="text/javascript">var plugin_path = '/assets/plugins/';</script>
 		<script type="text/javascript" src="/assets/plugins/jquery/jquery-2.2.3.min.js"></script>

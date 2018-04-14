@@ -532,9 +532,9 @@ use Carbon\Carbon;
 											<td>{{ $mrp->formasi_jabatan_tujuan->jabatan }}</td>
 											<td>{{ $mrp->pegawai_pengusul->nama_pegawai }} ({{ $mrp->nip_pengusul }})</td>
 											<td>Existing</td>
-											<td>{{ $mrp->requested_tgl_aktifasi ? $mrp->requested_tgl_aktifasi->format('j F Y') : '-' }}</td>
+											<td>{{ $mrp->requested_tgl_aktivasi ? $mrp->requested_tgl_aktivasi->format('j F Y') : '-' }}</td>
 											<td class="text-center">
-												<a href="/download/{{ $mrp->registry_number }}/{{ $mrp->filename_dokumen_unit_usul }}" class="btn btn-3d btn-sm btn-primary">
+												<a href="{{ asset('storage/uploads') }}/{{ $mrp->filename_dokumen_unit_usul }}" class="btn btn-3d btn-sm btn-primary">
 													<i class="fa fa-arrow-circle-down"></i>
 													<span>Download</span>
 												</a>

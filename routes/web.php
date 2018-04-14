@@ -43,7 +43,7 @@ Route::get('/status/finish_mutasi/{reg_num}', 'StatusController@finishMutasi');
 Route::get('/mutasi/pengajuan', 'MutasiController@index');
 Route::get('/mutasi/pengajuan/get_pegawai_info', 'MutasiController@getPegawaiInfo');
 Route::post('/mutasi/pengajuan/submit_form', 'MutasiController@submitForm');
-Route::get('/mutasi/pengajuan/getFormasi', 'MutasiController@getFormasi'); 
+Route::get('/mutasi/pengajuan/getFormasi', 'MutasiController@getFormasi');
 Route::get('/mutasi/pengajuan/getJabatan', 'MutasiController@getJabatan');
 Route::get('/mutasi/pengajuan/getFormasiJabs', 'MutasiController@getFormasiJabs');
 Route::get('/mutasi/pengajuan/getJabatanInfo', 'MutasiController@getJabatanInfo');
@@ -76,3 +76,16 @@ Route::get('/profil/getKota','ProfilController@getKota');
 
 //evaluasi
 Route::get('/dashboard/dataevaluasi', 'DashboardController@detaileval');
+
+//Superadmin
+$slugs = ['roles'];
+foreach ($slugs as $slug) {
+    $controller = "Admin\\".str_replace(' ','',ucwords(str_replace('_',' ',str_singular($slug))))."Controller";
+    Route::get($slug,$controller.'@index');
+    Route::post($slug.'/datatables/ajax', $controller.'@ajaxDatatables');
+    Route::get($slug.'/create', ['uses' => $controller.'@create','as' => 'roles.create']);
+    Route::post($slug.'/store', ['uses' => $controller.'@store','as' => 'roles.store']);
+    Route::get($slug.'/edit/{id}', ['uses' => $controller.'@edit','as' => 'roles.edit']);
+    Route::post($slug.'/update/{id}', ['uses' => $controller.'@update']);
+    Route::get($slug.'/delete/{id}', ['uses' => $controller.'@delete','as' => 'roles.delete']);
+}
