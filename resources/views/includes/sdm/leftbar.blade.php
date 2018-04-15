@@ -28,6 +28,16 @@
 				<li><a href="{{ url('roles') }}"><span>Roles</span></a></li>
 			</ul>
 		</li>
+		<li>
+			<a href="#">
+				<i class="fa fa-menu-arrow pull-right"></i>
+				<i class="main-icon fa fa-briefcase"></i> <span>Jabatan</span>
+			</a>
+			<ul>
+				<li><a href="{{ url('legacies') }}"><span>Legacy Codes</span></a></li>
+				<li><a href="{{ url('formations') }}"><span>Formasi Jabatan</span></a></li>
+			</ul>
+		</li>
 	</ul>
 
 </nav>

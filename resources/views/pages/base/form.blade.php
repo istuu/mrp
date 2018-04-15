@@ -1,6 +1,7 @@
 @extends('layouts.master')
 
-@section('title', 'Create '.$title)
+@php($action = request()->segment(2) == 'create' ? 'Tambah Data':'Edit Data')
+@section('title', $action.' '.$title)
 
 @section('leftbar')
 	@include('includes.sdm.leftbar')
@@ -9,7 +10,7 @@
 @section('content')
 	<!-- page title -->
 	<header id="page-header">
-		<h1>Tambah Data {{ $title }}</h1>
+		<h1>{{ $action.' '.$title }}</h1>
 	</header>
 	<!-- /page title -->
 
@@ -19,7 +20,7 @@
 				<!-- data pegawainya -->
 				<div class="panel panel-default">
 					<div class="panel-heading panel-heading-transparent">
-						<strong>Tambah Data {{ $title }}</strong>
+						<strong>{{ $action.' '.$title }}</strong>
 					</div>
 
 					<div class="panel-body">

@@ -32,10 +32,13 @@
 			<div class="panel-body">
 				<ul class="options list-inline">
 					@if(in_array('create',$actions))
-						<li><a href="{{ url(strtolower($title).'/create') }}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New Data</a></li>
+						<li><a href="{{ url(request()->segment(1).'/create') }}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New Data</a></li>
+					@endif
+					@if(in_array('import',$actions))
+						<li><a href="{{ url(request()->segment(1).'/import') }}" class="btn btn-sm btn-primary"><i class="fa fa-upload"></i> Import from Excel</a></li>
 					@endif
 					@if(in_array('export',$actions))
-						<li><a href="{{ url(strtolower($title).'/export') }}" class="btn btn-sm btn-success"><i class="fa fa-file-excel-o"></i> Export to Excel</a></li>
+						<li><a href="{{ url(request()->segment(1).'/export') }}" class="btn btn-sm btn-primary"><i class="fa fa-download"></i> Export to Excel</a></li>
 					@endif
 				</ul>
 				<div class="table-responsive">
@@ -71,13 +74,14 @@
 	@parent
 	<script>
         $(function(){
+			$('#importFile').hide();
             $('#datatable').DataTable({
                 "processing": true,
                 "serverSide": true,
                 // "autoWidth": true,
                 "order": [[ 0, "asc" ]],
                 "ajax":{
-                    "url": "{{ url(strtolower($title).'/datatables/ajax') }}",
+                    "url": "{{ url(request()->segment(1).'/datatables/ajax') }}",
                     "dataType": "json",
                     "type": "POST",
                     "data":{ _token: "{{ csrf_token() }}"}
@@ -85,6 +89,11 @@
                 "columns": {!! $tables !!}
             });
         });
+
+		$('#btnImport').click(function(){
+			$('#importFile').fadeIn(500);
+		});
+
     </script>
 
 	<script src="{{ asset('') }}/assets/plugins/jquery-datatable/jquery.dataTables.js"></script>

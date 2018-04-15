@@ -165,6 +165,7 @@ return [
         Illuminate\View\ViewServiceProvider::class,
         Kris\LaravelFormBuilder\FormBuilderServiceProvider::class,
         Yajra\DataTables\DataTablesServiceProvider::class,
+        Maatwebsite\Excel\ExcelServiceProvider::class,
 
         /*
          * Package Service Providers...
@@ -229,6 +230,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'FormBuilder' => Kris\LaravelFormBuilder\Facades\FormBuilder::class,
         'Table' => Yajra\DataTables\Facades\DataTables::class,
+        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
     ],
 
 ];

@@ -78,14 +78,16 @@ Route::get('/profil/getKota','ProfilController@getKota');
 Route::get('/dashboard/dataevaluasi', 'DashboardController@detaileval');
 
 //Superadmin
-$slugs = ['roles'];
+$slugs = ['roles', 'legacies', 'formations'];
 foreach ($slugs as $slug) {
     $controller = "Admin\\".str_replace(' ','',ucwords(str_replace('_',' ',str_singular($slug))))."Controller";
     Route::get($slug,$controller.'@index');
     Route::post($slug.'/datatables/ajax', $controller.'@ajaxDatatables');
-    Route::get($slug.'/create', ['uses' => $controller.'@create','as' => 'roles.create']);
-    Route::post($slug.'/store', ['uses' => $controller.'@store','as' => 'roles.store']);
-    Route::get($slug.'/edit/{id}', ['uses' => $controller.'@edit','as' => 'roles.edit']);
+    Route::get($slug.'/create', ['uses' => $controller.'@create','as' => $slug.'.create']);
+    Route::post($slug.'/store', ['uses' => $controller.'@store','as' => $slug.'.store']);
+    Route::get($slug.'/edit/{id}', ['uses' => $controller.'@edit','as' => $slug.'.edit']);
     Route::post($slug.'/update/{id}', ['uses' => $controller.'@update']);
-    Route::get($slug.'/delete/{id}', ['uses' => $controller.'@delete','as' => 'roles.delete']);
+    Route::get($slug.'/delete/{id}', ['uses' => $controller.'@delete','as' => $slug.'.delete']);
+    Route::get($slug.'/import', ['uses' => $controller.'@import','as' => $slug.'.import']);
+    Route::post($slug.'/import', ['uses' => $controller.'@postImport','as' => $slug.'.import']);
 }
