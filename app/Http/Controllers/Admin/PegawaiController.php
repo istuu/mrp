@@ -5,42 +5,34 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AdminController;
 use Kris\LaravelFormBuilder\FormBuilder;
-use App\Models\Formation as Model;
-use App\Forms\FormationForm;
+use App\Pegawai as Model;
+use App\FormasiJabatan as Formasi;
+use App\Forms\PegawaiForm;
 use Table;
 use Excel;
 use DB;
 
-class FormationController extends AdminController
+class PegawaiController extends AdminController
 {
     /**
      * Class model
      *
      * @doc Inherit
      */
-    protected $title = 'Formasi Jabatan';
+    protected $title = 'Data Pegawai';
 
     /**
      * Column that will be shown in listing
      *
      */
     protected $columns = [
-        'legacy_code',
-        'kode_olah',
-        'urut',
-        'direktorat',
-        'personnel_area',
-        'level',
-        'formasi',
-        'jabatan',
-        'kelas_unit',
-        'jenjang_main',
-        'jenjang_sub',
-        'posisi_unit',
-        'kode_profesi',
-        'jenis',
-        'hitung',
-        'revisi'
+        'perner',
+        'nip',
+        'no_hp',
+        'email',
+        'kota_asal',
+        'status_domisili',
+        'nama_pegawai'
     ];
 
     /**
@@ -67,12 +59,11 @@ class FormationController extends AdminController
      */
     public function index()
     {
-        return view('pages.formation.index',[
+        return view('pages.base.index',[
             'title' => $this->title,
             'columns' => $this->columns,
             'actions' => $this->actions,
-            'tables' => $this->tableBuilder($this->columns),
-            'filter' => Model::select('personnel_area')->groupBy('personnel_area')->get()
+            'tables' => $this->tableBuilder($this->columns)
         ]);
     }
 
@@ -82,8 +73,7 @@ class FormationController extends AdminController
      * @return array json_encode
      */
      public function ajaxDatatables(Request $request){
-         $filter = $request->personnel_area !== null ? $request->personnel_area: 'PLN';
-         $model = Model::where('personnel_area',$filter)->get();
+         $model = $this->model->get();
          $table = Table::of($model)
                      ->addColumn('action',function($model){
                          return $this->handleAction($model->id, $this->actions);
@@ -100,9 +90,9 @@ class FormationController extends AdminController
      public function create(FormBuilder $formBuilder)
      {
          $title = $this->title;
-         $form  = $formBuilder->create(FormationForm::class, [
+         $form  = $formBuilder->create(PegawaiForm::class, [
              'method' => 'POST',
-             'url' => route('formations.store')
+             'url' => route('pegawais.store')
          ]);
 
          return view('pages.base.form', compact(['form','title']));
@@ -115,14 +105,14 @@ class FormationController extends AdminController
       */
      public function store(Request $request, FormBuilder $formBuilder)
      {
-         $form = $formBuilder->create(FormationForm::class);
+         $form = $formBuilder->create(PegawaiForm::class);
 
          if (!$form->isValid()) {
              return redirect()->back()->withErrors($form->getErrors())->withInput();
          }
 
          $this->model->create($request->all());
-         return redirect('formations')->with('success','Data Berhasil ditambahkan!');
+         return redirect('pegawais')->with('success','Data Berhasil ditambahkan!');
     }
 
     /**
@@ -133,10 +123,10 @@ class FormationController extends AdminController
     public function edit(FormBuilder $formBuilder,$id)
     {
         $title = $this->title;
-        $form  = $formBuilder->create(FormationForm::class, [
+        $form  = $formBuilder->create(PegawaiForm::class, [
             'method' => 'POST',
             'model'  => Model::findOrFail($id),
-            'url' => url('formations/update/'.$id)
+            'url' => url('pegawais/update/'.$id)
         ]);
 
         return view('pages.base.form', compact(['form','title']));
@@ -149,14 +139,14 @@ class FormationController extends AdminController
      */
     public function update(Request $request, FormBuilder $formBuilder, $id)
     {
-        $form = $formBuilder->create(FormationForm::class);
+        $form = $formBuilder->create(PegawaiForm::class);
 
         if (!$form->isValid()) {
             return redirect()->back()->withErrors($form->getErrors())->withInput();
         }
 
         $this->model->where('id',$id)->update($request->except(['_token']));
-        return redirect('formations')->with('success','Data Berhasil ditambahkan!');
+        return redirect('pegawais')->with('success','Data Berhasil ditambahkan!');
    }
 
    /**
@@ -166,7 +156,7 @@ class FormationController extends AdminController
     */
     public function delete($id){
         $this->model->where('id',$id)->delete();
-        return redirect('formations')->with('success','Data Berhasil dihapus!');
+        return redirect('Pegawais')->with('success','Data Berhasil dihapus!');
     }
 
     /**

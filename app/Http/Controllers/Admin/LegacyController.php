@@ -24,7 +24,7 @@ class LegacyController extends AdminController
      * Column that will be shown in listing
      *
      */
-    protected $columns = ['kode_org_induk', 'kode_org', 'lookup', 'nama_panjang'];
+    protected $columns = ['legacy_code_induk', 'legacy_code', 'lookup', 'nama_panjang'];
 
     /**
      * Initiate actions
@@ -176,11 +176,11 @@ class LegacyController extends AdminController
                  foreach($reader->get() as $data){
                      if($data->kodeorganak !== null){
                          if($data->oc == 'C'){
-                             $cek = Model::where('kode_org',$data->kodeorganak)->count();
+                             $cek = Model::where('legacy_code',$data->kodeorganak)->count();
                              if($cek > 0){
-                                 $model = Model::where('kode_org',$data->kodeorganak)->first();
-                                 $model->kode_org_induk    = $data->kodeorginduk;
-                                 $model->kode_org    = $data->kodeorganak;
+                                 $model = Model::where('legacy_code',$data->kodeorganak)->first();
+                                 $model->legacy_code_induk    = $data->kodeorginduk;
+                                 $model->legacy_code    = $data->kodeorganak;
                                  $model->lookup      = $data->namabaru !== '' ? $data->namabaru:$data->namapanjang;
                                  $model->nama_panjang= $data->namapanjang;
                                  $model->nama_baru   = $data->namabaru;
@@ -188,8 +188,8 @@ class LegacyController extends AdminController
                                  $model->save();
                              }else{
                                  $model = new Model;
-                                 $model->kode_org_induk    = $data->kodeorginduk;
-                                 $model->kode_org    = $data->kodeorganak;
+                                 $model->legacy_code_induk    = $data->kodeorginduk;
+                                 $model->legacy_code    = $data->kodeorganak;
                                  $model->lookup      = $data->namabaru !== '' ? $data->namabaru:$data->namapanjang;
                                  $model->nama_panjang= $data->namapanjang;
                                  $model->nama_baru   = $data->namabaru;

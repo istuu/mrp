@@ -9,10 +9,10 @@ class FormationForm extends Form
     public function buildForm()
     {
         $this
-            ->add('kode_org', 'number', [
+            ->add('kode_org', 'text', [
                 'rules' => 'required'
             ])
-            ->add('kode_olah', 'number', [
+            ->add('kode_olah', 'text', [
                 'rules' => 'required'
             ])
             ->add('urut', 'text', [

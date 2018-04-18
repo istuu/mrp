@@ -9,10 +9,10 @@ class LegacyForm extends Form
     public function buildForm()
     {
         $this
-            ->add('kode_org_induk', 'number', [
+            ->add('legacy_code_induk', 'number', [
                 'rules' => 'required'
             ])
-            ->add('kode_org', 'number', [
+            ->add('legacy_code', 'number', [
                 'rules' => 'required'
             ])
             ->add('lookup', 'text', [
