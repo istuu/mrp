@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AdminController;
 use Kris\LaravelFormBuilder\FormBuilder;
-use App\Models\Formation as Model;
+use App\FormasiJabatan as Model;
+use App\Models\Legacy;
 use App\Forms\FormationForm;
 use Table;
 use Excel;
@@ -27,20 +28,10 @@ class FormationController extends AdminController
     protected $columns = [
         'legacy_code',
         'kode_olah',
-        'urut',
-        'direktorat',
-        'personnel_area',
+        'personnel_area_id',
         'level',
         'formasi',
         'jabatan',
-        'kelas_unit',
-        'jenjang_main',
-        'jenjang_sub',
-        'posisi_unit',
-        'kode_profesi',
-        'jenis',
-        'hitung',
-        'revisi'
     ];
 
     /**
@@ -48,7 +39,7 @@ class FormationController extends AdminController
      *
      * @doc ['create', 'edit', 'delete', 'detail', 'import', 'export']
      */
-    protected $actions = ['create', 'edit', 'delete', 'import', 'export', 'filter'];
+    protected $actions = ['create', 'edit', 'delete', 'import', 'export', 'filter','view'];
 
     /**
      * Initiate global variable and middleware
@@ -67,12 +58,13 @@ class FormationController extends AdminController
      */
     public function index()
     {
-        return view('pages.formation.index',[
+        return view('pages.formation.tree',[
             'title' => $this->title,
-            'columns' => $this->columns,
             'actions' => $this->actions,
-            'tables' => $this->tableBuilder($this->columns),
-            'filter' => Model::select('personnel_area')->groupBy('personnel_area')->get()
+            'columns' => $this->columns,
+            'legacies' => Legacy::where('legacy_code_induk',0)->get(),
+            // 'tables' => $this->tableBuilder($this->columns),
+            // 'filter' => Model::select('personnel_area')->groupBy('personnel_area')->get()
         ]);
     }
 
@@ -82,8 +74,9 @@ class FormationController extends AdminController
      * @return array json_encode
      */
      public function ajaxDatatables(Request $request){
-         $filter = $request->personnel_area !== null ? $request->personnel_area: 'PLN';
-         $model = Model::where('personnel_area',$filter)->get();
+         // $filter = $request->personnel_area !== null ? $request->personnel_area: 'PLN';
+         // $model = Model::where('personnel_area',$filter)->get();
+         $model = Model::all();
          $table = Table::of($model)
                      ->addColumn('action',function($model){
                          return $this->handleAction($model->id, $this->actions);
@@ -200,43 +193,46 @@ class FormationController extends AdminController
                          if($cek > 0){
                              $model = Model::where('kode_olah',$data->kode_olah)->first();
                              $model->kode_olah  = $data->kode_olah;
-                             $model->legacy_code   = $data->kodeorganak;
-                             $model->urut       = $data->urut;
-                             $model->direktorat = $data->direktorat;
-                             $model->level      = $data->lvl;
-                             $model->kelas_unit = $data->kls_unit;
-                             $model->personnel_area   = $data->personnel_area;
+                             $model->legacy_code = $data->kodeorganak;
+                             // $model->urut       = $data->urut;
+                             // $model->direktorat = $data->direktorat;
                              $model->level      = $data->lv;
+                             $model->kelas_unit = $data->kls_unit;
+                             $model->personnel_area_id   = $data->personnel_area;
                              $model->formasi    = $data->formasi;
                              $model->jabatan    = $data->jabatan;
-                             $model->jenjang_main = $data->jenjang_main;
-                             $model->jenjang_sub  = $data->jenjang_sub;
-                             $model->posisi_unit  = $data->posisi_pada_unit;
-                             $model->kode_profesi = $data->kode_profesi;
-                             $model->jenis      = $data->jenis;
-                             $model->hitung     = $data->hitung;
-                             $model->revisi     = $data->revisi;
+                             $model->jenjang_id = $data->jenjang_main;
+                             $model->jenjang_txt  = $data->jenjang_sub;
+                             $model->posisi  = $data->posisi_pada_unit;
+                             // $model->kode_profesi = $data->kode_profesi;
+                             // $model->jenis      = $data->jenis;
+                             // $model->hitung     = $data->hitung;
+                             // $model->revisi     = $data->revisi;
+                             $model->pagu        = 1;
+                             $model->spfj        = $data->revisi;
                              $model->updated_at  = date('Y-m-d H:i:s');
                              $model->save();
                          }else{
                              $model = new Model;
-                             $model->kode_olah  = $data->kode_olah;
-                             $model->legacy_code   = $data->kodeorganak;
-                             $model->urut       = $data->urut;
-                             $model->direktorat = $data->direktorat;
-                             $model->level      = $data->lvl;
-                             $model->kelas_unit = $data->kls_unit;
-                             $model->personnel_area   = $data->personnel_area;
+                             $model->id          = \Uuid::generate();
+                             $model->kode_olah   = $data->kode_olah;
+                             $model->legacy_code = $data->kodeorganak;
+                             // $model->urut       = $data->urut;
+                             // $model->direktorat = $data->direktorat;
                              $model->level      = $data->lv;
+                             $model->kelas_unit = $data->kls_unit;
+                             $model->personnel_area_id   = $data->personnel_area;
                              $model->formasi    = $data->formasi;
                              $model->jabatan    = $data->jabatan;
-                             $model->jenjang_main = $data->jenjang_main;
-                             $model->jenjang_sub  = $data->jenjang_sub;
-                             $model->posisi_unit  = $data->posisi_pada_unit;
-                             $model->kode_profesi = $data->kode_profesi;
-                             $model->jenis      = $data->jenis;
-                             $model->hitung     = $data->hitung;
-                             $model->revisi     = $data->revisi;
+                             $model->jenjang_id = $data->jenjang_main;
+                             $model->jenjang_txt  = $data->jenjang_sub;
+                             $model->posisi  = $data->posisi_pada_unit;
+                             // $model->kode_profesi = $data->kode_profesi;
+                             // $model->jenis      = $data->jenis;
+                             // $model->hitung     = $data->hitung;
+                             // $model->revisi     = $data->revisi;
+                             $model->pagu       = 1;
+                             $model->spfj       = $data->revisi;
                              $model->created_at = date('Y-m-d H:i:s');
                              $model->save();
                          }

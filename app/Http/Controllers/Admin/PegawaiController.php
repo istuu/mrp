@@ -26,13 +26,12 @@ class PegawaiController extends AdminController
      *
      */
     protected $columns = [
+        'image',
         'perner',
+        'nama_pegawai',
         'nip',
         'no_hp',
         'email',
-        'kota_asal',
-        'status_domisili',
-        'nama_pegawai'
     ];
 
     /**
@@ -40,7 +39,7 @@ class PegawaiController extends AdminController
      *
      * @doc ['create', 'edit', 'delete', 'detail', 'import', 'export']
      */
-    protected $actions = ['create', 'edit', 'delete', 'import', 'export', 'filter'];
+    protected $actions = ['create', 'edit', 'delete', 'import', 'export', 'view'];
 
     /**
      * Initiate global variable and middleware
@@ -73,8 +72,11 @@ class PegawaiController extends AdminController
      * @return array json_encode
      */
      public function ajaxDatatables(Request $request){
-         $model = $this->model->get();
+         $model = Model::get();
          $table = Table::of($model)
+                     ->addColumn('image',function($model){
+                         return $this->handleViewImage($model->image);
+                     })
                      ->addColumn('action',function($model){
                          return $this->handleAction($model->id, $this->actions);
                      })

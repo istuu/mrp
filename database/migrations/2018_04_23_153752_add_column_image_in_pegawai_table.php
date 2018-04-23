@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePegawaisTable extends Migration
+class AddColumnImageInPegawaiTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,8 @@ class CreatePegawaisTable extends Migration
      */
     public function up()
     {
-        Schema::create('pegawais', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+        Schema::table('pegawai', function (Blueprint $table) {
+            $table->string('image')->after('id')->nullable();
         });
     }
 
@@ -26,6 +25,8 @@ class CreatePegawaisTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pegawais');
+        Schema::table('pegawai', function (Blueprint $table) {
+            $table->dropColumn('image');
+        });
     }
 }

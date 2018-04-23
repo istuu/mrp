@@ -9,22 +9,28 @@ class FormationForm extends Form
     public function buildForm()
     {
         $this
-            ->add('kode_org', 'text', [
+            ->add('legacy_code', 'text', [
                 'rules' => 'required'
             ])
             ->add('kode_olah', 'text', [
                 'rules' => 'required'
             ])
-            ->add('urut', 'text', [
-                'rules' => 'required'
-            ])
-            ->add('direktorat', 'text', [
-                'rules' => 'required'
-            ])
-            ->add('personnel_area', 'text', [
-                'rules' => 'required'
-            ])
+            // ->add('urut', 'text', [
+            //     'rules' => 'required'
+            // ])
+            // ->add('direktorat', 'text', [
+            //     'rules' => 'required'
+            // ])
             ->add('level', 'text', [
+                'rules' => ''
+            ])
+            ->add('posisi', 'text', [
+                'rules' => ''
+            ])
+            ->add('kelas_unit', 'text', [
+                'rules' => ''
+            ])
+            ->add('hgl', 'text', [
                 'rules' => ''
             ])
             ->add('formasi', 'text', [
@@ -33,30 +39,37 @@ class FormationForm extends Form
             ->add('jabatan', 'text', [
                 'rules' => ''
             ])
-            ->add('kelas_unit', 'text', [
+            ->add('jenjang_id', 'text', [
                 'rules' => ''
             ])
-            ->add('jenjang_main', 'text', [
+            ->add('jenjang_txt', 'text', [
                 'rules' => ''
             ])
-            ->add('jenjang_sub', 'text', [
+            ->add('pagu', 'number', [
                 'rules' => ''
             ])
-            ->add('posisi_unit', 'text', [
+            ->add('spfj', 'text', [
                 'rules' => ''
             ])
-            ->add('kode_profesi', 'text', [
+            ->add('status_fj', 'text', [
                 'rules' => ''
             ])
-            ->add('jenis', 'text', [
-                'rules' => ''
+            ->add('personnel_area_id', 'text', [
+                'label' => 'Personnel Area',
+                'rules' => 'required'
             ])
-            ->add('hitung', 'text', [
-                'rules' => ''
-            ])
-            ->add('revisi', 'text', [
-                'rules' => ''
-            ])
+            // ->add('kode_profesi', 'text', [
+            //     'rules' => ''
+            // ])
+            // ->add('jenis', 'text', [
+            //     'rules' => ''
+            // ])
+            // ->add('hitung', 'text', [
+            //     'rules' => ''
+            // ])
+            // ->add('revisi', 'text', [
+            //     'rules' => ''
+            // ])
             ->add('submit', 'submit', [
                 'label' => 'Simpan',
                 'class' => 'btn btn-primary'

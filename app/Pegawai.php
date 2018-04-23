@@ -12,7 +12,7 @@ class Pegawai extends Model
     public $incrementing = false;
 
     protected $hidden = [
-        'id', 'password', 'user_role'
+        'password', 'user_role'
     ];
 
     public function formasi_jabatan()

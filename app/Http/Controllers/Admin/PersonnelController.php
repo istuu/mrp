@@ -22,7 +22,7 @@ class PersonnelController extends AdminController
      * Column that will be shown in listing
      *
      */
-    protected $columns = ['nama', 'nama_pendek', 'username'];
+    protected $columns = ['nama', 'nama_pendek'];
 
     /**
      * Initiate actions

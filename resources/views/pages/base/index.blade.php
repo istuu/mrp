@@ -48,7 +48,7 @@
 								@foreach($columns as $column)
 	                            	<th>{{ ucwords(str_replace('_',' ',$column)) }}</th>
 								@endforeach
-								<th></th>
+								<th width="15%"></th>
 	                        </tr>
 	                    </thead>
 	                    <tfoot>

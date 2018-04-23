@@ -22,6 +22,8 @@
 			<link href="{{ asset('assets') }}/css/layout.css" rel="stylesheet" type="text/css" />
 			<link href="{{ asset('assets') }}/css/notifications.css" rel="stylesheet" type="text/css" />
 			<link href="{{ asset('assets') }}/css/color_scheme/green.css" rel="stylesheet" type="text/css" id="color_scheme" />
+			<link rel="stylesheet" href="{{ asset('css/loader.css') }}">
+
 			<!-- CORE CSS -->
 		@show
 	</head>
@@ -58,9 +60,15 @@
 			<script type="text/javascript" src="{{ asset('assets') }}/plugins/jquery/jquery-2.2.3.min.js"></script>
 			<script type="text/javascript" src="{{ asset('assets') }}/js/app.js"></script>
 			<script type="text/javascript" src="{{ asset('assets') }}/js/notifications.js"></script>
-
+			<script>
+				$(document).on({
+	                ajaxStart: function() { $('body').addClass("loading");    },
+	                ajaxStop: function() { $('body').removeClass("loading"); }
+	            });
+	        </script>
 		@show
 		@yield('sdm_leftbar_scripts')
 		@include('includes.notifications')
+		<div class="loader"><!-- Place at bottom of page --></div>
 	</body>
 </html>
