@@ -187,49 +187,43 @@ class PegawaiController extends AdminController
              DB::beginTransaction();
              Excel::load($file, function($reader) {
                  foreach($reader->get() as $data){
-                     if($data->kode_olah !== null){
+                     if($data->nip !== null){
                          //Legacy Code aslinya ga boleh sama
-                         $cek = Model::where('kode_olah',$data->kode_olah)->count();
+                         $cek = Model::where('nip',$data->nip)->count();
                          if($cek > 0){
-                             $model = Model::where('kode_olah',$data->kode_olah)->first();
-                             $model->kode_olah  = $data->kode_olah;
-                             $model->legacy_code   = $data->kodeorganak;
-                             $model->urut       = $data->urut;
-                             $model->direktorat = $data->direktorat;
-                             $model->level      = $data->lvl;
-                             $model->kelas_unit = $data->kls_unit;
-                             $model->personnel_area   = $data->personnel_area;
-                             $model->level      = $data->lv;
-                             $model->formasi    = $data->formasi;
-                             $model->jabatan    = $data->jabatan;
-                             $model->jenjang_main = $data->jenjang_main;
-                             $model->jenjang_sub  = $data->jenjang_sub;
-                             $model->posisi_unit  = $data->posisi_pada_unit;
-                             $model->kode_profesi = $data->kode_profesi;
-                             $model->jenis      = $data->jenis;
-                             $model->hitung     = $data->hitung;
-                             $model->revisi     = $data->revisi;
+                             $model = Model::where('nip',$data->nip)->first();
+                             $model->legacy_code     = $data->legacy_code;
+                             $model->perner  = $data->perner;
+                             $model->nama_pegawai  = $data->nama;
+                             $model->employee_subgroup  = $data->employee_subgroup;
+                             $model->ps_group  = $data->ps_group;
+                             $model->talent_pool_position  = $data->talent_pool_position;
+                             $model->tanggal_grade = $data->tanggal_grade;
+                             $model->tanggal_lahir = $data->tanggal_lahir;
+                             $model->tanggal_masuk = $data->tanggal_masuk;
+                             $model->tanggal_capeg = $data->tanggal_capeg;
+                             $model->tanggal_pegawai = $data->tanggal_pegawai;
+                             $model->start_date = $data->start_date;
+                             $model->end_date = $data->end_date;
                              $model->updated_at  = date('Y-m-d H:i:s');
                              $model->save();
                          }else{
                              $model = new Model;
-                             $model->kode_olah  = $data->kode_olah;
-                             $model->legacy_code   = $data->kodeorganak;
-                             $model->urut       = $data->urut;
-                             $model->direktorat = $data->direktorat;
-                             $model->level      = $data->lvl;
-                             $model->kelas_unit = $data->kls_unit;
-                             $model->personnel_area   = $data->personnel_area;
-                             $model->level      = $data->lv;
-                             $model->formasi    = $data->formasi;
-                             $model->jabatan    = $data->jabatan;
-                             $model->jenjang_main = $data->jenjang_main;
-                             $model->jenjang_sub  = $data->jenjang_sub;
-                             $model->posisi_unit  = $data->posisi_pada_unit;
-                             $model->kode_profesi = $data->kode_profesi;
-                             $model->jenis      = $data->jenis;
-                             $model->hitung     = $data->hitung;
-                             $model->revisi     = $data->revisi;
+                             $model->id      = \Uuid::generate();
+                             $model->legacy_code     = $data->legacy_code;
+                             $model->nip     = $data->nip;
+                             $model->perner  = $data->perner;
+                             $model->nama_pegawai  = $data->nama;
+                             $model->employee_subgroup  = $data->employee_subgroup;
+                             $model->ps_group  = $data->ps_group;
+                             $model->talent_pool_position  = $data->talent_pool_position;
+                             $model->tanggal_grade = $data->tanggal_grade;
+                             $model->tanggal_lahir = $data->tanggal_lahir;
+                             $model->tanggal_masuk = $data->tanggal_masuk;
+                             $model->tanggal_capeg = $data->tanggal_capeg;
+                             $model->tanggal_pegawai = $data->tanggal_pegawai;
+                             $model->start_date = $data->start_date;
+                             $model->end_date = $data->end_date;
                              $model->created_at = date('Y-m-d H:i:s');
                              $model->save();
                          }
