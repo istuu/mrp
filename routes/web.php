@@ -78,7 +78,7 @@ Route::get('/profil/getKota','ProfilController@getKota');
 Route::get('/dashboard/dataevaluasi', 'DashboardController@detaileval');
 
 //Superadmin
-$slugs = ['roles', 'legacies', 'formations', 'pegawais', 'personnels'];
+$slugs = ['roles', 'legacies', 'formations', 'pegawais', 'personnels','key_competencies','daily_competencies'];
 foreach ($slugs as $slug) {
     $controller = "Admin\\".str_replace(' ','',ucwords(str_replace('_',' ',str_singular($slug))))."Controller";
     Route::get($slug,$controller.'@index');

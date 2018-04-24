@@ -5,24 +5,24 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\AdminController;
 use Kris\LaravelFormBuilder\FormBuilder;
-use App\PersonnelArea as Model;
-use App\Forms\PersonnelForm;
+use App\Models\DailyCompetencies as Model;
+use App\Forms\DailyForm;
 use Table;
 
-class PersonnelController extends AdminController
+class DailyCompetencyController extends AdminController
 {
     /**
      * Class model
      *
      * @doc Inherit
      */
-    protected $title = 'Personnel Area';
+    protected $title = 'Daily Competencies';
 
     /**
      * Column that will be shown in listing
      *
      */
-    protected $columns = ['nama', 'nama_pendek'];
+    protected $columns = ['sequence','title', 'created_at'];
 
     /**
      * Initiate actions
@@ -80,9 +80,9 @@ class PersonnelController extends AdminController
      public function create(FormBuilder $formBuilder)
      {
          $title = $this->title;
-         $form  = $formBuilder->create(PersonnelForm::class, [
+         $form  = $formBuilder->create(DailyForm::class, [
              'method' => 'POST',
-             'url' => route('personnels.store')
+             'url' => route('daily_competencies.store')
          ]);
 
          return view('pages.base.form', compact(['form','title']));
@@ -95,14 +95,14 @@ class PersonnelController extends AdminController
       */
      public function store(Request $request, FormBuilder $formBuilder)
      {
-         $form = $formBuilder->create(PersonnelForm::class);
+         $form = $formBuilder->create(DailyForm::class);
 
          if (!$form->isValid()) {
              return redirect()->back()->withErrors($form->getErrors())->withInput();
          }
 
          $this->model->create($request->all());
-         return redirect('personnels')->with('success','Data Berhasil ditambahkan!');
+         return redirect('daily_competencies')->with('success','Data Berhasil ditambahkan!');
     }
 
     /**
@@ -113,10 +113,10 @@ class PersonnelController extends AdminController
     public function edit(FormBuilder $formBuilder,$id)
     {
         $title = $this->title;
-        $form  = $formBuilder->create(PersonnelForm::class, [
+        $form  = $formBuilder->create(DailyForm::class, [
             'method' => 'POST',
             'model'  => Model::findOrFail($id),
-            'url' => url('personnels/update/'.$id)
+            'url' => url('daily_competencies/update/'.$id)
         ]);
 
         return view('pages.base.form', compact(['form','title']));
@@ -129,14 +129,14 @@ class PersonnelController extends AdminController
      */
     public function update(Request $request, FormBuilder $formBuilder, $id)
     {
-        $form = $formBuilder->create(PersonnelForm::class);
+        $form = $formBuilder->create(DailyForm::class);
 
         if (!$form->isValid()) {
             return redirect()->back()->withErrors($form->getErrors())->withInput();
         }
 
         $this->model->where('id',$id)->update($request->except(['_token']));
-        return redirect('personnels')->with('success','Data Berhasil ditambahkan!');
+        return redirect('daily_competencies')->with('success','Data Berhasil ditambahkan!');
    }
 
    /**
@@ -146,6 +146,6 @@ class PersonnelController extends AdminController
     */
     public function delete($id){
         $this->model->where('id',$id)->delete();
-        return redirect('personnels')->with('success','Data Berhasil dihapus!');
+        return redirect('daily_competencies')->with('success','Data Berhasil dihapus!');
     }
 }

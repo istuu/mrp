@@ -41,6 +41,7 @@ class LegacyController extends AdminController
     public function __construct()
     {
         $this->model = Model::select($this->columns);
+        return $this->middleware('auth');
     }
 
     /**

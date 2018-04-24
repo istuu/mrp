@@ -18,12 +18,12 @@
 
 	<div id="content" class="padding-20" >
 		@include('includes.validation_errors')
-		
+
 		<div class="row">
 			<form action="/mutasi/pengajuan/submit_form" method="post" enctype="multipart/form-data" autocomplete="on">
 				<div class="col-md-6">
-			
-					{{ csrf_field() }} 
+
+					{{ csrf_field() }}
 					<input type="hidden" name="mrp[tipe]" value="{{ request('tipe') }}">
 					<input type="hidden" id="kode_olah_pegawai" value="">
 					<!-- data pegawai -->
@@ -102,7 +102,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 							</div>
 						</fieldset>
 					</div>
@@ -205,8 +205,8 @@
 								<div class="row">
 									<div class="form-group">
 										<div class="col-md-12">
-											<div class="form-group"> 
-												<label>Lampiran Dokumen 
+											<div class="form-group">
+												<label>Lampiran Dokumen
 													<small class="text-muted">Curriculum Vitae dan Nota Dinas - *</small>
 												</label>
 												<input class="custom-file-upload" type="file" id="file" name="file_dokumen_mutasi" id="contact:attachment" data-btn-text="Select a File" />
@@ -215,7 +215,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 								<div class="row">
 									<div class="col-md-12 col-sm-12">
 										<label class="switch switch">
@@ -243,7 +243,7 @@
 											</div>
 										</div>
 									</div>
-									
+
 									<div class="row">
 										<div class="form-group">
 											<div class="col-md-6 col-sm-6">
@@ -274,19 +274,22 @@
 							<!-- required [php action request] -->
 						<div class="panel-body">
 							<p><strong>KEY COMPETENCIES</strong></p>
-							<div class="row">
-								<div class="form-group">
-									<div class="col-md-5 col-sm-5">
-										<label>Enthusiastic For Challenge *</label>
-									</div>
-									<div class="col-md-3 col-sm-3">
-										<input type="number" name="nilai[enthusiastic]" value="{{ old('nilai.enthusiastic') }}" min="0" max="100" class="form-control required rating_number" required target="#rating1" placeholder="0-100">
-									</div>
-									<div class="col-md-4 col-sm-4">
-										<div class="rating rating-0 size-13 width-100" id="rating1"><!-- rating-0 ... rating-5 --></div>
+							@foreach($keys as $k)
+								<div class="row">
+									<div class="form-group">
+										<div class="col-md-5 col-sm-5">
+											<label>{{ $k->title }}</label>
+										</div>
+										<div class="col-md-3 col-sm-3">
+											<input type="number" value="{{ old('nilai.enthusiastic') }}" min="0" max="100" class="form-control required rating_number" required target="#rating1" placeholder="0-100">
+										</div>
+										<div class="col-md-4 col-sm-4">
+											<div class="rating rating-0 size-13 width-100" id="rating1"><!-- rating-0 ... rating-5 --></div>
+										</div>
 									</div>
 								</div>
-							</div>
+							@endforeach
+							{{--
 							<div class="row">
 								<div class="form-group">
 									<div class="col-md-5 col-sm-5">
@@ -378,22 +381,26 @@
 									</div>
 								</div>
 							</div>
+							--}}
 
 							<hr>
 							<p><strong>KOMPETENSI HARIAN</strong></p>
-							<div class="row">
-								<div class="form-group">
-									<div class="col-md-5 col-sm-5">
-										<label>Komunikasi *</label>
-									</div>
-									<div class="col-md-3 col-sm-3">
-										<input type="number" name="nilai[komunikasi]" min="0" max="100" value="{{ old('nilai.komunikasi') }}" class="form-control required rating_number" required target="#rating9" placeholder="0-100">
-									</div>
-									<div class="col-md-4 col-sm-4">
-										<div class="rating rating-0 size-13 width-100" id="rating9"><!-- rating-0 ... rating-5 --></div>
+							@foreach($dailys as $d)
+								<div class="row">
+									<div class="form-group">
+										<div class="col-md-5 col-sm-5">
+											<label>{{ $d->title }}</label>
+										</div>
+										<div class="col-md-3 col-sm-3">
+											<input type="number" name="" min="0" max="100" value="{{ old('nilai.komunikasi') }}" class="form-control required rating_number" required target="#rating9" placeholder="0-100">
+										</div>
+										<div class="col-md-4 col-sm-4">
+											<div class="rating rating-0 size-13 width-100" id="rating9"><!-- rating-0 ... rating-5 --></div>
+										</div>
 									</div>
 								</div>
-							</div>
+							@endforeach
+							{{--
 							<div class="row">
 								<div class="form-group">
 									<div class="col-md-5 col-sm-5">
@@ -433,6 +440,7 @@
 									</div>
 								</div>
 							</div>
+							--}}
 							<div class="row">
 								<div class="form-group">
 									<div class="col-md-5 col-sm-5">
@@ -578,7 +586,7 @@
 			}
 			else
 			{
-				$($(this).attr('target')).removeClass().addClass('rating rating-0 size-13 width-100');	
+				$($(this).attr('target')).removeClass().addClass('rating rating-0 size-13 width-100');
 			}
 		});
 	</script>
@@ -650,7 +658,7 @@
 					},
 					'dataType': 'json',
 					error: function(data){
-						
+
 					},
 					success: function(data){
 						if(!!data)

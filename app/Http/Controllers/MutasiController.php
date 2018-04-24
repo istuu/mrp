@@ -13,6 +13,8 @@ use App\Pegawai;
 use App\PenilaianPegawai;
 use App\PersonnelArea;
 use App\FormasiJabatan;
+use App\Models\KeyCompetencies;
+use App\Models\DailyCompetencies;
 
 use App\Notifications\PegawaiDibursakan;
 use App\Notifications\PegawaiDiproyeksikan;
@@ -41,8 +43,10 @@ class MutasiController extends Controller
     	else if($tipe === '2')
     	{
             $units = PersonnelArea::all();
+            $keys  = KeyCompetencies::orderBy('sequence')->get();
+            $dailys= DailyCompetencies::orderBy('sequence')->get();
 
-    		return view('pages.unit.bursa_pegawai', compact('units'));
+    		return view('pages.unit.bursa_pegawai', compact('units','keys', 'dailys'));
     	}
     	else if($tipe === '3')
     	{
