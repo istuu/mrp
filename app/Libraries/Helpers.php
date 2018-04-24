@@ -18,10 +18,22 @@ function checkParentActive($array)
  * @param  string $key
  * @return string
  */
-function checkChildActive($key){
+function checkChildActive($key)
+{
     if($key == request()->segment(1)){
         return "active";
     }
+}
+
+/**
+ * Get Legacy Child From Legacy Code Parent
+ * @param  string $legacy_parent
+ * @return array  model legacy child
+ */
+function getLegacyChild($legacy_parent)
+{
+    $model = DB::table('legacies')->where('legacy_code_induk',$legacy_parent)->get();
+    return $model;
 }
 
 ?>

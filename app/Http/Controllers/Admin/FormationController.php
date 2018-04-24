@@ -62,8 +62,8 @@ class FormationController extends AdminController
             'title' => $this->title,
             'actions' => $this->actions,
             'columns' => $this->columns,
-            'legacies' => Legacy::where('legacy_code_induk',0)->get(),
-            // 'tables' => $this->tableBuilder($this->columns),
+            'legacies' => Legacy::where('legacy_code',15)->get(),
+            'tables' => $this->tableBuilder($this->columns),
             // 'filter' => Model::select('personnel_area')->groupBy('personnel_area')->get()
         ]);
     }
@@ -76,7 +76,7 @@ class FormationController extends AdminController
      public function ajaxDatatables(Request $request){
          // $filter = $request->personnel_area !== null ? $request->personnel_area: 'PLN';
          // $model = Model::where('personnel_area',$filter)->get();
-         $model = Model::all();
+         $model = Model::limit(500)->get();
          $table = Table::of($model)
                      ->addColumn('action',function($model){
                          return $this->handleAction($model->id, $this->actions);
