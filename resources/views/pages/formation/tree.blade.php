@@ -31,19 +31,8 @@
 
 			<!-- panel content -->
 			<div class="panel-body">
-				<ul class="options list-inline">
-					@if(in_array('create',$actions))
-						<li><a href="{{ url(request()->segment(1).'/create') }}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New Data</a></li>
-					@endif
-					@if(in_array('import',$actions))
-						<li><a href="{{ url(request()->segment(1).'/import') }}" class="btn btn-sm btn-primary"><i class="fa fa-upload"></i> Import from Excel</a></li>
-					@endif
-					@if(in_array('export',$actions))
-						<li><a href="{{ url(request()->segment(1).'/export') }}" class="btn btn-sm btn-primary"><i class="fa fa-download"></i> Export to Excel</a></li>
-					@endif
-				</ul>
                 <div class="col-md-4">
-                    <ul id="tree1">
+                    <ul id="tree2">
                         <!-- <p class="well" style="height:135px;"><strong>Initialization no parameters</strong>
 
                         </p> -->
@@ -117,6 +106,17 @@
                 </div>
 
 				<div class="col-md-8">
+					<ul class="options list-inline">
+						@if(in_array('create',$actions))
+							<li><a href="{{ url(request()->segment(1).'/create') }}" class="btn btn-sm btn-primary"><i class="fa fa-plus"></i> Add New Data</a></li>
+						@endif
+						@if(in_array('import',$actions))
+							<li><a href="{{ url(request()->segment(1).'/import') }}" class="btn btn-sm btn-primary"><i class="fa fa-upload"></i> Import from Excel</a></li>
+						@endif
+						@if(in_array('export',$actions))
+							<li><a href="{{ url(request()->segment(1).'/export') }}" class="btn btn-sm btn-primary"><i class="fa fa-download"></i> Export to Excel</a></li>
+						@endif
+					</ul>
 					<div class="table-responsive">
 						<table class="table table-bordered table-striped table-hover dataTable js-exportable" id="datatable">
 		                    <thead>
@@ -124,7 +124,7 @@
 									@foreach($columns as $column)
 		                            	<th>{{ ucwords(str_replace('_',' ',$column)) }}</th>
 									@endforeach
-									<th width="15%"></th>
+									<th width="20%"></th>
 		                        </tr>
 		                    </thead>
 		                    <tfoot>
@@ -147,8 +147,21 @@
 	</div>
 
 @endsection
+@push('includes-styles')
+	<link rel="stylesheet" href="{{ asset('') }}/assets/plugins/jquery-datatable/dataTables.editor.min.js">
+@endpush
 @section('includes-scripts')
 	@parent
+	<script src="{{ asset('') }}/assets/plugins/jquery-datatable/jquery.dataTables.js"></script>
+    <script src="{{ asset('') }}/assets/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+    <script src="{{ asset('') }}/assets/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+    <script src="{{ asset('') }}/assets/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+    <script src="{{ asset('') }}/assets/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+    <script src="{{ asset('') }}/assets/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+    <script src="{{ asset('') }}/assets/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+    <script src="{{ asset('') }}/assets/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+	<script src="{{ asset('') }}/assets/plugins/jquery-datatable/dataTables.editor.min.js"></script>
+
 	<script>
         $.fn.extend({
             treed: function (o) {
@@ -228,6 +241,36 @@
                 },
                 "columns": {!! $tables !!}
             });
+
+			editor = new $.fn.dataTable.Editor( {
+		        ajax: "{{ url(request()->segment(1).'/datatables/edit') }}",
+		        table: "#datatable",
+		        fields: [ {
+		                label: "Legacy Code:",
+		                name: "legacy_code"
+		            }, {
+		                label: "Kode Olah:",
+		                name: "kode_olah"
+		            }, {
+		                label: "Personnel Area ID:",
+		                name: "personnel_area_id"
+		            }, {
+		                label: "Level:",
+		                name: "level"
+		            }, {
+		                label: "Formasi:",
+		                name: "formasi"
+		            }, {
+		                label: "Jabatan:",
+		                name: "jabatan"
+		            }
+		        ]
+		    } );
+
+			// Activate an inline edit on click of a table cell
+		    $('#datatable').on( 'click', 'tbody td:not(:first-child)', function (e) {
+			    editor.inline( this );
+		    } );
         });
 
 		$('#btnImport').click(function(){
@@ -235,14 +278,5 @@
 		});
 
     </script>
-
-	<script src="{{ asset('') }}/assets/plugins/jquery-datatable/jquery.dataTables.js"></script>
-    <script src="{{ asset('') }}/assets/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
-    <script src="{{ asset('') }}/assets/plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
-    <script src="{{ asset('') }}/assets/plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
-    <script src="{{ asset('') }}/assets/plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
-    <script src="{{ asset('') }}/assets/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
-    <script src="{{ asset('') }}/assets/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
-    <script src="{{ asset('') }}/assets/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
 
 @endsection

@@ -39,7 +39,7 @@ class FormationController extends AdminController
      *
      * @doc ['create', 'edit', 'delete', 'detail', 'import', 'export']
      */
-    protected $actions = ['create', 'edit', 'delete', 'import', 'export', 'filter','view'];
+    protected $actions = ['create', 'edit', 'delete', 'filter','view'];
 
     /**
      * Initiate global variable and middleware
@@ -77,7 +77,7 @@ class FormationController extends AdminController
      public function ajaxDatatables(Request $request){
          // $filter = $request->personnel_area !== null ? $request->personnel_area: 'PLN';
          // $model = Model::where('personnel_area',$filter)->get();
-         $model = Model::limit(500)->get();
+         $model = Model::where('legacy_code',15)->get();
          $table = Table::of($model)
                      ->addColumn('action',function($model){
                          return $this->handleAction($model->id, $this->actions);

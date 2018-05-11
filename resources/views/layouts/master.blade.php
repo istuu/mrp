@@ -23,6 +23,7 @@
 			<link href="{{ asset('assets') }}/css/notifications.css" rel="stylesheet" type="text/css" />
 			<link href="{{ asset('assets') }}/css/color_scheme/green.css" rel="stylesheet" type="text/css" id="color_scheme" />
 			<link rel="stylesheet" href="{{ asset('css/loader.css') }}">
+			@stack('styles')
 
 			<!-- CORE CSS -->
 		@show
@@ -54,7 +55,6 @@
 		</div>
 
 
-		@section('includes-scripts')
 			<!-- JAVASCRIPT FILES -->
 			<script type="text/javascript">var plugin_path = '/assets/plugins/';</script>
 			<script type="text/javascript" src="{{ asset('assets') }}/plugins/jquery/jquery-2.2.3.min.js"></script>
@@ -66,6 +66,7 @@
 	                ajaxStop: function() { $('body').removeClass("loading"); }
 	            });
 	        </script>
+			@section('includes-scripts')
 		@show
 		@yield('sdm_leftbar_scripts')
 		@include('includes.notifications')
