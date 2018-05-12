@@ -33,43 +33,57 @@
 			<div class="panel-body">
                 <div class="col-md-4">
                     <ul id="tree2">
-                        <!-- <p class="well" style="height:135px;"><strong>Initialization no parameters</strong>
-
-                        </p> -->
                         @foreach($legacies as $l1)
-                            <li id="{{ $l1->legacy_code }}">
-                                <a href="#">{{ $l1->lookup }}</a>
+                            <li>
+                                <a onclick="getDataFormation({{ $l1->legacy_code }})">{{ $l1->nama_panjang }}</a>
+									{!! actionTree($l1) !!}
 								@if(count(getLegacyChild($l1->legacy_code)) !== 0)
 	                                <ul>
 										@foreach(getLegacyChild($l1->legacy_code) as $l2)
-		                                    <li><a href="#">{{ $l2->lookup }}</a>
+		                                    <li><a onclick="getDataFormation({{ $l2->legacy_code }})">{{ $l2->nama_panjang }}</a>
+												{!! actionTree($l2) !!}
 												@if(count(getLegacyChild($l2->legacy_code)) !== 0)
 													<ul>
 													   @foreach(getLegacyChild($l2->legacy_code) as $l3)
-														   <li><a href="#">{{ $l3->lookup }}</a>
+														   <li><a onclick="getDataFormation({{ $l3->legacy_code }})">{{ $l3->nama_panjang }}</a>
+															   {!! actionTree($l3) !!}
 															   @if(count(getLegacyChild($l3->legacy_code)) !== 0)
 																   <ul>
 																	   @foreach(getLegacyChild($l3->legacy_code) as $l4)
-																		   <li><a href="#">{{ $l4->lookup }}</a>
+																		   <li><a onclick="getDataFormation({{ $l4->legacy_code }})">{{ $l4->nama_panjang }}</a>
+																			   {!! actionTree($l4) !!}
 																			   @if(count(getLegacyChild($l4->legacy_code)) !== 0)
 																				   <ul>
 																					   @foreach(getLegacyChild($l4->legacy_code) as $l5)
-																						   <li><a href="#">{{ $l5->lookup }}</a>
+																						   <li><a onclick="getDataFormation({{ $l5->legacy_code }})">{{ $l5->nama_panjang }}</a>
+																							   {!! actionTree($l5) !!}
 																							   @if(count(getLegacyChild($l5->legacy_code)) !== 0)
 																								   <ul>
 																										@foreach(getLegacyChild($l5->legacy_code) as $l6)
-																											<li><a href="#">{{ $l6->lookup }}</a>
+																											<li><a onclick="getDataFormation({{ $l6->legacy_code }})">{{ $l6->nama_panjang }}</a>
+																												{!! actionTree($l5) !!}
 																												@if(count(getLegacyChild($l6->legacy_code)) !== 0)
 																													{{--<ul>
 																													   @foreach(getLegacyChild($l6->legacy_code) as $l7)
-																														   <li><a href="#">{{ $l7->lookup }}</a>
+																														   <li><a onclick="getDataFormation({{ $l7->legacy_code }})">{{ $l7->nama_panjang }}</a>
+																															   {!! actionTree($l7) !!}
 																															   @if(count(getLegacyChild($l7->legacy_code)) !== 0)
 																																   <ul>
 																																		@foreach(getLegacyChild($l7->legacy_code) as $l8)
-																																			<li><a href="#">{{ $l8->lookup }}</a>
+																																			<li><a onclick="getDataFormation({{ $l8->legacy_code }})">{{ $l8->nama_panjang }}</a>
+																																				{!! actionTree($l8) !!}
 																																				@if(count(getLegacyChild($l8->legacy_code)) !== 0)
 																																					<ul>
+																																						@foreach(getLegacyChild($l8->legacy_code) as $l9)
+																																							<li><a onclick="getDataFormation({{ $l9->legacy_code }})">{{ $l9->nama_panjang }}</a>
+																																								{!! actionTree($l9) !!}
+																																								@if(count(getLegacyChild($l9->legacy_code)) !== 0)
+																																									<ul>
 
+																																									</ul>
+																																								@endif
+																																							</li>
+																																						@endforeach
 																																					</ul>
 																																				@endif
 																																			</li>
@@ -147,9 +161,6 @@
 	</div>
 
 @endsection
-@push('includes-styles')
-	<link rel="stylesheet" href="{{ asset('') }}/assets/plugins/jquery-datatable/dataTables.editor.min.js">
-@endpush
 @section('includes-scripts')
 	@parent
 	<script src="{{ asset('') }}/assets/plugins/jquery-datatable/jquery.dataTables.js"></script>
@@ -160,7 +171,6 @@
     <script src="{{ asset('') }}/assets/plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
     <script src="{{ asset('') }}/assets/plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
     <script src="{{ asset('') }}/assets/plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
-	<script src="{{ asset('') }}/assets/plugins/jquery-datatable/dataTables.editor.min.js"></script>
 
 	<script>
         $.fn.extend({
@@ -226,56 +236,32 @@
         $('#tree3').treed({openedClass:'glyphicon-chevron-right', closedClass:'glyphicon-chevron-down'});
     </script>
 	<script>
+	 	$('body').addClass("loading");
         $(function(){
 			$('#importFile').hide();
-            $('#datatable').DataTable({
-                "processing": true,
-                "serverSide": true,
-                // "autoWidth": true,
-                "order": [[ 0, "asc" ]],
-                "ajax":{
-                    "url": "{{ url(request()->segment(1).'/datatables/ajax') }}",
-                    "dataType": "json",
-                    "type": "POST",
-                    "data":{ _token: "{{ csrf_token() }}"}
-                },
-                "columns": {!! $tables !!}
-            });
-
-			editor = new $.fn.dataTable.Editor( {
-		        ajax: "{{ url(request()->segment(1).'/datatables/edit') }}",
-		        table: "#datatable",
-		        fields: [ {
-		                label: "Legacy Code:",
-		                name: "legacy_code"
-		            }, {
-		                label: "Kode Olah:",
-		                name: "kode_olah"
-		            }, {
-		                label: "Personnel Area ID:",
-		                name: "personnel_area_id"
-		            }, {
-		                label: "Level:",
-		                name: "level"
-		            }, {
-		                label: "Formasi:",
-		                name: "formasi"
-		            }, {
-		                label: "Jabatan:",
-		                name: "jabatan"
-		            }
-		        ]
-		    } );
-
-			// Activate an inline edit on click of a table cell
-		    $('#datatable').on( 'click', 'tbody td:not(:first-child)', function (e) {
-			    editor.inline( this );
-		    } );
         });
+
+		var table = $('#datatable').DataTable({
+			"processing": true,
+			"serverSide": true,
+			// "autoWidth": true,
+			"order": [[ 0, "asc" ]],
+			"ajax":{
+				"url": "{{ url(request()->segment(1).'/datatables/ajax') }}",
+				"dataType": "json",
+				"type": "POST",
+				"data":{ _token: "{{ csrf_token() }}"}
+			},
+			"columns": {!! $tables !!}
+		});
 
 		$('#btnImport').click(function(){
 			$('#importFile').fadeIn(500);
 		});
+
+		function getDataFormation(legacy_code){
+			table.ajax.url( "{{ url(request()->segment(1).'/datatables/ajax?legacy_code=') }}"+legacy_code ).load();
+		}
 
     </script>
 

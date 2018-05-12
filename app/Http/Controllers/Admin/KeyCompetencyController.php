@@ -16,7 +16,7 @@ class KeyCompetencyController extends AdminController
      *
      * @doc Inherit
      */
-    protected $title = 'Key Competencies';
+    protected $title = 'Kompetensi Peran';
 
     /**
      * Column that will be shown in listing

@@ -273,7 +273,7 @@
 						</div>
 							<!-- required [php action request] -->
 						<div class="panel-body">
-							<p><strong>KEY COMPETENCIES</strong></p>
+							<p><strong>KOMPETENSI PERAN</strong></p>
 							@foreach($keys as $k)
 								<div class="row">
 									<div class="form-group">
@@ -384,7 +384,7 @@
 							--}}
 
 							<hr>
-							<p><strong>KOMPETENSI HARIAN</strong></p>
+							<p><strong>KOMPETENSI LAINNYA</strong></p>
 							@foreach($dailys as $d)
 								<div class="row">
 									<div class="form-group">
@@ -464,23 +464,38 @@
 							</div>
 
 							<hr>
-							<p><strong>DESKRIPSI PENILAIAN</strong></p>
+							<p><strong>INFORMASI LAIN</strong></p>
 							<div class="row">
 								<div class="form-group">
 									<div class="col-md-4">
-										<label>Internal Readiness *</label>
+										<label>Career Willingness *</label>
 									</div>
 									<div class="col-md-8">
 										<input type="text" class="form-control" list="inre" name="nilai[career_willingness]" id="bahasa_3" min="0" max="100" value="{{ old('nilai.career_willingness') }}" class="form-control pointer" placeholder="Career Willingness">
 											<datalist id="inre">
-												<option value="Fungsional">
-												<option value="Supervisori Dasar">
-												<option value="Supervisori Atas">
-												<option value="Manajemen Dasar">
-												<option value="Manajemen Menengah">
-												<option value="Manajemen Atas">
-												<option value="Direksi">
+												@foreach($jenjangs as $j)
+													@if($j->jenjang_txt !== 'HOLDING')
+														<option value="{{ $j->jenjang_txt }}">
+													@endif
+												@endforeach
 											</datalist>
+									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="form-group">
+									<div class="col-md-4">
+										<label>Readiness (Kesehatan) *</label>
+									</div>
+									<div class="col-md-8">
+										<label class="radio">
+											<input type="radio" name="nilai[kesehatan_option]" value="Kendala">
+											<i></i> Kendala
+										</label>
+										<label class="radio">
+											<input type="radio" name="nilai[kesehatan_option]" value="Tidak Kendala">
+											<i></i> Tidak Kendala
+										</label>
 										<textarea rows="2" name="nilai[kesehatan]" value="" class="form-control required col-md-6" placeholder="Kesehatan" required>{{ old('nilai.kesehatan') }}</textarea>
 									</div>
 								</div>
@@ -488,13 +503,24 @@
 							<div class="row">
 								<div class="form-group">
 									<div class="col-md-4">
-										<label>External Readiness *</label>
+										<label>Readiness (Keluarga) *</label>
 									</div>
 									<div class="col-md-8">
+										<label class="radio">
+											<input type="radio" name="nilai[keluarga_option]" value="Kendala">
+											<i></i> Kendala
+										</label>
+										<label class="radio">
+											<input type="radio" name="nilai[keluarga_option]" value="Tidak Kendala">
+											<i></i> Tidak Kendala
+										</label>
 										<textarea rows="2" name="nilai[external_rediness]" value="" class="form-control required col-md-6" placeholder="From family, friends, etc" required>{{ old('nilai.external_rediness') }}</textarea>
 									</div>
 								</div>
 							</div>
+
+							</hr>
+							<p><strong>PENILAIAN PERSONAL</strong></p>
 							<div class="row">
 								<div class="form-group">
 									<div class="col-md-4">

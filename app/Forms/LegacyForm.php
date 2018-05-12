@@ -15,13 +15,13 @@ class LegacyForm extends Form
             ->add('legacy_code', 'number', [
                 'rules' => 'required'
             ])
-            ->add('lookup', 'text', [
-                'rules' => 'required'
-            ])
+            // ->add('lookup', 'text', [
+            //     'rules' => 'required'
+            // ])
             ->add('nama_panjang', 'text', [
                 'rules' => 'required'
             ])
-            ->add('nama_baru', 'text', [
+            ->add('nama_singkat', 'text', [
                 'rules' => ''
             ])
             ->add('submit', 'submit', [

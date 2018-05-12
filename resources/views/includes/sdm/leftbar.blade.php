@@ -40,7 +40,7 @@
 				<i class="main-icon fa fa-trophy"></i> <span>Penilaian Pegawai</span>
 			</a>
 			<ul>
-				<li class="{{ checkChildActive('key_competencies') }}"><a href="{{ url('key_competencies') }}"><span>Key Competencies</span></a></li>
+				<li class="{{ checkChildActive('key_competencies') }}"><a href="{{ url('key_competencies') }}"><span>Kompetensi Peran</span></a></li>
 				<li class="{{ checkChildActive('daily_competencies') }}"><a href="{{ url('daily_competencies') }}"><span>Daily Competencies</span></a></li>
 			</ul>
 		</li>

@@ -36,4 +36,16 @@ function getLegacyChild($legacy_parent)
     return $model;
 }
 
+/**
+ * get action create and edit
+ * @param  array $legacy model Legacy
+ * @return string html
+ */
+function actionTree($legacy)
+{
+    return "<span onclick='createLegacy(".$legacy->legacy_code.")' class='pointer glyphicon glyphicon-plus-sign'></span>
+            <span onclick='editLegacy(".$legacy->legacy_code.")' class='pointer glyphicon glyphicon-edit'></span>
+            ";
+}
+
 ?>

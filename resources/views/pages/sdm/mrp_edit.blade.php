@@ -43,11 +43,11 @@
 											<label>Nomor Dokumen Unit Pengusul</label>
 											<input type="text" name="mrp[no_dokumen_unit_usul]" value="{{ $mrp->no_dokumen_unit_usul }}" class="form-control">
 										</div>
-									
+
 										<div class="col-md-6 col-sm-6">
 											<label>Tanggal Dokumen Unit Pengusul</label>
 											<input type="text" class="form-control datepicker" name="mrp[tgl_dokumen_unit_usul]" data-format="yyyy-mm-dd" data-lang="en" data-RTL="false" value="{{ $mrp->tgl_dokumen_unit_usul }}">
-										</div>													
+										</div>
 									</div>
 								</div>
 
@@ -124,15 +124,12 @@
 											<label>Jalur Mutasi</label>
 											<select name="mrp[jalur_mutasi]" class="form-control pointer" id="jalur_mutasi">
 												<option value="">--- Jalur Mutasi ---</option>
-												<option value="1">Aktif dari Tugas Belajar</option>
-												<option value="2">Antar Unit</option>
-												<option value="3">Ct Diluar Tanggungan</option>
-												<option value="4">Definitif</option>
-												<option value="5">Intern Bidang Antar Sub Bidang</option>
-												<option value="6">Intern Divisi Antar Bidang</option>
-												<option value="7">Intern KP Antar Divisi</option>
-												<option value="8">Intern Sub Bidang Antar Divisi</option>
-											</select> 
+												<option value="1">Unit - Unit</option>
+												<option value="2">Unit - KP dan/atau KP - Unit</option>
+												<option value="3">Intern Unit</option>
+												<option value="4">Intern KP</option>
+												<option value="5">Reorganisasi</option>
+											</select>
 										</div>
 									</div>
 								</div>
@@ -217,7 +214,7 @@
 									<div class="form-group">
 										<div class="col-md-12">
 											<label>
-												File Attachment 
+												File Attachment
 												<small class="text-muted">Edit Lampiran</small>
 											</label>
 
@@ -242,7 +239,7 @@
 						</div>
 						<div class="panel-body">
 							<fieldset>
-								
+
 							</fieldset>
 						</div>
 					</div> --}}
@@ -346,7 +343,7 @@
 										</div>
 									</div>
 								</div>
-								
+
 								<div class="row">
 									<div class="form-group">
 										<div class="col-md-12 col-sm-12">
@@ -358,7 +355,7 @@
 							</fieldset>
 						</div>
 					</div>
-					
+
 
 					<div class="row">
 						<div class="col-md-6">

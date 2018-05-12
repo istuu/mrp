@@ -42,11 +42,12 @@ class MutasiController extends Controller
     	}
     	else if($tipe === '2')
     	{
-            $units = PersonnelArea::all();
-            $keys  = KeyCompetencies::orderBy('sequence')->get();
-            $dailys= DailyCompetencies::orderBy('sequence')->get();
+            $units    = PersonnelArea::all();
+            $keys     = KeyCompetencies::orderBy('sequence')->get();
+            $dailys   = DailyCompetencies::orderBy('sequence')->get();
+            $jenjangs = FormasiJabatan::select('jenjang_txt')->groupBy('jenjang_txt')->get();
 
-    		return view('pages.unit.bursa_pegawai', compact('units','keys', 'dailys'));
+    		return view('pages.unit.bursa_pegawai', compact('units','keys', 'dailys', 'jenjangs'));
     	}
     	else if($tipe === '3')
     	{

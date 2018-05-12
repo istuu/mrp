@@ -27,7 +27,7 @@ class FormationController extends AdminController
      */
     protected $columns = [
         'legacy_code',
-        'kode_olah',
+        // 'kode_olah',
         'personnel_area_id',
         'level',
         'formasi',
@@ -75,9 +75,10 @@ class FormationController extends AdminController
      * @return array json_encode
      */
      public function ajaxDatatables(Request $request){
+         $legacy_code = isset($request->legacy_code) ? $request->legacy_code:15;
          // $filter = $request->personnel_area !== null ? $request->personnel_area: 'PLN';
          // $model = Model::where('personnel_area',$filter)->get();
-         $model = Model::where('legacy_code',15)->get();
+         $model = Model::where('legacy_code',$legacy_code)->get();
          $table = Table::of($model)
                      ->addColumn('action',function($model){
                          return $this->handleAction($model->id, $this->actions);

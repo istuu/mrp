@@ -24,7 +24,7 @@ class LegacyController extends AdminController
      * Column that will be shown in listing
      *
      */
-    protected $columns = ['legacy_code_induk', 'legacy_code', 'lookup', 'nama_panjang'];
+    protected $columns = ['legacy_code_induk', 'legacy_code','nama_panjang' ,'nama_singkat'];
 
     /**
      * Initiate actions
@@ -184,7 +184,7 @@ class LegacyController extends AdminController
                                  $model->legacy_code    = $data->kodeorganak;
                                  $model->lookup      = $data->namabaru !== '' ? $data->namabaru:$data->namapanjang;
                                  $model->nama_panjang= $data->namapanjang;
-                                 $model->nama_baru   = $data->namabaru;
+                                 $model->nama_singkat   = $data->namabaru;
                                  $model->updated_at  = date('Y-m-d H:i:s');
                                  $model->save();
                              }else{
@@ -193,7 +193,7 @@ class LegacyController extends AdminController
                                  $model->legacy_code    = $data->kodeorganak;
                                  $model->lookup      = $data->namabaru !== '' ? $data->namabaru:$data->namapanjang;
                                  $model->nama_panjang= $data->namapanjang;
-                                 $model->nama_baru   = $data->namabaru;
+                                 $model->nama_singkat   = $data->namabaru;
                                  $model->created_at  = date('Y-m-d H:i:s');
                                  $model->save();
                              }
