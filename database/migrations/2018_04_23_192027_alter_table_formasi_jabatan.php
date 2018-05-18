@@ -16,7 +16,7 @@ class AlterTableFormasiJabatan extends Migration
         Schema::table('formasi_jabatan', function (Blueprint $table) {
             $table->text('kode_olah')->change();
             $table->text('posisi')->nullable()->change();
-            $table->string('level')->nullable();
+            $table->string('level')->nullable()->change();
         });
     }
 
