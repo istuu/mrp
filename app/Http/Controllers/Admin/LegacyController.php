@@ -7,6 +7,7 @@ use App\Http\Controllers\AdminController;
 use Kris\LaravelFormBuilder\FormBuilder;
 use App\Models\Legacy as Model;
 use App\Forms\LegacyForm;
+use Carbon\Carbon;
 use Table;
 use Excel;
 use DB;
@@ -185,7 +186,7 @@ class LegacyController extends AdminController
                                  $model->lookup      = $data->namabaru !== '' ? $data->namabaru:$data->namapanjang;
                                  $model->nama_panjang= $data->namapanjang;
                                  $model->nama_singkat   = $data->namabaru;
-                                 $model->updated_at  = date('Y-m-d H:i:s');
+                                 $model->updated_at  = Carbon::now();
                                  $model->save();
                              }else{
                                  $model = new Model;
@@ -194,7 +195,7 @@ class LegacyController extends AdminController
                                  $model->lookup      = $data->namabaru !== '' ? $data->namabaru:$data->namapanjang;
                                  $model->nama_panjang= $data->namapanjang;
                                  $model->nama_singkat   = $data->namabaru;
-                                 $model->created_at  = date('Y-m-d H:i:s');
+                                 $model->created_at  = Carbon::now();
                                  $model->save();
                              }
                          }
