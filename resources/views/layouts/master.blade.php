@@ -22,7 +22,9 @@
 			<link href="{{ asset('assets') }}/css/layout.css" rel="stylesheet" type="text/css" />
 			<link href="{{ asset('assets') }}/css/notifications.css" rel="stylesheet" type="text/css" />
 			<link href="{{ asset('assets') }}/css/color_scheme/green.css" rel="stylesheet" type="text/css" id="color_scheme" />
+			<link href="{{ asset('assets') }}/css/sdm_dashboard.css" rel="stylesheet" type="text/css" />
 			<link rel="stylesheet" href="{{ asset('css/loader.css') }}">
+
 			@stack('styles')
 
 			<!-- CORE CSS -->

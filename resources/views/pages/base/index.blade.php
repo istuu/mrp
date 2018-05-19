@@ -3,7 +3,7 @@
 @section('title', $title)
 
 @section('leftbar')
-	@include('includes.sdm.leftbar')
+	@include('includes.superadmin.leftbar')
 @endsection
 
 @section('includes-styles')

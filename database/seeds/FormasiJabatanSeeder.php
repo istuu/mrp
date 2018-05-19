@@ -15,6 +15,23 @@ class FormasiJabatanSeeder extends Seeder
     {
         $forjab = new FormasiJabatan;
         $forjab->id = Uuid::generate();
+        $forjab->kode_olah = '000';
+        $forjab->legacy_code = '000';
+        $forjab->posisi = 'Superadmin';
+        $forjab->formasi ='Superadmin';
+        $forjab->jabatan ='Superadmin';
+        $forjab->jenjang_id ='Superadmin';
+        $forjab->jenjang_txt ='Superadmin';
+        $forjab->pagu = 1;
+        $forjab->level = 'KP';
+        // $forjab->realisasi = 1;
+        $forjab->spfj ='Superadmin';
+        $forjab->status_fj ='';
+        $forjab->personnel_area_id = PersonnelArea::where('user_role', 0)->first()->id;
+        $forjab->save();
+
+        $forjab = new FormasiJabatan;
+        $forjab->id = Uuid::generate();
         $forjab->kode_olah = 'DITDAN-15166401.MA';
         $forjab->legacy_code = '15166401';
         $forjab->posisi = 'DIREKTORAT PENGADAAN PT PLN (PERSERO) KANTOR PUSAT';

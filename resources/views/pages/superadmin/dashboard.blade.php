@@ -7,11 +7,7 @@ use Carbon\Carbon;
 @section('title', 'MRP Dashboard')
 
 @section('leftbar')
-	@if(auth()->user()->user_role <> 0)
-		@include('includes.sdm.leftbar')
-	@else
-		@include('includes.superadmin.leftbar')
-	@endif
+	@include('includes.superadmin.leftbar')
 @endsection
 
 @section('includes-styles')
@@ -21,7 +17,6 @@ use Carbon\Carbon;
 	<link href="/assets/plugins/footable/css/footable.core.min.css" rel="stylesheet" type="text/css" />
 	<link href="/assets/plugins/footable/css/footable.standalone.css" rel="stylesheet" type="text/css" />
 	<link href="/assets/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
-	<link href="/assets/css/sdm_dashboard.css" rel="stylesheet" type="text/css" />
 
 	<style>
 		canvas {
@@ -37,7 +32,6 @@ use Carbon\Carbon;
 @endsection
 
 @section('content')
-
 	<div id="content" class="padding-20">
 		@include('includes.validation_errors')
 
@@ -750,6 +744,7 @@ use Carbon\Carbon;
 		</div>
     </div>
 
+    @include('includes.sdm.mrp-modal')
 @endsection
 
 @section('includes-scripts')

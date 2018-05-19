@@ -4,7 +4,7 @@
 @section('title', $action.' '.$title)
 
 @section('leftbar')
-	@include('includes.sdm.leftbar')
+	@include('includes.superadmin.leftbar')
 @endsection
 
 @section('content')

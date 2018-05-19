@@ -3,7 +3,11 @@
 @section('title', 'Tabel MRP')
 
 @section('leftbar')
-	@include('includes.sdm.leftbar')
+	@if(auth()->user()->user_role <> 0)
+		@include('includes.sdm.leftbar')
+	@else
+		@include('includes.superadmin.leftbar')
+	@endif
 @endsection
 
 @section('includes-styles')

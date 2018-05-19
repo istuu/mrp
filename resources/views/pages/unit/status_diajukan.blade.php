@@ -3,7 +3,11 @@
 @section('title', 'Progress Mutasi')
 
 @section('leftbar')
-	@include('includes.unit.leftbar')
+	@if(auth()->user()->user_role <> 0)
+		@include('includes.unit.leftbar')
+	@else
+		@include('includes.superadmin.leftbar')
+	@endif
 @endsection
 
 @section('includes-styles')
@@ -83,7 +87,7 @@
 								<td>
 									@if($mrps->status == 1)
 										<span class="label label-primary">Diajukan</span>
-							
+
 
 									@elseif(in_array($mrps->status, [2,3,4]))
 										<span class="label label-warning">Proses Evaluasi (Pusat)</span>

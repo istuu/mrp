@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Forms;
+use App\FormasiJabatan;
 
 use Kris\LaravelFormBuilder\Form;
 
@@ -15,10 +16,10 @@ class PegawaiForm extends Form
             ->add('formasi_jabatan_id', 'entity', [
                 'class' => 'App\FormasiJabatan',
                 'property' => 'posisi',
-                // 'query_builder' => function (App\FormasiJabatan $lang) {
-                //     // If query builder option is not provided, all data is fetched
-                //     return $lang->where('active', 1);
-                // }
+                'query_builder' => function (FormasiJabatan $lang) {
+                    // If query builder option is not provided, all data is fetched
+                    return $lang->where('kode_olah','<>','000');
+                }
             ])
             ->add('perner', 'number', [
                 'rules' => 'required'

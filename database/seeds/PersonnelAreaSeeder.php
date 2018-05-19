@@ -13,6 +13,17 @@ class PersonnelAreaSeeder extends Seeder
      */
     public function run()
     {
+        // Superadmin
+        $user = new PersonnelArea;
+        $user->id = Uuid::generate();
+        $user->nama = 'Superadmin';
+        $user->nama_pendek = 'Superadmin';
+        $user->username = 'superadmin';
+        $user->password = bcrypt('superadmin');
+        $user->direktorat_id = Direktorat::first()->id;
+        $user->user_role = 0;
+        $user->save();
+
         // unit
         $user = new PersonnelArea;
         $user->id = Uuid::generate();

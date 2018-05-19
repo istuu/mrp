@@ -8,7 +8,11 @@ use Carbon\Carbon;
 @section('title', 'MRP Dashboard')
 
 @section('leftbar')
-	@include('includes.karir2.leftbar')
+	@if(auth()->user()->user_role <> 0)
+		@include('includes.karir2.leftbar')
+	@else
+		@include('includes.superadmin.leftbar')
+	@endif
 @endsection
 
 @section('includes-styles')

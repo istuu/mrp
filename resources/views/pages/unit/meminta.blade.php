@@ -3,7 +3,11 @@
 @section('title', 'Meminta Pegawai')
 
 @section('leftbar')
-	@include('includes.unit.leftbar')
+	@if(auth()->user()->user_role <> 0)
+		@include('includes.unit.leftbar')
+	@else
+		@include('includes.superadmin.leftbar')
+	@endif
 @endsection
 
 @section('content')

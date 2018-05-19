@@ -15,8 +15,11 @@ class SDM
      */
     public function handle($request, Closure $next)
     {
-        if(auth()->check() && auth()->user()->user_role === 3)
-            return $next($request);
+        if(auth()->check()){
+            if(auth()->user()->user_role == 3 || auth()->user()->user_role == 0){
+                return $next($request);
+            }
+        }
         else
             return redirect('/')->with('error', 'Anda tidak mempunyai akses ke halaman ini');
     }
