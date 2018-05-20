@@ -10,6 +10,9 @@ class PegawaiForm extends Form
     public function buildForm()
     {
         $this
+            ->add('image', 'file', [
+                'rules' => 'required|image'
+            ])
             ->add('legacy_code', 'text', [
                 'rules' => 'required'
             ])

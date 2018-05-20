@@ -44,7 +44,7 @@ function getLegacyChild($legacy_parent)
 function actionTree($legacy)
 {
     return "<span onclick='createLegacy(".$legacy->legacy_code.")' class='pointer glyphicon glyphicon-plus-sign'></span>
-            <span onclick='editLegacy(".$legacy->legacy_code.")' class='pointer glyphicon glyphicon-edit'></span>
+            <span onclick='editLegacy(".$legacy->id.")' class='pointer glyphicon glyphicon-edit'></span>
             ";
 }
 

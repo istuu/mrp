@@ -8,6 +8,7 @@ use Kris\LaravelFormBuilder\FormBuilder;
 use App\FormasiJabatan as Model;
 use App\Models\Legacy;
 use App\Forms\FormationForm;
+use Carbon\Carbon;
 use Table;
 use Excel;
 use DB;
@@ -39,7 +40,7 @@ class FormationController extends AdminController
      *
      * @doc ['create', 'edit', 'delete', 'detail', 'import', 'export']
      */
-    protected $actions = ['create', 'edit', 'delete', 'filter','view'];
+    protected $actions = ['create', 'edit', 'delete', 'import','view'];
 
     /**
      * Initiate global variable and middleware
@@ -75,7 +76,7 @@ class FormationController extends AdminController
      * @return array json_encode
      */
      public function ajaxDatatables(Request $request){
-         $legacy_code = isset($request->legacy_code) ? $request->legacy_code:15;
+         $legacy_code = isset($request->legacy_code) ? $request->legacy_code:'15';
          // $filter = $request->personnel_area !== null ? $request->personnel_area: 'PLN';
          // $model = Model::where('personnel_area',$filter)->get();
          $model = Model::where('legacy_code',$legacy_code)->get();
@@ -212,7 +213,7 @@ class FormationController extends AdminController
                              // $model->revisi     = $data->revisi;
                              $model->pagu        = 1;
                              $model->spfj        = $data->revisi;
-                             $model->updated_at  = date('Y-m-d H:i:s');
+                             $model->updated_at  = Carbon::now();
                              $model->save();
                          }else{
                              $model = new Model;
@@ -235,7 +236,7 @@ class FormationController extends AdminController
                              // $model->revisi     = $data->revisi;
                              $model->pagu       = 1;
                              $model->spfj       = $data->revisi;
-                             $model->created_at = date('Y-m-d H:i:s');
+                             $model->created_at = Carbon::now();
                              $model->save();
                          }
                      }
@@ -248,4 +249,59 @@ class FormationController extends AdminController
              return array("success" => false, "uuid" => $uuid, "message" => $e->getMessage());
          }
      }
+
+     /**
+      * Handle Modal Ajax Create
+      * @return string html
+      */
+     public function ajaxCreate(Request $request){
+         return view('includes.superadmin.create-modal',['legacy' => $request->legacy_code]);
+     }
+
+     /**
+      * Handle Modal Ajax Edit
+      * @return string html
+      */
+     public function ajaxEdit(Request $request){
+         $legacy = Legacy::find($request->id);
+         return view('includes.superadmin.edit-modal',['legacy' => $legacy]);
+     }
+
+     /**
+      * Set action post store legacy
+      *
+      * @return string redirect
+      */
+     public function legacyStore(Request $request)
+     {
+         Legacy::create($request->all());
+         return redirect('formations')->with('success','Legacy Code Berhasil ditambahkan!');
+    }
+
+    /**
+     * Set action post updateLegacy
+     *
+     * @return string redirect
+     */
+    public function legacyUpdate(Request $request, $id)
+    {
+        Legacy::where('id',$id)->update($request->except(['_token']));
+        return redirect('formations')->with('success','Legacy Code Berhasil diubah!');
+   }
+
+   /**
+    * action view
+    * @param  string $id uuid
+    * @return string html
+    */
+   public function view($id)
+   {
+       $model = Model::select('kode_olah','legacy_code','level','posisi','kelas_unit','hgl','formasi','jenjang_id',
+                              'jenjang_txt','pagu','spfj')
+                  ->find($id);
+       return view('pages.base.view',[
+           'title' => $this->title,
+           'model' => $model->toArray()
+       ]);
+   }
 }

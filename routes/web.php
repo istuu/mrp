@@ -77,6 +77,13 @@ Route::get('/profil/getKota','ProfilController@getKota');
 //evaluasi
 Route::get('/dashboard/dataevaluasi', 'DashboardController@detaileval');
 
+//formations
+Route::get('formations/ajax/create', 'Admin\FormationController@ajaxCreate');
+Route::get('formations/ajax/edit', 'Admin\FormationController@ajaxEdit');
+Route::post('formations/legacy/store', 'Admin\FormationController@legacyStore');
+Route::post('formations/legacy/update/{id}', 'Admin\FormationController@legacyUpdate');
+
+
 //Superadmin
 $slugs = ['roles', 'legacies', 'formations', 'pegawais', 'personnels','key_competencies','daily_competencies'];
 foreach ($slugs as $slug) {
@@ -90,4 +97,6 @@ foreach ($slugs as $slug) {
     Route::get($slug.'/delete/{id}', ['uses' => $controller.'@delete','as' => $slug.'.delete']);
     Route::get($slug.'/import', ['uses' => $controller.'@import','as' => $slug.'.import']);
     Route::post($slug.'/import', ['uses' => $controller.'@postImport','as' => $slug.'.import']);
+    Route::get($slug.'/export', ['uses' => $controller.'@export','as' => $slug.'.export']);
+    Route::get($slug.'/view/{id}', ['uses' => $controller.'@view']);
 }

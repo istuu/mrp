@@ -8,6 +8,7 @@ use Kris\LaravelFormBuilder\FormBuilder;
 use App\Pegawai as Model;
 use App\FormasiJabatan as Formasi;
 use App\Forms\PegawaiForm;
+use Carbon\Carbon;
 use Table;
 use Excel;
 use DB;
@@ -49,6 +50,11 @@ class PegawaiController extends AdminController
     public function __construct()
     {
         $this->model = Model::select($this->columns);
+        $this->query = $model = Model::select('image','legacy_code',
+                               'perner','nip','nama_pegawai','no_hp','email','kota_asal',
+                               'status_domisili','employee_subgroup','ps_group','talent_pool_position',
+                               'tanggal_grade','tanggal_lahir','tanggal_masuk','tanggal_capeg',
+                               'tanggal_pegawai','start_date','end_date','kali_jenjang');
         return $this->middleware('auth');
     }
 
@@ -73,7 +79,7 @@ class PegawaiController extends AdminController
      * @return array json_encode
      */
      public function ajaxDatatables(Request $request){
-         $model = Model::get();
+         $model = Model::where('perner','<>','000');
          $table = Table::of($model)
                      ->addColumn('image',function($model){
                          return $this->handleViewImage($model->image);
@@ -114,7 +120,10 @@ class PegawaiController extends AdminController
              return redirect()->back()->withErrors($form->getErrors())->withInput();
          }
 
-         $this->model->create($request->all());
+         $inputs = $request->all();
+         $inputs['image'] = $this->handleUpload($request,'image');
+
+         $this->model->create($inputs);
          return redirect('pegawais')->with('success','Data Berhasil ditambahkan!');
     }
 
@@ -148,7 +157,15 @@ class PegawaiController extends AdminController
             return redirect()->back()->withErrors($form->getErrors())->withInput();
         }
 
-        $this->model->where('id',$id)->update($request->except(['_token']));
+        $inputs = $request->except(['_token']);
+        if(isset($request->image)){
+            $inputs['image'] = $this->handleUpload($request,'image');
+        }else{
+            $image = Pegawai::find($id)->image;
+            $inputs['image'] = $image;
+        }
+
+        $this->model->where('id',$id)->update($inputs);
         return redirect('pegawais')->with('success','Data Berhasil ditambahkan!');
    }
 
@@ -205,7 +222,7 @@ class PegawaiController extends AdminController
                              $model->tanggal_pegawai = $data->tanggal_pegawai;
                              $model->start_date = $data->start_date;
                              $model->end_date = $data->end_date;
-                             $model->updated_at  = date('Y-m-d H:i:s');
+                             $model->updated_at  = Carbon::now();
                              $model->save();
                          }else{
                              $model = new Model;
@@ -224,7 +241,7 @@ class PegawaiController extends AdminController
                              $model->tanggal_pegawai = $data->tanggal_pegawai;
                              $model->start_date = $data->start_date;
                              $model->end_date = $data->end_date;
-                             $model->created_at = date('Y-m-d H:i:s');
+                             $model->created_at = Carbon::now();
                              $model->save();
                          }
                      }
@@ -237,4 +254,29 @@ class PegawaiController extends AdminController
              return array("success" => false, "uuid" => $uuid, "message" => $e->getMessage());
          }
      }
+
+     /**
+      * action view
+      * @param  string $id uuid
+      * @return string html
+      */
+     public function view($id)
+     {
+         $model = $this->query->find($id);
+         return view('pages.base.view',[
+             'title' => $this->title,
+             'model' => $model->toArray()
+         ]);
+     }
+
+     /**
+      * Export Data
+      * @return mixed redirect file export
+      */
+     public function export()
+     {
+         $this->path  = 'site/exports/Pegawai Database.xls';
+         return $this->handleExport($this->query->get(), 'Pegawai Database', $this->path);
+     }
+
 }

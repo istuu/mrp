@@ -45,10 +45,72 @@ class AdminController extends Controller
       * @return string  html img
       */
      public function handleViewImage($image){
-         if($image !== ''){
-             return "<img src='".url($image)."' width='100' />";
+         if($image == '' || $image == null){
+             return \Html::image(asset('assets/images/noavatar.jpg'),'Picture',array('height'=>100));
          }else{
-             return \Html::image(url('assets/images/noavatar.jpg'),'Picture',array('height'=>100));
+             return \Html::image(asset($image),'Picture',array('height'=>100));
+         }
+     }
+
+     /**
+      * handle upload file image
+      * @param  mixed $request
+      * @param  string $name
+      * @return string file name & directory
+      */
+     public function handleUpload($request,$name)
+     {
+         $input = $request->all();
+         $rules = array(
+             $name => 'image|max:3000',
+         );
+
+         $validation = Validator::make($input, $rules);
+
+         if ($validation->fails()) {
+             return false;
+         }
+
+         $destinationPath = 'site/uploads/images';
+         $extension       = $request->file($name)->getClientOriginalExtension();
+         $originalName    = $request->file($name)->getClientOriginalName();
+         $fileName        = $originalName."-".str_random(5).'.' . $extension;
+         $upload          = $request->file($name)->move($destinationPath, $fileName);
+         return $destinationPath.'/'.$fileName;
+     }
+
+     /**
+      * hanlde export data
+      * @param  array $model    [description]
+      * @param  string $filename [description]
+      * @param  string $path     [description]
+      * @return mixed           [description]
+      */
+     public function handleExport($model, $filename, $path)
+     {
+         try{
+             foreach ($model as $key => $value) {
+                 foreach($value->toArray() as $key2 => $value2){
+                     $key2 = ucwords(str_replace("_"," ",$key2));
+                     $data[$key][$key2] = $value2;
+                 }
+             }
+
+             @unlink(public_path($path));
+
+             \Excel::create($filename, function($excel)  use($data) {
+
+                 $excel->sheet('Sheet 1', function($sheet) use($data)  {
+
+                     $sheet->fromArray($data);
+
+                 });
+             })->store('xls',public_path('site/exports'));
+
+             return redirect($path);
+
+         }catch(\Exception $e){
+             return redirect()->back()->with('error',$e->getMessage());
          }
      }
 }
