@@ -63,7 +63,7 @@ class FormationController extends AdminController
             'title' => $this->title,
             'actions' => $this->actions,
             'columns' => $this->columns,
-            'legacies' => Legacy::where('legacy_code',15)->get(),
+            'legacies' => Legacy::where('legacy_code','15')->get(),
             'tables' => $this->tableBuilder($this->columns),
             // 'filter' => Model::select('personnel_area')->groupBy('personnel_area')->get()
         ]);
