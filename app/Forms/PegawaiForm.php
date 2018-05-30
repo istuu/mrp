@@ -11,19 +11,20 @@ class PegawaiForm extends Form
     {
         $this
             ->add('image', 'file', [
-                'rules' => 'required|image'
+                'rules' => 'image'
             ])
             ->add('legacy_code', 'text', [
                 'rules' => 'required'
             ])
             ->add('formasi_jabatan_id', 'entity', [
                 'class' => 'App\FormasiJabatan',
-                'property' => 'posisi',
+                'property' => 'formasi', //Formasi - Jabatan 
                 'query_builder' => function (FormasiJabatan $lang) {
                     // If query builder option is not provided, all data is fetched
                     return $lang->where('kode_olah','<>','000');
                 }
             ])
+			//Pada posisi
             ->add('perner', 'number', [
                 'rules' => 'required'
             ])

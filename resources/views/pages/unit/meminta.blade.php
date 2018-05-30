@@ -168,8 +168,8 @@
 											<select name="mrp[jenis_mutasi]" class="form-control required" required>
 												<option>--- Pilih ---</option>
 												<option value="Dinas" {{ old('mrp.jenis_mutasi') == 'Dinas' ? 'selected="selected"' : "" }}>Dinas</option>
-												{{-- <option value="APS" {{ old('mrp.jenis_mutasi') == 'APS' ? 'selected="selected"' : '' }}>APS</option>
-												<option value="Non-dinas" {{ old('mrp.jenis_mutasi') == 'Non-dinas' ? 'selected="selected"' : "" }}>Non-dinas</option> --}}
+												{{-- <option value="APS" {{ old('mrp.jenis_mutasi') == 'APS' ? 'selected="selected"' : '' }}>APS</option> --}}
+												<option value="Non-dinas" {{ old('mrp.jenis_mutasi') == 'Non-dinas' ? 'selected="selected"' : "" }}>Non-dinas</option> 
 											</select>
 										</div>
 

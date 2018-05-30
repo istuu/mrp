@@ -12,10 +12,19 @@ class DiklatForm extends Form
             ->add('nip', 'text', [
                 'rules' => 'required'
             ])
-            ->add('jenis_nama', 'text', [
+            ->add('judul_diklat', 'text', [
+                'rules' => 'required'
+            ])
+			->add('tanggal_mulai', 'date', [
+                'rules' => 'required'
+            ])
+			->add('tanggal_selesai', 'date', [
                 'rules' => 'required'
             ])
             ->add('tanggal_sertifikat', 'date', [
+                'rules' => 'required'
+            ])
+			->add('kode_sertifikat', 'text', [
                 'rules' => 'required'
             ])
             ->add('nilai_grade', 'text', [

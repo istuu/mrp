@@ -5,6 +5,7 @@
 /vendor
 /.idea
 /.vagrant
+/file upload
 /config/database.php
 Homestead.json
 Homestead.yaml

@@ -7,8 +7,10 @@ use App\Http\Controllers\AdminController;
 use Kris\LaravelFormBuilder\FormBuilder;
 use App\Models\InfoDiklat as Model;
 use App\Forms\DiklatForm;
+use Carbon\Carbon;
 use Table;
-
+use Excel;
+use DB;
 class InfoDiklatController extends AdminController
 {
     /**
@@ -22,14 +24,14 @@ class InfoDiklatController extends AdminController
      * Column that will be shown in listing
      *
      */
-    protected $columns = ['nip', 'jenis_nama', 'tanggal_sertifikat', 'nilai_grade', 'nilai_angka', 'hasil'];
+    protected $columns = ['nip', 'judul_diklat', 'tanggal_mulai', 'tanggal_selesai', 'tanggal_sertifikat', 'kode_sertifikat', 'kelompok_prestasi', 'nilai_angka', 'hasil'];
 
     /**
      * Initiate actions
      *
      * @doc ['create', 'edit', 'delete', 'detail', 'import', 'export']
      */
-    protected $actions = ['create', 'edit', 'delete', 'export'];
+    protected $actions = ['create', 'edit', 'delete', 'import', 'export'];
 
     /**
      * Initiate global variable and middleware
@@ -158,4 +160,67 @@ class InfoDiklatController extends AdminController
         $this->path  = 'site/exports/Diklat Database.xls';
         return $this->handleExport(Model::get(), 'Diklat Database', $this->path);
     }
+	
+	/**
+     * Set action get view for import
+     *
+     * @return string
+     */
+    public function import()
+    {
+        $title = $this->title;
+
+        return view('pages.base.import',compact(['title']));
+    }
+
+    /**
+     * Set action post import
+     *
+     * @return string redirect
+     */
+     public function postImport(Request $request){
+         $file = $request->file('qqfile');
+         $uuid = $request->all()['qquuid'];
+         try{
+             DB::beginTransaction();
+             Excel::load($file, function($reader) {
+                 foreach($reader->get() as $data){
+					 $cek = Model::where([['nip',$data->nip],['judul_diklat',$data->judul_diklat],['tanggal_mulai',$data->tanggal_mulai],])->count();
+					 if($cek > 0){
+						 $model = Model::where([['nip',$data->nip],['judul_diklat',$data->judul_diklat],['tanggal_mulai',$data->tanggal_mulai],])->first();
+						 $model->nip    = $data->nip;
+						 $model->judul_diklat    = $data->judul_diklat;
+						 $model->tanggal_mulai   = $data->tanggal_mulai;
+						 $model->tanggal_selesai   = $data->tanggal_selesai;
+						 $model->tanggal_sertifikat   = $data->tanggal_selesai;
+						 $model->kode_sertifikat   = $data->kode_sertifikat;
+						 $model->kelompok_prestasi   = $data->grade;
+						 $model->nilai_angka   = $data->nilai;
+						 $model->hasil   = $data->rangking;
+						 $model->updated_at  = Carbon::now();
+						 $model->save();
+					 }else{
+						 $model = new Model;
+						 $model->nip    = $data->nip;
+						 $model->judul_diklat    = $data->judul_diklat;
+						 $model->tanggal_mulai   = $data->tanggal_mulai;
+						 $model->tanggal_selesai   = $data->tanggal_selesai;
+						 $model->tanggal_sertifikat   = $data->tanggal_selesai;
+						 $model->kode_sertifikat   = $data->kode_sertifikat;
+						 $model->kelompok_prestasi   = $data->grade;
+						 $model->nilai_angka   = $data->nilai;
+						 $model->hasil   = $data->rangking;
+						 $model->created_at  = Carbon::now();
+						 $model->save();
+					 }
+                       
+                 }
+             });
+             DB::commit();
+             return array("success" => true, "uuid" => $uuid);
+         }catch(\Exception $e){
+             DB::rollback();
+             return array("success" => false, "uuid" => $uuid, "message" => $e->getMessage());
+         }
+     }
 }
