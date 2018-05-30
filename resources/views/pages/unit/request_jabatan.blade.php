@@ -24,7 +24,7 @@
 @section('content')
 	<!-- page title -->
 	<header id="page-header">
-		<h1>Form Bursa Jabatan</h1>
+		<h1>Vacancies</h1>
 		<button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#helpModal"><i class="fa fa-question-circle"></i> Petunjuk Pengisian</button>
 	</header>
 	<!-- /page title -->

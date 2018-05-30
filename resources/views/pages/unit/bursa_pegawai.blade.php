@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Bursa Pegawai')
+@section('title', 'Propose')
 
 @section('leftbar')
 	@if(auth()->user()->user_role <> 0)
@@ -13,7 +13,7 @@
 @section('content')
 	<!-- page title -->
 	<header id="page-header">
-		<h1>Form Membursakan Pegawai</h1>
+		<h1>Propose</h1>
 		<button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#helpModal"><i class="fa fa-question-circle"></i> Petunjuk Pengisian</button>
 	</header>
 	<!-- /page title -->

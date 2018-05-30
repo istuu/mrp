@@ -3,17 +3,17 @@
 	<ul class="nav nav-list">
 		<li>
 			<a href="{{ url('mutasi') }}/pengajuan?tipe=1">
-				<i class="main-icon fa fa-plus-circle"></i> <span>Meminta Pegawai</span>
+				<i class="main-icon fa fa-plus-circle"></i> <span>Request</span>
 			</a>
 		</li>
 		<li>
 			<a href="{{ url('mutasi') }}/pengajuan?tipe=2">
-				<i class="main-icon fa fa-user-plus"></i> <span>Bursa Pegawai</span>
+				<i class="main-icon fa fa-user-plus"></i> <span>Propose</span>
 			</a>
 		</li>
 		<li>
 			<a href="{{ url('mutasi') }}/pengajuan?tipe=3">
-				<i class="main-icon fa fa-book"></i> <span>Bursa Jabatan</span>
+				<i class="main-icon fa fa-book"></i> <span>Vacancies</span>
 			</a>
 		</li>
 	</ul>
