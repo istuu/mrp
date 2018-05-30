@@ -110,6 +110,11 @@
 				<li class="{{ checkChildActive('roles') }}"><a href="{{ url('roles') }}"><span>Roles</span></a></li>
 			</ul>
 		</li>
+		<li class="{{ checkParentActive(['info_diklats']) }}">
+			<a href="{{ url('info_diklats') }}">
+				<i class="main-icon fa fa-clipboard"></i> <span>Info Diklat</span>
+			</a>
+		</li>
 	</ul>
 
 </nav>

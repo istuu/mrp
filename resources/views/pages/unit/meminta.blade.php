@@ -103,6 +103,15 @@
 										</div>
 									</div>
 								</div>
+
+								<div class="row">
+									<div class="form-group">
+										<div class="col-md-6 col-sm-6">
+											<label>Diklat Penjenjang</label>
+											<input type="text" id="diklat_penjenjang" value="" class="form-control" disabled>
+										</div>
+									</div>
+								</div>
 							</fieldset>
 						</div>
 					</div>
@@ -557,6 +566,7 @@
 							$("#lama_menjabat").val(data.lama_menjabat);
 							$("#kali_jenjang").val(data.kali_jenjang);
 							$("#kode_olah_pegawai").val(data.kode_olah_forja);
+							$("#diklat_penjenjang").val(data.diklat);
 						}
 						else
 						{
@@ -569,6 +579,7 @@
 							$("#lama_menjabat").val('');
 							$("#kali_jenjang").val('');
 							$("#kode_olah_pegawai").val('');
+							$("#diklat_penjenjang").val('');
 						}
 					}
 				});
@@ -584,6 +595,7 @@
 				$("#lama_menjabat").val('');
 				$("#kali_jenjang").val('');
 				$("#kode_olah_pegawai").val('');
+				$("#diklat_penjenjang").val('');
 			}
 		});
 	</script>

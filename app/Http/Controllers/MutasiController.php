@@ -13,6 +13,7 @@ use App\Pegawai;
 use App\PenilaianPegawai;
 use App\PersonnelArea;
 use App\FormasiJabatan;
+use App\Models\InfoDiklat;
 use App\Models\KeyCompetencies;
 use App\Models\DailyCompetencies;
 
@@ -80,6 +81,10 @@ class MutasiController extends Controller
             $pegawai->sisa_masa_kerja = $pegawai->year_diff_decimal(Carbon::now('Asia/Jakarta'), Carbon::parse($pegawai->tanggal_lahir)->addYears(56)).' Tahun';
             $pegawai->lama_menjabat = $pegawai->year_diff_decimal(Carbon::parse($pegawai->start_date), Carbon::now('Asia/Jakarta')).' Tahun';
             $pegawai->kode_olah_forja = $fj->kode_olah;
+
+            //Data diklat
+            $diklat = InfoDiklat::where('nip',request('nip'))->orderBy('tanggal_sertifikat','desc')->first();
+            $pegawai->diklat = $diklat->jenis_nama;
         }
 
         return response()->json($pegawai);
