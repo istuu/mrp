@@ -299,6 +299,9 @@ use Carbon\Carbon;
 							<li class="">
 								<a class="tabselect" href="#request" data-toggle="tab">Bursa Jabatan</a>
 							</li>
+							<li class="">
+								<a class="tabselect" href="#fnpw" data-toggle="tab">FNP&W</a>
+							</li>
 						</ul>
 
 						<span class="title elipsis pull-right">

@@ -38,6 +38,56 @@
 
 						<div class="panel-body">
 							<fieldset>
+
+								<div class="row">
+									<div class="col-md-12 col-sm-12">
+										<label class="switch switch">
+											<input type="checkbox" name="rekom_checkbox" id="rekom_checkbox" value="0" autocomplete="off">
+											<span class="switch-label" data-on="YES" data-off="NO"></span>
+											<span> Rekomendasikan proyeksi jabatan? <small> - opsional</small></span>
+										</label>
+									</div>
+								</div>
+
+								<div id="rekom_proyeksi">
+									<div class="row">
+										<div class="form-group">
+											<div class="col-md-12 col-sm-12">
+												<label>Unit</label>
+												@if(auth()->user()->user_role !== '0')
+													<input type="text" class="form-control"  id="unit_id" class="form-control pointer required" required value="{{$personnelarea->nama}}" disabled>
+												@else
+													<select class="form-control select2" id="unit_id" required>
+														<option>---Pilih Unit---</option>
+														@foreach($personnelarea as $p)
+															<option value="{{$p->nama}}"> {{$p->nama }} </option>
+														@endforeach
+													</select>
+												@endif
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="form-group">
+											<div class="col-md-6 col-sm-6">
+												<select class="form-control" id="rekom_formasi" disabled>
+													<option>---Pilih Formasi---</option>
+													@foreach($formasis as $formasi)
+														<option value="{{$formasi->formasi}}"> {{$formasi->formasi }} </option>
+													@endforeach
+												</select>
+											</div>
+
+											<div class="col-md-6 col-sm-6">
+												<select class="form-control" name="kode_olah" id="rekom_jabatan" disabled>
+													<option>--- Jabatan ---</option>
+												</select>
+											</div>
+										</div>
+									</div>
+								</div>
+								<br/>
 								<div class="row">
 									<div class="form-group">
 										<div class="col-md-6 col-sm-6">
@@ -169,7 +219,7 @@
 												<option>--- Pilih ---</option>
 												<option value="Dinas" {{ old('mrp.jenis_mutasi') == 'Dinas' ? 'selected="selected"' : "" }}>Dinas</option>
 												{{-- <option value="APS" {{ old('mrp.jenis_mutasi') == 'APS' ? 'selected="selected"' : '' }}>APS</option> --}}
-												<option value="Non-dinas" {{ old('mrp.jenis_mutasi') == 'Non-dinas' ? 'selected="selected"' : "" }}>Non-dinas</option> 
+												<option value="Non-dinas" {{ old('mrp.jenis_mutasi') == 'Non-dinas' ? 'selected="selected"' : "" }}>Non-dinas</option>
 											</select>
 										</div>
 
@@ -228,45 +278,7 @@
 									</div>
 								</div>
 
-								<div class="row">
-									<div class="col-md-12 col-sm-12">
-										<label class="switch switch">
-											<input type="checkbox" name="rekom_checkbox" id="rekom_checkbox" value="0" autocomplete="off">
-											<span class="switch-label" data-on="YES" data-off="NO"></span>
-											<span> Rekomendasikan proyeksi jabatan? <small> - opsional</small></span>
-										</label>
-									</div>
-								</div>
 
-								<div id="rekom_proyeksi">
-									<div class="row">
-										<div class="form-group">
-											<div class="col-md-12 col-sm-12">
-												<label>Unit</label>
-												<input type="text" class="form-control"  id="rekom_unit" class="form-control pointer required" required value="{{$personnelarea->nama}}" disabled>
-											</div>
-										</div>
-									</div>
-
-									<div class="row">
-										<div class="form-group">
-											<div class="col-md-6 col-sm-6">
-												<select class="form-control" id="rekom_formasi" disabled>
-													<option>---Pilih Formasi---</option>
-													@foreach($formasis as $formasi)
-														<option value="{{$formasi->formasi}}"> {{$formasi->formasi }} </option>
-													@endforeach
-												</select>
-											</div>
-
-											<div class="col-md-6 col-sm-6">
-												<select class="form-control" name="kode_olah" id="rekom_jabatan" disabled>
-													<option>--- Jabatan ---</option>
-												</select>
-											</div>
-										</div>
-									</div>
-								</div>
 							</div>
 						</fieldset>
 					</div>

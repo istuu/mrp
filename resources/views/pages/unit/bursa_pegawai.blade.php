@@ -41,6 +41,53 @@
 							<!-- required [php action request] -->
 							<div class="panel-body">
 								<div class="row">
+									<div class="col-md-12 col-sm-12">
+										<label class="switch switch">
+											<input type="checkbox" name="rekom_checkbox" id="rekom_checkbox" value="0" autocomplete="off">
+											<span class="switch-label" data-on="YES" data-off="NO"></span>
+											<span> Rekomendasikan proyeksi jabatan? <small> - opsional</small></span>
+										</label>
+									</div>
+								</div>
+
+								<div id="rekom_proyeksi">
+									<div class="row">
+										<div class="form-group">
+											<div class="col-md-12 col-sm-12">
+												<div class="fancy-form fancy-form-select">
+													<select class="form-control select2" id="rekom_unit" disabled>
+														<option>--- Pilih Unit Rekomendasi ---</option>
+														@foreach ($units as $unit)
+															<option value="{{ $unit->id }}">{{ $unit->nama }}</option>
+														@endforeach
+													</select>
+
+													<i class="fancy-arrow"></i>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="form-group">
+											<div class="col-md-6 col-sm-6">
+												<select class="form-control" id="rekom_formasi" disabled>
+													<option>--- Formasi ---</option>
+												</select>
+											</div>
+
+											<div class="col-md-6 col-sm-6">
+												<select class="form-control" name="kode_olah" id="rekom_jabatan" disabled>
+													<option>--- Jabatan ---</option>
+												</select>
+											</div>
+										</div>
+									</div>
+
+								</div>
+								<br/>
+
+								<div class="row">
 									<div class="form-group">
 										<div class="col-md-6 col-sm-6">
 											<label>NIP *</label>
@@ -220,51 +267,6 @@
 									</div>
 								</div>
 
-								<div class="row">
-									<div class="col-md-12 col-sm-12">
-										<label class="switch switch">
-											<input type="checkbox" name="rekom_checkbox" id="rekom_checkbox" value="0" autocomplete="off">
-											<span class="switch-label" data-on="YES" data-off="NO"></span>
-											<span> Rekomendasikan proyeksi jabatan? <small> - opsional</small></span>
-										</label>
-									</div>
-								</div>
-
-								<div id="rekom_proyeksi">
-									<div class="row">
-										<div class="form-group">
-											<div class="col-md-12 col-sm-12">
-												<div class="fancy-form fancy-form-select">
-													<select class="form-control select2" id="rekom_unit" disabled>
-														<option>--- Pilih Unit Rekomendasi ---</option>
-														@foreach ($units as $unit)
-															<option value="{{ $unit->id }}">{{ $unit->nama }}</option>
-														@endforeach
-													</select>
-
-													<i class="fancy-arrow"></i>
-												</div>
-											</div>
-										</div>
-									</div>
-
-									<div class="row">
-										<div class="form-group">
-											<div class="col-md-6 col-sm-6">
-												<select class="form-control" id="rekom_formasi" disabled>
-													<option>--- Formasi ---</option>
-												</select>
-											</div>
-
-											<div class="col-md-6 col-sm-6">
-												<select class="form-control" name="kode_olah" id="rekom_jabatan" disabled>
-													<option>--- Jabatan ---</option>
-												</select>
-											</div>
-										</div>
-									</div>
-
-								</div>
 							</div>
 						</fieldset>
 					</div>

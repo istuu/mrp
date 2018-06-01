@@ -305,6 +305,9 @@ use Carbon\Carbon;
 							<li class="">
 								<a class="tabselect" href="#request" data-toggle="tab">Bursa Jabatan</a>
 							</li>
+							<li class="">
+								<a class="tabselect" href="#fnpw" data-toggle="tab">FNP&W</a>
+							</li>
 						</ul>
 
 						<span class="title elipsis pull-right">
@@ -561,6 +564,11 @@ use Carbon\Carbon;
 									<h3 class="text-center">Tidak ada data</h3>
 								@endif
 							</div>
+
+							<div id="fnpw" class="tab-pane">
+
+							</div>
+
 						</div>
 					</div>
 					<!-- /panel content -->

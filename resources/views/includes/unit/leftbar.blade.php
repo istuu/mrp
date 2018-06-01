@@ -34,9 +34,9 @@
 				<i class="main-icon fa fa-arrow-circle-right"></i> <span>Mutasi Diajukan</span>
 			</a>
 			<ul>
-				<li><a href="{{ url('status') }}/?act=minta"><span>Permintaan Pegawai</span></a></li>
-				<li><a href="{{ url('status') }}/?act=req"><span>Pengajuan Pegawai</span></a></li>
-				<li><a href="{{ url('status') }}/?act=reqjab"><span>Pengajuan Jabatan</span></a></li>
+				<li><a href="{{ url('status') }}/?act=minta"><span>Request</span></a></li>
+				<li><a href="{{ url('status') }}/?act=req"><span>Propose</span></a></li>
+				<li><a href="{{ url('status') }}/?act=reqjab"><span>Vacancies</span></a></li>
 			</ul>
 		</li>
 

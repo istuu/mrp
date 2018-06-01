@@ -55,7 +55,16 @@
 									<div class="form-group">
 										<div class="col-md-12 col-sm-12">
 											<label>Unit</label>
-											<input type="text" class="form-control"  id="unit_id" class="form-control pointer required" required value="{{$personnelarea->nama}}" disabled>
+											@if(auth()->user()->user_role !== '0')
+												<input type="text" class="form-control"  id="unit_id" class="form-control pointer required" required value="{{$personnelarea->nama}}" disabled>
+											@else
+												<select class="form-control select2" id="unit_id" required>
+													<option>---Pilih Unit---</option>
+													@foreach($personnelarea as $p)
+														<option value="{{$p->nama}}"> {{$p->nama }} </option>
+													@endforeach
+												</select>
+											@endif
 										</div>
 									</div>
 								</div>
@@ -189,6 +198,28 @@
 												<option value="S2">S2</option>
 												<option value="S3">S3</option>
 											</select>
+										</div>
+									</div>
+								</div>
+
+								<div class="row">
+									<div class="form-group">
+										<div class="col-md-6 col-sm-6">
+											<label>
+												Open Time Vacancies
+											</label>
+											<select id="open_time" class="form-control">
+												<option value="">-- Please Select --</option>
+												<option value="0">Tak terbatas</option>
+												<option value="1">s.d Tanggal</option>
+											<select>
+										</div>
+										<div id="open_time_date" class="col-md-6 col-sm-6">
+											<label>
+												&nbsp;
+											</label>
+											<!-- date picker -->
+											<input type="text" name="open_time_vacancies" class="form-control datepicker" data-format="yyyy-mm-dd" data-lang="en" data-RTL="false">
 										</div>
 									</div>
 								</div>
@@ -432,6 +463,7 @@
 	                { "data": "kosong" }
 	            ],
 	        });
+			$("#open_time_date").hide();
 	    });
 	</script>
 
@@ -461,6 +493,13 @@
 					$("#lc_id").val(data.legacy_code);
 				}
 			});
+		});
+		$("#open_time").change(function(){
+			if($(this).val() == 1){
+				$("#open_time_date").show();
+			}else{
+				$("#open_time_date").hide();
+			}
 		});
 	</script>
 

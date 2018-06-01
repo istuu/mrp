@@ -36,14 +36,19 @@ class MutasiController extends Controller
     	if($tipe === '1')
     	{
 
-            $personnelarea = auth()->user();
-            $formasis = $personnelarea->formasi_jabatan()->select('formasi')->distinct()->get()->all();
+            if(auth()->user()->user_role !== "0"){
+                $personnelarea = auth()->user();
+                $formasis = $personnelarea->formasi_jabatan()->select('formasi')->distinct()->get()->all();
+            }else{
+                $personnelarea = PersonnelArea::where('user_role','<>','0')->get();
+                $formasis = FormasiJabatan::select('formasi')->where('kode_olah','<>','000')->get();
+            }
 
     		return view('pages.unit.meminta',compact('units','personnelarea','formasis'));
     	}
     	else if($tipe === '2')
     	{
-            $units    = PersonnelArea::all();
+            $units    = PersonnelArea::where('user_role','<>','0')->get();
             $keys     = KeyCompetencies::orderBy('sequence')->get();
             $dailys   = DailyCompetencies::orderBy('sequence')->get();
             $jenjangs = FormasiJabatan::select('jenjang_txt')->groupBy('jenjang_txt')->get();
@@ -52,8 +57,13 @@ class MutasiController extends Controller
     	}
     	else if($tipe === '3')
     	{
-            $personnelarea = auth()->user();
-            $formasis = $personnelarea->formasi_jabatan()->select('formasi')->distinct()->get()->all();
+            if(auth()->user()->user_role !== "0"){
+                $personnelarea = auth()->user();
+                $formasis = $personnelarea->formasi_jabatan()->select('formasi')->distinct()->get()->all();
+            }else{
+                $personnelarea = PersonnelArea::where('user_role','<>','0')->get();
+                $formasis = FormasiJabatan::select('formasi')->where('kode_olah','<>','000')->get();
+            }
 
     		return view('pages.unit.request_jabatan',compact('personnelarea','formasis'));
     	}
