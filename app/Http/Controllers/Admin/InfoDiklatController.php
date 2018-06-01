@@ -160,7 +160,7 @@ class InfoDiklatController extends AdminController
         $this->path  = 'site/exports/Diklat Database.xls';
         return $this->handleExport(Model::get(), 'Diklat Database', $this->path);
     }
-	
+
 	/**
      * Set action get view for import
      *
@@ -192,28 +192,28 @@ class InfoDiklatController extends AdminController
 						 $model->judul_diklat    = $data->judul_diklat;
 						 $model->tanggal_mulai   = $data->tanggal_mulai;
 						 $model->tanggal_selesai   = $data->tanggal_selesai;
-						 $model->tanggal_sertifikat   = $data->tanggal_selesai;
+						 $model->tanggal_sertifikat   = $data->tanggal_sertifikat;
 						 $model->kode_sertifikat   = $data->kode_sertifikat;
-						 $model->kelompok_prestasi   = $data->grade;
-						 $model->nilai_angka   = $data->nilai;
-						 $model->hasil   = $data->rangking;
+                         $model->nilai_angka   = $data->nilai_angka;
+						 $model->kelompok_prestasi   = $data->kelompok_prestasi;
+						 $model->hasil   = $data->hasil;
 						 $model->updated_at  = Carbon::now();
 						 $model->save();
 					 }else{
 						 $model = new Model;
 						 $model->nip    = $data->nip;
-						 $model->judul_diklat    = $data->judul_diklat;
-						 $model->tanggal_mulai   = $data->tanggal_mulai;
-						 $model->tanggal_selesai   = $data->tanggal_selesai;
-						 $model->tanggal_sertifikat   = $data->tanggal_selesai;
-						 $model->kode_sertifikat   = $data->kode_sertifikat;
-						 $model->kelompok_prestasi   = $data->grade;
-						 $model->nilai_angka   = $data->nilai;
-						 $model->hasil   = $data->rangking;
+                         $model->judul_diklat    = $data->judul_diklat;
+                         $model->tanggal_mulai   = $data->tanggal_mulai;
+                         $model->tanggal_selesai   = $data->tanggal_selesai;
+                         $model->tanggal_sertifikat   = $data->tanggal_sertifikat;
+                         $model->kode_sertifikat   = $data->kode_sertifikat;
+                         $model->nilai_angka   = $data->nilai_angka;
+                         $model->kelompok_prestasi   = $data->kelompok_prestasi;
+                         $model->hasil   = $data->hasil;
 						 $model->created_at  = Carbon::now();
 						 $model->save();
 					 }
-                       
+
                  }
              });
              DB::commit();
