@@ -14,7 +14,7 @@ class AddColumnJabatanAfterFormasiInFormasiJabatanTable extends Migration
     public function up()
     {
         Schema::table('formasi_jabatan', function (Blueprint $table) {
-            $table->string('jabatan')->after('formasi')->nullable();
+            //$table->string('jabatan')->after('formasi')->nullable();
         });
     }
 
@@ -26,7 +26,7 @@ class AddColumnJabatanAfterFormasiInFormasiJabatanTable extends Migration
     public function down()
     {
         Schema::table('formasi_jabatan', function (Blueprint $table) {
-            $table->dropColumn(['jabatan']);
+            //$table->dropColumn(['jabatan']);
         });
     }
 }
