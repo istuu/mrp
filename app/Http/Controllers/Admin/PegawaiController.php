@@ -40,7 +40,7 @@ class PegawaiController extends AdminController
      *
      * @doc ['create', 'edit', 'delete', 'detail', 'import', 'export']
      */
-    protected $actions = ['create', 'edit', 'delete', 'import', 'export', 'view'];
+    protected $actions = ['edit', 'import', 'export', 'view'];
 
     /**
      * Initiate global variable and middleware
@@ -204,44 +204,71 @@ class PegawaiController extends AdminController
              DB::beginTransaction();
              Excel::load($file, function($reader) {
                  foreach($reader->get() as $data){
+                     dd($data);
                      if($data->nip !== null){
                          //Legacy Code aslinya ga boleh sama
                          $cek = Model::where('nip',$data->nip)->count();
                          if($cek > 0){
                              $model = Model::where('nip',$data->nip)->first();
-                             $model->legacy_code     = $data->legacy_code;
                              $model->perner  = $data->perner;
                              $model->nama_pegawai  = $data->nama;
+                             $model->employee_group  = $data->employee_group;
                              $model->employee_subgroup  = $data->employee_subgroup;
                              $model->ps_group  = $data->ps_group;
+                             $model->jenjang_mgid  = $data->jenjang_mgid;
+                             $model->jenjang_mgt  = $data->jenjang_mgt;
+                             $model->jenjang_sgid  = $data->jenjang_sgid;
+                             $model->jenjang_sgt  = $data->jenjang_sgt;
+                             $model->formasi_jabatan_id  = $this->getFormasiJabatan($data);
+                             $model->legacy_code     = $data->legacy_code;
                              $model->talent_pool_position  = $data->talent_pool_position;
-                             $model->tanggal_grade = $data->tanggal_grade;
-                             $model->tanggal_lahir = $data->tanggal_lahir;
-                             $model->tanggal_masuk = $data->tanggal_masuk;
-                             $model->tanggal_capeg = $data->tanggal_capeg;
-                             $model->tanggal_pegawai = $data->tanggal_pegawai;
-                             $model->start_date = $data->start_date;
-                             $model->end_date = $data->end_date;
+                             $model->company_code  = $data->company_code;
+                             $model->personnel_area_id  = $this->getPersonnelArea($data,'nama');
+                             $model->tanggal_grade = Carbon::parse(strtotime($data->tanggal_grade));
+                             $model->tanggal_lahir = Carbon::parse(strtotime($data->birth_date));
+                             $model->tanggal_masuk = Carbon::parse(strtotime($data->tanggal_masuk));
+                             $model->tanggal_capeg = Carbon::parse(strtotime($data->tanggal_capeg));
+                             $model->tanggal_pegawai = Carbon::parse(strtotime($data->tanggal_pegawai_tetap));
+                             $model->start_date = Carbon::parse(strtotime($data->start_date));
+                             $model->end_date = Carbon::parse(strtotime($data->end_date));
+                             $model->email = $data->email;
+                             $model->kali_jenjang = $data->kali_jenjang;
+                             $model->lama_jabat_di_unit_terakhir = $data->lama_jabat_di_unit_terakhir;
+                             $model->lama_di_unit_induk_terakhir = $data->lama_di_unit_induk_terakhir;
+                             $model->sisa_masa_kerja = $data->sisa_masa_kerja;
+                             $model->masa_kerja = $data->masa_kerja;
                              $model->updated_at  = Carbon::now();
                              $model->save();
                          }else{
                              $model = new Model;
-                             $model->id      = \Uuid::generate();
-                             $model->legacy_code     = $data->legacy_code;
-                             $model->nip     = $data->nip;
                              $model->perner  = $data->perner;
                              $model->nama_pegawai  = $data->nama;
+                             $model->employee_group  = $data->employee_group;
                              $model->employee_subgroup  = $data->employee_subgroup;
                              $model->ps_group  = $data->ps_group;
+                             $model->jenjang_mgid  = $data->jenjang_mgid;
+                             $model->jenjang_mgt  = $data->jenjang_mgt;
+                             $model->jenjang_sgid  = $data->jenjang_sgid;
+                             $model->jenjang_sgt  = $data->jenjang_sgt;
+                             $model->formasi_jabatan_id  = $this->getFormasiJabatan($data);
+                             $model->legacy_code     = $data->legacy_code;
                              $model->talent_pool_position  = $data->talent_pool_position;
-                             $model->tanggal_grade = $data->tanggal_grade;
-                             $model->tanggal_lahir = $data->tanggal_lahir;
-                             $model->tanggal_masuk = $data->tanggal_masuk;
-                             $model->tanggal_capeg = $data->tanggal_capeg;
-                             $model->tanggal_pegawai = $data->tanggal_pegawai;
-                             $model->start_date = $data->start_date;
-                             $model->end_date = $data->end_date;
-                             $model->created_at = Carbon::now();
+                             $model->company_code  = $data->company_code;
+                             $model->personnel_area_id  = $this->getPersonnelArea($data,'nama');
+                            //  $model->tanggal_grade = Carbon::parse(strtotime($data->tanggal_grade));
+                            //  $model->tanggal_lahir = Carbon::parse(strtotime($data->birth_date));
+                            //  $model->tanggal_masuk = Carbon::parse(strtotime($data->tanggal_masuk));
+                            //  $model->tanggal_capeg = Carbon::parse(strtotime($data->tanggal_capeg));
+                            //  $model->tanggal_pegawai = Carbon::parse(strtotime($data->tanggal_pegawai_tetap));
+                            //  $model->start_date = Carbon::parse(strtotime($data->start_date));
+                            //  $model->end_date = Carbon::parse(strtotime($data->end_date));
+                             $model->email = $data->email;
+                             $model->kali_jenjang = $data->kali_jenjang;
+                             $model->lama_jabat_di_unit_terakhir = $data->lama_jabat_di_unit_terakhir;
+                             $model->lama_di_unit_induk_terakhir = $data->lama_di_unit_induk_terakhir;
+                             $model->sisa_masa_kerja = $data->sisa_masa_kerja;
+                             $model->masa_kerja = $data->masa_kerja;
+                              $model->created_at = Carbon::now();
                              $model->save();
                          }
                      }

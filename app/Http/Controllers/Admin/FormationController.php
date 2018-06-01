@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\AdminController;
 use Kris\LaravelFormBuilder\FormBuilder;
 use App\FormasiJabatan as Model;
+use App\Direktorat;
 use App\Models\Legacy;
 use App\Forms\FormationForm;
 use Carbon\Carbon;
@@ -191,51 +192,52 @@ class FormationController extends AdminController
              Excel::load($file, function($reader) {
                  foreach($reader->get() as $data){
                      if($data->kode_olah !== null){
-                         //Legacy Code aslinya ga boleh sama
                          $cek = Model::where('kode_olah',$data->kode_olah)->count();
                          if($cek > 0){
                              $model = Model::where('kode_olah',$data->kode_olah)->first();
                              $model->kode_olah  = $data->kode_olah;
-                             $model->legacy_code = $data->kodeorganak;
-                             // $model->urut       = $data->urut;
-                             // $model->direktorat = $data->direktorat;
+                             $model->direktorat_id   = $this->getDirektorat($data);
+                             $model->personnel_area_id   = $this->getPersonnelArea($data,'nama_pendek');
                              $model->level      = $data->lv;
-                             $model->kelas_unit = $data->kls_unit;
-                             $model->personnel_area_id   = $data->personnel_area;
+                             $model->kode_induk = $data->kode_induk;
+                             $model->kode_formasi_jabatan = $data->kode_formasi_jabatan;
                              $model->formasi    = $data->formasi;
                              $model->jabatan    = $data->jabatan;
-                             $model->jenjang_id = $data->jenjang_main;
-                             $model->jenjang_txt  = $data->jenjang_sub;
-                             $model->posisi  = $data->posisi_pada_unit;
-                             // $model->kode_profesi = $data->kode_profesi;
-                             // $model->jenis      = $data->jenis;
-                             // $model->hitung     = $data->hitung;
-                             // $model->revisi     = $data->revisi;
-                             $model->pagu        = 1;
-                             $model->spfj        = $data->revisi;
+                             $model->pagu       = 1;
+                             $model->hasil = $data->hasil;
+                             $model->kelas_unit = $data->kls_unit;
+                             $model->hgl = $data->hgl;
+                             $model->jenjang_main = $data->jenjang_main;
+                             $model->jenjang_sub  = $data->jenjang_sub;
+                             $model->posisi_pada_unit  = $data->posisi_pada_unit;
+                             $model->profesi  = $data->profesi;
+                             $model->kode_profesi  = $data->kode_profesi;
+                             $model->legacy_code = $data->kodeorganak;
+                             $model->spfj        = $data->spfj;
                              $model->updated_at  = Carbon::now();
                              $model->save();
                          }else{
                              $model = new Model;
                              $model->id          = \Uuid::generate();
                              $model->kode_olah   = $data->kode_olah;
-                             $model->legacy_code = $data->kodeorganak;
-                             // $model->urut       = $data->urut;
-                             // $model->direktorat = $data->direktorat;
+                             $model->direktorat_id   = $this->getDirektorat($data);
+                             $model->personnel_area_id   = $this->getPersonnelArea($data,'nama_pendek');
                              $model->level      = $data->lv;
-                             $model->kelas_unit = $data->kls_unit;
-                             $model->personnel_area_id   = $data->personnel_area;
+                             $model->kode_induk      = $data->kode_induk;
+                             $model->kode_formasi_jabatan = $data->kode_formasi_jabatan;
                              $model->formasi    = $data->formasi;
                              $model->jabatan    = $data->jabatan;
-                             $model->jenjang_id = $data->jenjang_main;
-                             $model->jenjang_txt  = $data->jenjang_sub;
-                             $model->posisi  = $data->posisi_pada_unit;
-                             // $model->kode_profesi = $data->kode_profesi;
-                             // $model->jenis      = $data->jenis;
-                             // $model->hitung     = $data->hitung;
-                             // $model->revisi     = $data->revisi;
                              $model->pagu       = 1;
-                             $model->spfj       = $data->revisi;
+                             $model->hasil = $data->hasil;
+                             $model->kelas_unit = $data->kls_unit;
+                             $model->hgl = $data->hgl;
+                             $model->jenjang_main = $data->jenjang_main;
+                             $model->jenjang_sub  = $data->jenjang_sub;
+                             $model->posisi_pada_unit  = $data->posisi_pada_unit;
+                             $model->profesi  = $data->profesi;
+                             $model->kode_profesi  = $data->kode_profesi;
+                             $model->legacy_code = $data->kodeorganak;
+                             $model->spfj        = $data->spfj;
                              $model->created_at = Carbon::now();
                              $model->save();
                          }
@@ -296,7 +298,7 @@ class FormationController extends AdminController
     */
    public function view($id)
    {
-       $model = Model::select('kode_olah','legacy_code','level','posisi','kelas_unit','hgl','formasi','jenjang_id',
+       $model = Model::select('kode_olah','legacy_code','level','posisi','kelas_unit','hgl','formasi','jenjang_main',
                               'jenjang_txt','pagu','spfj')
                   ->find($id);
        return view('pages.base.view',[

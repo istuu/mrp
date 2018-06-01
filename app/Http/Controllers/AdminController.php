@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
-
+use App\FormasiJabatan;
+use App\PersonnelArea;
+use App\Direktorat;
 class AdminController extends Controller
 {
     /**
@@ -111,6 +113,74 @@ class AdminController extends Controller
 
          }catch(\Exception $e){
              return redirect()->back()->with('error',$e->getMessage());
+         }
+     }
+
+     /**
+      * Get Personnel Area ID
+      * @param  array $data [description]
+      * @return int        [description]
+      */
+     public function getPersonnelArea($data,$column)
+     {
+         if(PersonnelArea::where($column,$data->personnel_area)->count() < 1){
+             $user = new PersonnelArea;
+             $user->id = \Uuid::generate();
+             $user->nama = $data->personnel_area;
+             $user->nama_pendek = $data->personnel_area;
+             $user->username = strtolower($data->personnel_area);
+             $user->password = bcrypt($data->personnel_area);
+             $user->direktorat_id = $this->getDirektorat($data);
+             $user->user_role = 1;
+             $user->save();
+         }else{
+             $user = PersonnelArea::where($column,$data->personnel_area)->first();
+             $user->nama = $data->personnel_area;
+             $user->nama_pendek = $data->personnel_area;
+             $user->username = strtolower($data->personnel_area);
+             $user->password = bcrypt($data->personnel_area);
+             $user->direktorat_id = $this->getDirektorat($data);
+             $user->user_role = 1;
+             $user->save();
+         }
+         return $user->id;
+     }
+
+
+     /**
+      * Get Direktorat ID
+      * @param  array $model [description]
+      * @return int        [description]
+      */
+     public function getDirektorat($data)
+     {
+         if(Direktorat::where('nama_pendek',$data->direktorat)->count() < 1){
+             $dir = new Direktorat;
+             $dir->id = \Uuid::generate();
+             $dir->nama = $data->direktorat;
+             $dir->nama_pendek = $data->direktorat;
+             $dir->save();
+         }else{
+             $dir = Direktorat::where('nama_pendek',$data->direktorat)->first();
+             $dir->nama = $data->direktorat;
+             $dir->nama_pendek = $data->direktorat;
+             $dir->save();
+         }
+         return $dir->id;
+     }
+
+     /**
+      * Get Formasi Jabatan
+      * @param  array $data [description]
+      * @return int        [description]
+      */
+     public function getFormasiJabatan($data)
+     {
+         if(FormasiJabatan::where([['legacy_code',$data->legacy_code],['jenjang_sub',$jenjang_sgt],])->count() < 1){
+             return "0";
+         }else{
+             $user = FormasiJabatan::where([['legacy_code',$data->legacy_code],['jenjang_sub',$jenjang_sgt],])->first();
+             return $user->id;
          }
      }
 }

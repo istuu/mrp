@@ -6,8 +6,12 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\AdminController;
 use Kris\LaravelFormBuilder\FormBuilder;
 use App\PersonnelArea as Model;
+use App\Direktorat;
 use App\Forms\PersonnelForm;
+use Carbon\Carbon;
 use Table;
+use Excel;
+use DB;
 
 class PersonnelController extends AdminController
 {
@@ -22,14 +26,14 @@ class PersonnelController extends AdminController
      * Column that will be shown in listing
      *
      */
-    protected $columns = ['nama', 'nama_pendek'];
+    protected $columns = ['nama', 'sub_area','nama_pendek'];
 
     /**
      * Initiate actions
      *
      * @doc ['create', 'edit', 'delete', 'detail', 'import', 'export']
      */
-    protected $actions = ['create', 'edit', 'delete'];
+    protected $actions = ['create', 'edit', 'delete', 'import'];
 
     /**
      * Initiate global variable and middleware
@@ -148,4 +152,62 @@ class PersonnelController extends AdminController
         $this->model->where('id',$id)->delete();
         return redirect('personnels')->with('success','Data Berhasil dihapus!');
     }
+
+    /**
+     * Set action get view for import
+     *
+     * @return string
+     */
+    public function import()
+    {
+        $title = $this->title;
+
+        return view('pages.base.import',compact(['title']));
+    }
+
+    /**
+     * Set action post import
+     *
+     * @return string redirect
+     */
+     public function postImport(Request $request){
+         $file = $request->file('qqfile');
+         $uuid = $request->all()['qquuid'];
+         try{
+             DB::beginTransaction();
+             Excel::load($file, function($reader) {
+                 foreach($reader->get() as $data){
+                     if($data->singkatan_pa !== null){
+                         $cek = Model::where('nama_pendek',$data->singkatan_pa)->count();
+                         if($cek > 0){
+                             $user = Model::where('nama_pendek',$data->singkatan_pa)->first();
+                             $user->nama = $data->personnel_area;
+                             $user->sub_area = $data->personnel_subarea;
+                             $user->nama_pendek = $data->singkatan_pa;
+                             $user->username = strtolower($data->singkatan_pa);
+                             $user->password = bcrypt($data->singkatan_pa);
+                             $user->user_role = 1;
+                             $user->save();
+                         }else{
+                             $user = new Model;
+                             $user->id = \Uuid::generate();
+                             $user->nama = $data->personnel_area;
+                             $user->sub_area = $data->personnel_subarea;
+                             $user->nama_pendek = $data->singkatan_pa;
+                             $user->username = strtolower($data->singkatan_pa);
+                             $user->password = bcrypt($data->singkatan_pa);
+                             $user->direktorat_id = Direktorat::first()->id;
+                             $user->user_role = 1;
+                             $user->save();
+                         }
+                     }
+                 }
+             });
+             DB::commit();
+             return array("success" => true, "uuid" => $uuid);
+         }catch(\Exception $e){
+             DB::rollback();
+             return array("success" => false, "uuid" => $uuid, "message" => $e->getMessage());
+         }
+     }
 }

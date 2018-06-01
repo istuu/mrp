@@ -80,7 +80,7 @@
 				<i class="main-icon fa fa-user"></i> <span>Data Pegawai</span>
 			</a>
 		</li>
-		<li class="{{ checkParentActive(['legacies', 'formations']) }}">
+		<li class="{{ checkParentActive(['legacies', 'formations', 'personnels']) }}">
 			<a href="#">
 				<i class="fa fa-menu-arrow pull-right"></i>
 				<i class="main-icon fa fa-briefcase"></i> <span>Jabatan</span>
@@ -88,6 +88,7 @@
 			<ul>
 				<li class="{{ checkChildActive('legacies') }}"><a href="{{ url('legacies') }}"><span>Legacy Codes</span></a></li>
 				<li class="{{ checkChildActive('formations') }}"><a href="{{ url('formations') }}"><span>Formasi Jabatan</span></a></li>
+				<li class="{{ checkChildActive('personnels') }}"><a href="{{ url('personnels') }}"><span>Personnel Area</span></a></li>
 			</ul>
 		</li>
 		<li class="{{ checkParentActive(['key_competencies', 'daily_competencies']) }}">
@@ -100,16 +101,15 @@
 				<li class="{{ checkChildActive('daily_competencies') }}"><a href="{{ url('daily_competencies') }}"><span>Kompetensi Lainnya</span></a></li>
 			</ul>
 		</li>
-		<li class="{{ checkParentActive(['roles','personnels']) }}">
+		<!-- <li class="{{ checkParentActive(['roles','personnels']) }}">
 			<a href="#">
 				<i class="fa fa-menu-arrow pull-right"></i>
 				<i class="main-icon fa fa-users"></i> <span>Manajemen Users</span>
 			</a>
 			<ul>
-				<li class="{{ checkChildActive('personnels') }}"><a href="{{ url('personnels') }}"><span>Personnel Area</span></a></li>
 				<li class="{{ checkChildActive('roles') }}"><a href="{{ url('roles') }}"><span>Roles</span></a></li>
 			</ul>
-		</li>
+		</li> -->
 		<li class="{{ checkParentActive(['info_diklats']) }}">
 			<a href="{{ url('info_diklats') }}">
 				<i class="main-icon fa fa-clipboard"></i> <span>Info Diklat</span>
