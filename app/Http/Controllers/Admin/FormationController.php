@@ -30,7 +30,7 @@ class FormationController extends AdminController
     protected $columns = [
         'legacy_code',
         // 'kode_olah',
-        'personnel_area_id',
+        // 'personnel_area_id',
         'level',
         'formasi',
         'jabatan',

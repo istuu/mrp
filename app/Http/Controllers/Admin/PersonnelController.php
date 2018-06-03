@@ -181,7 +181,7 @@ class PersonnelController extends AdminController
                          $cek = Model::where('nama_pendek',$data->singkatan_pa)->count();
                          if($cek > 0){
                              $user = Model::where('nama_pendek',$data->singkatan_pa)->first();
-                             $user->nama = $data->personnel_area;
+                             $user->nama = $data->nama_panjang;
                              $user->sub_area = $data->personnel_subarea;
                              $user->nama_pendek = $data->singkatan_pa;
                              $user->username = strtolower($data->singkatan_pa);
@@ -191,7 +191,7 @@ class PersonnelController extends AdminController
                          }else{
                              $user = new Model;
                              $user->id = \Uuid::generate();
-                             $user->nama = $data->personnel_area;
+                             $user->nama = $data->nama_panjang;
                              $user->sub_area = $data->personnel_subarea;
                              $user->nama_pendek = $data->singkatan_pa;
                              $user->username = strtolower($data->singkatan_pa);
