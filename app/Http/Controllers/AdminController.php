@@ -126,20 +126,24 @@ class AdminController extends Controller
          if(PersonnelArea::where($column,$data->personnel_area)->count() < 1){
              $user = new PersonnelArea;
              $user->id = \Uuid::generate();
-             $user->nama = $data->personnel_area;
-             $user->nama_pendek = $data->personnel_area;
+             $user->personnel_area = $data->personnel_area;
+             $user->sub_area = $data->personnel_subarea;
+             // $user->nama_panjang = $data->personnel_area;
+             $user->nama_pendek = '';
              $user->username = strtolower($data->personnel_area);
              $user->password = bcrypt($data->personnel_area);
-             $user->direktorat_id = $this->getDirektorat($data);
+             $user->direktorat_id = isset($data->direktorat) ? $this->getDirektorat($data):'0';
              $user->user_role = 1;
              $user->save();
          }else{
              $user = PersonnelArea::where($column,$data->personnel_area)->first();
-             $user->nama = $data->personnel_area;
-             $user->nama_pendek = $data->personnel_area;
+             $user->personnel_area = $data->personnel_area;
+             $user->sub_area = $data->personnel_subarea;
+             // $user->nama_panjang = $data->personnel_area;
+             $user->nama_pendek = '';
              $user->username = strtolower($data->personnel_area);
              $user->password = bcrypt($data->personnel_area);
-             $user->direktorat_id = $this->getDirektorat($data);
+             $user->direktorat_id = isset($data->direktorat) ? $this->getDirektorat($data):'0';
              $user->user_role = 1;
              $user->save();
          }
@@ -176,10 +180,25 @@ class AdminController extends Controller
       */
      public function getFormasiJabatan($data)
      {
-         if(FormasiJabatan::where([['legacy_code',$data->legacy_code],['jenjang_sub',$jenjang_sgt],])->count() < 1){
+         if(FormasiJabatan::where([['legacy_code',$data->legacy_code],['jenjang_sub',$data->jenjang_sgt],])->count() < 1){
              return "0";
          }else{
-             $user = FormasiJabatan::where([['legacy_code',$data->legacy_code],['jenjang_sub',$jenjang_sgt],])->first();
+             $user = FormasiJabatan::where([['legacy_code',$data->legacy_code],['jenjang_sub',$data->jenjang_sgt],])->first();
+             return $user->id;
+         }
+     }
+
+     /**
+      * Get Personnel Area untuk data pegawai
+      * @param  array $data [description]
+      * @return int        [description]
+      */
+     public function getPersonnelAreaDapeg($data)
+     {
+         if(PersonnelArea::where([['personnel_area_dapeg',$data->personnel_area],['sub_area_dapeg',$data->personnel_subarea],])->count() < 1){
+             return "0";
+         }else{
+             $user = PersonnelArea::where([['personnel_area_dapeg',$data->personnel_area],['sub_area_dapeg',$data->personnel_subarea],])->first();
              return $user->id;
          }
      }

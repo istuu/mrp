@@ -24,7 +24,7 @@ class InfoDiklatController extends AdminController
      * Column that will be shown in listing
      *
      */
-    protected $columns = ['nip', 'judul_diklat', 'tanggal_mulai', 'tanggal_selesai', 'tanggal_sertifikat', 'kode_sertifikat', 'kelompok_prestasi', 'nilai_angka', 'hasil'];
+    protected $columns = ['nip', 'nama_pegawai', 'judul_diklat', 'tanggal_mulai', 'tanggal_selesai', 'tanggal_sertifikat', 'kode_sertifikat', 'kelompok_prestasi', 'nilai_angka', 'hasil'];
 
     /**
      * Initiate actions
@@ -65,7 +65,8 @@ class InfoDiklatController extends AdminController
      * @return array json_encode
      */
      public function ajaxDatatables(){
-         $model = Model::all();
+         $model = Model::select('info_diklats.nip', 'pegawai.nama_pegawai', 'judul_diklat', 'tanggal_mulai', 'tanggal_selesai', 'tanggal_sertifikat', 'kode_sertifikat', 'kelompok_prestasi', 'nilai_angka', 'hasil')
+                        ->join('pegawai','pegawai.nip','=','info_diklats.nip');
          $table = Table::of($model)
                      ->addColumn('action',function($model){
                          return $this->handleAction($model->id, $this->actions);

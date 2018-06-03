@@ -31,7 +31,7 @@ class PegawaiController extends AdminController
         'perner',
         'nama_pegawai',
         'nip',
-        'no_hp',
+        'telepon',
         'email',
     ];
 
@@ -161,7 +161,7 @@ class PegawaiController extends AdminController
         if(isset($request->image)){
             $inputs['image'] = $this->handleUpload($request,'image');
         }else{
-            $image = Pegawai::find($id)->image;
+            $image = Model::find($id)->image;
             $inputs['image'] = $image;
         }
 
@@ -204,7 +204,6 @@ class PegawaiController extends AdminController
              DB::beginTransaction();
              Excel::load($file, function($reader) {
                  foreach($reader->get() as $data){
-                     dd($data);
                      if($data->nip !== null){
                          //Legacy Code aslinya ga boleh sama
                          $cek = Model::where('nip',$data->nip)->count();
@@ -223,24 +222,27 @@ class PegawaiController extends AdminController
                              $model->legacy_code     = $data->legacy_code;
                              $model->talent_pool_position  = $data->talent_pool_position;
                              $model->company_code  = $data->company_code;
-                             $model->personnel_area_id  = $this->getPersonnelArea($data,'nama');
-                             $model->tanggal_grade = Carbon::parse(strtotime($data->tanggal_grade));
-                             $model->tanggal_lahir = Carbon::parse(strtotime($data->birth_date));
-                             $model->tanggal_masuk = Carbon::parse(strtotime($data->tanggal_masuk));
-                             $model->tanggal_capeg = Carbon::parse(strtotime($data->tanggal_capeg));
-                             $model->tanggal_pegawai = Carbon::parse(strtotime($data->tanggal_pegawai_tetap));
-                             $model->start_date = Carbon::parse(strtotime($data->start_date));
-                             $model->end_date = Carbon::parse(strtotime($data->end_date));
+                             $model->personnel_area_id  = $this->getPersonnelAreaDapeg($data);
+                             // $model->tanggal_grade = Carbon::parse(strtotime($data->tanggal_grade));
+                             // $model->tanggal_lahir = Carbon::parse(strtotime($data->birth_date));
+                             // $model->tanggal_masuk = Carbon::parse(strtotime($data->tanggal_masuk));
+                             // $model->tanggal_capeg = Carbon::parse(strtotime($data->tanggal_capeg));
+                             // $model->tanggal_pegawai = Carbon::parse(strtotime($data->tanggal_pegawai_tetap));
+                             // $model->start_date = Carbon::parse(strtotime($data->start_date));
+                             // $model->end_date = Carbon::parse(strtotime($data->end_date));
                              $model->email = $data->email;
+                             $model->telepon = $data->telepon;
                              $model->kali_jenjang = $data->kali_jenjang;
                              $model->lama_jabat_di_unit_terakhir = $data->lama_jabat_di_unit_terakhir;
-                             $model->lama_di_unit_induk_terakhir = $data->lama_di_unit_induk_terakhir;
+                             // $model->lama_di_unit_induk_terakhir = $data->lama_di_unit_induk_terakhir;
                              $model->sisa_masa_kerja = $data->sisa_masa_kerja;
                              $model->masa_kerja = $data->masa_kerja;
                              $model->updated_at  = Carbon::now();
                              $model->save();
                          }else{
                              $model = new Model;
+                             $model->id = \Uuid::generate();
+                             $model->nip  = $data->nip;
                              $model->perner  = $data->perner;
                              $model->nama_pegawai  = $data->nama;
                              $model->employee_group  = $data->employee_group;
@@ -254,21 +256,22 @@ class PegawaiController extends AdminController
                              $model->legacy_code     = $data->legacy_code;
                              $model->talent_pool_position  = $data->talent_pool_position;
                              $model->company_code  = $data->company_code;
-                             $model->personnel_area_id  = $this->getPersonnelArea($data,'nama');
-                            //  $model->tanggal_grade = Carbon::parse(strtotime($data->tanggal_grade));
-                            //  $model->tanggal_lahir = Carbon::parse(strtotime($data->birth_date));
-                            //  $model->tanggal_masuk = Carbon::parse(strtotime($data->tanggal_masuk));
-                            //  $model->tanggal_capeg = Carbon::parse(strtotime($data->tanggal_capeg));
-                            //  $model->tanggal_pegawai = Carbon::parse(strtotime($data->tanggal_pegawai_tetap));
-                            //  $model->start_date = Carbon::parse(strtotime($data->start_date));
-                            //  $model->end_date = Carbon::parse(strtotime($data->end_date));
+                             $model->personnel_area_id  = $this->getPersonnelAreaDapeg($data,'nama');
+                             // $model->tanggal_grade = Carbon::parse(strtotime(isset($data->tanggal_grade) ? $data->tanggal_grade:'9999-01-01'));
+                             // $model->tanggal_lahir = Carbon::parse(strtotime(isset($data->birth_date) ? $data->birth_date:'9999-01-01'));
+                             // $model->tanggal_masuk = Carbon::parse(strtotime(isset($data->tanggal_masuk) ? $data->tanggal_masuk:'9999-01-01'));
+                             // $model->tanggal_capeg = Carbon::parse(strtotime(isset($data->tanggal_capeg) ? $data->tanggal_capeg:'9999-01-01'));
+                             // $model->tanggal_pegawai = Carbon::parse(strtotime(isset($data->tanggal_pegawai_tetap) ? $data->tanggal_pegawai_tetap:'9999-01-01'));
+                             // $model->start_date = Carbon::parse(strtotime(isset($data->start_date) ? $data->start_date:'9999-01-01'));
+                             // $model->end_date = Carbon::parse(strtotime(isset($data->end_date) ? $data->end_date:'9999-01-01'));
                              $model->email = $data->email;
+                             $model->telepon = $data->telepon;
                              $model->kali_jenjang = $data->kali_jenjang;
                              $model->lama_jabat_di_unit_terakhir = $data->lama_jabat_di_unit_terakhir;
-                             $model->lama_di_unit_induk_terakhir = $data->lama_di_unit_induk_terakhir;
+                             // $model->lama_di_unit_induk_terakhir = $data->lama_di_unit_induk_terakhir;
                              $model->sisa_masa_kerja = $data->sisa_masa_kerja;
                              $model->masa_kerja = $data->masa_kerja;
-                              $model->created_at = Carbon::now();
+                             $model->created_at = Carbon::now();
                              $model->save();
                          }
                      }

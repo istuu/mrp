@@ -197,7 +197,7 @@ class FormationController extends AdminController
                              $model = Model::where('kode_olah',$data->kode_olah)->first();
                              $model->kode_olah  = $data->kode_olah;
                              $model->direktorat_id   = $this->getDirektorat($data);
-                             $model->personnel_area_id   = $this->getPersonnelArea($data,'nama_pendek');
+                             $model->personnel_area_id   = $this->getPersonnelArea($data,'personnel_area');
                              $model->level      = $data->lv;
                              $model->kode_induk = $data->kode_induk;
                              $model->kode_formasi_jabatan = $data->kode_formasi_jabatan;
@@ -221,7 +221,7 @@ class FormationController extends AdminController
                              $model->id          = \Uuid::generate();
                              $model->kode_olah   = $data->kode_olah;
                              $model->direktorat_id   = $this->getDirektorat($data);
-                             $model->personnel_area_id   = $this->getPersonnelArea($data,'nama_pendek');
+                             $model->personnel_area_id   = $this->getPersonnelArea($data,'personnel_area');
                              $model->level      = $data->lv;
                              $model->kode_induk      = $data->kode_induk;
                              $model->kode_formasi_jabatan = $data->kode_formasi_jabatan;

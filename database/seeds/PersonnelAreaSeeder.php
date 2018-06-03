@@ -17,7 +17,8 @@ class PersonnelAreaSeeder extends Seeder
         if(PersonnelArea::where('user_role',0)->count() < 1){
             $user = new PersonnelArea;
             $user->id = Uuid::generate();
-            $user->nama = 'Superadmin';
+            $user->personnel_area = 'Superadmin';
+            $user->nama_panjang = 'Superadmin';
             $user->sub_area = 'Superadmin';
             $user->nama_pendek = 'Superadmin';
             $user->username = 'superadmin';

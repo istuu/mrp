@@ -26,7 +26,7 @@ class PersonnelController extends AdminController
      * Column that will be shown in listing
      *
      */
-    protected $columns = ['nama', 'sub_area','nama_pendek'];
+    protected $columns = ['personnel_area', 'sub_area', 'nama_panjang', 'nama_pendek'];
 
     /**
      * Initiate actions
@@ -67,7 +67,7 @@ class PersonnelController extends AdminController
      * @return array json_encode
      */
      public function ajaxDatatables(){
-         $model = Model::all();
+         $model = Model::where('user_role','<>',0)->get();
          $table = Table::of($model)
                      ->addColumn('action',function($model){
                          return $this->handleAction($model->id, $this->actions);
@@ -178,27 +178,35 @@ class PersonnelController extends AdminController
              Excel::load($file, function($reader) {
                  foreach($reader->get() as $data){
                      if($data->singkatan_pa !== null){
-                         $cek = Model::where('nama_pendek',$data->singkatan_pa)->count();
+                         $cek = Model::where([['personnel_area',$data->personnel_area],['sub_area',$data->personnel_subarea],])->count();
                          if($cek > 0){
-                             $user = Model::where('nama_pendek',$data->singkatan_pa)->first();
-                             $user->nama = $data->nama_panjang;
-                             $user->sub_area = $data->personnel_subarea;
+                             $user = Model::where([['personnel_area',$data->personnel_area],['sub_area',$data->personnel_subarea],])->first();
+                             // $user->personnel_area = $data->personnel_area;
+                             // $user->sub_area = $data->personnel_subarea;
+                             $user->personnel_area_dapeg = $data->personnel_area_dapeg;
+                             $user->sub_area_dapeg = $data->personnel_subarea_dapeg;
+                             $user->nama_panjang = $data->nama_panjang;
                              $user->nama_pendek = $data->singkatan_pa;
                              $user->username = strtolower($data->singkatan_pa);
-                             $user->password = bcrypt($data->singkatan_pa);
+                             $user->password = bcrypt(strtolower($data->singkatan_pa));
                              $user->user_role = 1;
                              $user->save();
                          }else{
-                             $user = new Model;
-                             $user->id = \Uuid::generate();
-                             $user->nama = $data->nama_panjang;
-                             $user->sub_area = $data->personnel_subarea;
-                             $user->nama_pendek = $data->singkatan_pa;
-                             $user->username = strtolower($data->singkatan_pa);
-                             $user->password = bcrypt($data->singkatan_pa);
-                             $user->direktorat_id = Direktorat::first()->id;
-                             $user->user_role = 1;
-                             $user->save();
+                             if(Model::where('username',strtolower($data->singkatan_pa))->count() < 1){
+                                 $user = new Model;
+                                 $user->id = \Uuid::generate();
+                                 $user->personnel_area = $data->personnel_area;
+                                 $user->sub_area = $data->personnel_subarea;
+                                 $user->personnel_area_dapeg = $data->personnel_area_dapeg;
+                                 $user->sub_area_dapeg = $data->personnel_subarea_dapeg;
+                                 $user->nama_panjang = $data->nama_panjang;
+                                 $user->nama_pendek = $data->singkatan_pa;
+                                 $user->username = strtolower($data->singkatan_pa);
+                                 $user->password = bcrypt(strtolower($data->singkatan_pa));
+                                 $user->direktorat_id = Direktorat::first()->id;
+                                 $user->user_role = 1;
+                                 $user->save();
+                             }
                          }
                      }
                  }
