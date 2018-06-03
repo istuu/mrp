@@ -40,20 +40,27 @@ class MutasiController extends Controller
                 $personnelarea = auth()->user();
                 $formasis = $personnelarea->formasi_jabatan()->select('formasi')->distinct()->get()->all();
             }else{
-                $personnelarea = PersonnelArea::select('personnel_area')->groupBy('personnel_area')->where('user_role','<>','0')->orderBy('personnel_area')->get();
-                $formasis = FormasiJabatan::select('formasi')->where('kode_olah','<>','000')->get();
+                $personnelarea = PersonnelArea::select('id','personnel_area')->where('user_role','<>','0')->orderBy('personnel_area')->get();
+                $formasis = FormasiJabatan::select('formasi')->groupBy('formasi')->where('kode_olah','<>','000')->get();
             }
 
     		return view('pages.unit.meminta',compact('units','personnelarea','formasis'));
     	}
     	else if($tipe === '2')
     	{
-            $units    = PersonnelArea::where('user_role','<>','0')->get();
+            if(auth()->user()->user_role !== "0"){
+                $personnelarea = auth()->user();
+                $formasis = $personnelarea->formasi_jabatan()->select('formasi')->distinct()->get()->all();
+            }else{
+                $personnelarea = PersonnelArea::select('id','personnel_area')->where('user_role','<>','0')->orderBy('personnel_area')->get();
+                $formasis = FormasiJabatan::select('formasi')->groupBy('formasi')->where('kode_olah','<>','000')->get();
+            }
+
             $keys     = KeyCompetencies::orderBy('sequence')->get();
             $dailys   = DailyCompetencies::orderBy('sequence')->get();
             $jenjangs = FormasiJabatan::select('jenjang_sub')->groupBy('jenjang_sub')->get();
 
-    		return view('pages.unit.bursa_pegawai', compact('units','keys', 'dailys', 'jenjangs'));
+    		return view('pages.unit.bursa_pegawai', compact('personnelarea', 'formasis','keys', 'dailys', 'jenjangs'));
     	}
     	else if($tipe === '3')
     	{
@@ -61,7 +68,7 @@ class MutasiController extends Controller
                 $personnelarea = auth()->user();
                 $formasis = $personnelarea->formasi_jabatan()->select('formasi')->distinct()->get()->all();
             }else{
-                $personnelarea = PersonnelArea::select('personnel_area')->groupBy('personnel_area')->where('user_role','<>','0')->orderBy('personnel_area')->get();
+                $personnelarea = PersonnelArea::select('personnel_area')->where('user_role','<>','0')->orderBy('personnel_area')->get();
                 $formasis = FormasiJabatan::select('formasi')->where('kode_olah','<>','000')->get();
             }
 
@@ -77,7 +84,6 @@ class MutasiController extends Controller
     {
         $pegawai = Pegawai::where('nip', request('nip'))->first();
         $user = auth()->user();
-
         if($pegawai)
         {
             $fj = $pegawai->formasi_jabatan;
@@ -96,7 +102,6 @@ class MutasiController extends Controller
             $diklat = InfoDiklat::where('nip',request('nip'))->orderBy('tanggal_sertifikat','desc')->first()->judul_diklat ?? 'Tidak ada Diklat';
             $pegawai->diklat = $diklat;
         }
-
         return response()->json($pegawai);
     }
 
@@ -130,15 +135,10 @@ class MutasiController extends Controller
 
     public function getFormasiJabs()
     {
-        $unit = auth()->user();
+        $personnel_area_id = request('personnel_area_id');
 
-        if($unit)
-        {
-            $retval = $unit->formasi_jabatan->where('formasi', request('formasi'))->where('kode_olah', '!=', request('kode_olah'))->pluck('jabatan', 'kode_olah')->toArray();
-            return response()->json($retval);
-        }
-        else
-            return response()->json(NULL);
+        $formasis = FormasiJabatan::where('personnel_area_id',$personnel_area_id)->orderBy('legacy_code')->get();
+        return view('includes.option-formasi',compact('formasis'));
     }
 
     public function getJabatanInfo()

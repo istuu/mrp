@@ -54,36 +54,39 @@
 									<div class="row">
 										<div class="form-group">
 											<div class="col-md-12 col-sm-12">
-												<div class="fancy-form fancy-form-select">
-													<select class="form-control select2" id="rekom_unit" disabled>
-														<option>--- Pilih Unit Rekomendasi ---</option>
-														@foreach ($units as $unit)
-															<option value="{{ $unit->id }}">{{ $unit->nama }}</option>
+												<label>Unit</label>
+												@if(auth()->user()->user_role !== '0')
+													<input type="text" class="form-control"  id="unit_id" class="form-control pointer required" required value="{{$personnelarea->personnel_area}}" disabled>
+												@else
+													<select class="form-control select2" id="unit_id" required>
+														<option>---Pilih Unit---</option>
+														@foreach($personnelarea as $p)
+															<option value="{{$p->id}}"> {{$p->personnel_area }} </option>
 														@endforeach
 													</select>
-
-													<i class="fancy-arrow"></i>
-												</div>
+												@endif
 											</div>
 										</div>
 									</div>
 
 									<div class="row">
 										<div class="form-group">
-											<div class="col-md-6 col-sm-6">
-												<select class="form-control" id="rekom_formasi" disabled>
-													<option>--- Formasi ---</option>
+											<div class="col-md-12 col-sm-12" >
+												<select class="form-control" id="rekom_formasi">
+													<option>---Pilih Formasi---</option>
+													@foreach($formasis as $formasi)
+														<option value="{{$formasi->formasi}}"> {{$formasi->formasi }} </option>
+													@endforeach
 												</select>
 											</div>
 
-											<div class="col-md-6 col-sm-6">
+											{{--<div class="col-md-6 col-sm-6">
 												<select class="form-control" name="kode_olah" id="rekom_jabatan" disabled>
 													<option>--- Jabatan ---</option>
 												</select>
-											</div>
+											</div>--}}
 										</div>
 									</div>
-
 								</div>
 								<br/>
 
@@ -606,6 +609,28 @@
 
 @section('includes-scripts')
 	@parent
+	@if(auth()->user()->user_role !== '0')
+		<script>
+
+		</script>
+	@else
+		<script>
+			$("#unit_id").change(function(){
+				var personnel_area_id = $(this).val();
+
+				$.ajax({
+					'url': '/mutasi/pengajuan/getFormasiJabs',
+					'type': 'GET',
+					'data': {
+						'personnel_area_id': personnel_area_id,
+					},
+					success: function(data){
+						$("#rekom_formasi").html(data);
+					}
+				});
+			})
+		</script>
+	@endif
 
 	<script>
 		$(".rating_number").keyup(function(){
@@ -636,6 +661,29 @@
 			$(this).val( on_off == '0' ? '1' : '0');
 			$('#rekom_unit').prop('disabled', function(i, v) { return !v; });
 			$('#rekom_unit').prop('required', function(i, v) { return !v; });
+			$('#rekom_formasi').prop('required', function(i, v) { return !v; });
+			$('#rekom_jabatan').prop('required', function(i, v) { return !v; });
+
+			if($(this).val() == '0')
+			{
+				$('#rekom_jabatan').attr('disabled', 'true');
+				$('#rekom_formasi').attr('disabled', 'true');
+			}
+		});
+	</script>
+
+	<script>
+		$("#rekom_checkbox").click(function(e){
+			if(!$("#kode_olah_pegawai").val())
+			{
+				alert('NIP tidak ditemukan, pastikan informasi pegawai telah muncul');
+				e.preventDefault();
+				return;
+			}
+
+			var on_off = $(this).val();
+			$(this).val( on_off == '0' ? '1' : '0');
+			$('#rekom_formasi').prop('disabled', function(i, v) { return !v; });
 			$('#rekom_formasi').prop('required', function(i, v) { return !v; });
 			$('#rekom_jabatan').prop('required', function(i, v) { return !v; });
 
@@ -686,7 +734,8 @@
 					'url': '/mutasi/pengajuan/get_pegawai_info',
 					'type': 'GET',
 					'data': {
-						'nip': nip
+						'nip': nip,
+						'option': true
 					},
 					'dataType': 'json',
 					error: function(data){
@@ -704,6 +753,7 @@
 							$("#lama_menjabat").val(data.lama_menjabat);
 							$("#kali_jenjang").val(data.kali_jenjang);
 							$("#kode_olah_pegawai").val(data.kode_olah_forja);
+							$("#diklat_penjenjang").val(data.diklat);
 						}
 						else
 						{
@@ -716,6 +766,7 @@
 							$("#lama_menjabat").val('');
 							$("#kali_jenjang").val('');
 							$("#kode_olah_pegawai").val('');
+							$("#diklat_penjenjang").val('');
 						}
 					}
 				});

@@ -60,7 +60,7 @@
 													<select class="form-control select2" id="unit_id" required>
 														<option>---Pilih Unit---</option>
 														@foreach($personnelarea as $p)
-															<option value="{{$p->personnel_area}}"> {{$p->personnel_area }} </option>
+															<option value="{{$p->id}}"> {{$p->personnel_area }} </option>
 														@endforeach
 													</select>
 												@endif
@@ -70,7 +70,7 @@
 
 									<div class="row">
 										<div class="form-group">
-											<div class="col-md-12 col-sm-12">
+											<div class="col-md-12 col-sm-12" >
 												<select class="form-control" id="rekom_formasi" disabled>
 													<option>---Pilih Formasi---</option>
 													@foreach($formasis as $formasi)
@@ -480,6 +480,29 @@
 	<script src="/bower_components/chart.js/dist/Chart.min.js"></script>
 	<script src="{{ asset('assets') }}/plugins/jquery-datatable/jquery.dataTables.js"></script>
     <script src="{{ asset('assets') }}/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+
+	@if(auth()->user()->user_role !== '0')
+		<script>
+
+		</script>
+	@else
+		<script>
+			$("#unit_id").change(function(){
+				var personnel_area_id = $(this).val();
+
+				$.ajax({
+					'url': '/mutasi/pengajuan/getFormasiJabs',
+					'type': 'GET',
+					'data': {
+						'personnel_area_id': personnel_area_id,
+					},
+					success: function(data){
+						$("#rekom_formasi").html(data);
+					}
+				});
+			})
+		</script>
+	@endif
 
 	<script>
 		$(".rating_number").keyup(function(){
