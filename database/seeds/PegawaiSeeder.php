@@ -14,39 +14,40 @@ class PegawaiSeeder extends Seeder
      */
     public function run()
     {
-        $pegawai = new Pegawai;
-        $pegawai->id = Uuid::generate();
-        $pegawai->perner = '000';
-        $pegawai->nip = '123456SU';
-        $pegawai->nama_pegawai = 'Superadmin';
-        $pegawai->employee_group = 'Struktural';
-        $pegawai->employee_subgroup = 'Struktural';
-        $pegawai->ps_group = 'SYS04';
-        $pegawai->jenjang_mgid = '01';
-        $pegawai->jenjang_mgt  = '01';
-        $pegawai->jenjang_sgid = '01';
-        $pegawai->jenjang_sgt  = '01';
-        $pegawai->formasi_jabatan_id  = FormasiJabatan::where('kode_olah', 'DITREG-JBB-1516730101.MM')->first()->id;
-        $pegawai->legacy_code  = '000';
-        $pegawai->talent_pool_position  = '';
-        $pegawai->company_code  = '';
-        $pegawai->personnel_area_id  = '000';
-        $pegawai->tanggal_grade = Carbon::parse('2017-12-10');
-        $pegawai->tanggal_lahir = Carbon::parse('1995-08-01');
-        $pegawai->tanggal_masuk = Carbon::parse('2010-07-07');
-        $pegawai->tanggal_capeg = Carbon::parse('2010-07-09');
-        $pegawai->tanggal_pegawai = Carbon::parse('2010-07-10');
-        $pegawai->start_date = Carbon::parse('2010-07-10');
-        $pegawai->end_date = Carbon::parse('2051-08-01');
-        $pegawai->email = 'superadmin@gmail.com';
-        $pegawai->telepon = '085725731444';
-        $pegawai->kali_jenjang = '1';
-        $pegawai->lama_jenjang = '1';
-        $pegawai->lama_jabat_di_unit_terakhir = '1';
-        $pegawai->sisa_masa_kerja = '1';
-        $pegawai->masa_kerja = '1';
-        $pegawai->save();
-
+        if(FormasiJabatan::where('legacy_code','000')->count() < 1){
+            $pegawai = new Pegawai;
+            $pegawai->id = Uuid::generate();
+            // $pegawai->perner = '000';
+            $pegawai->nip = '123456SU';
+            $pegawai->nama_pegawai = 'Superadmin';
+            $pegawai->employee_group = 'Struktural';
+            $pegawai->employee_subgroup = 'Struktural';
+            $pegawai->ps_group = 'SYS04';
+            $pegawai->jenjang_mgid = '01';
+            $pegawai->jenjang_mgt  = '01';
+            $pegawai->jenjang_sgid = '01';
+            $pegawai->jenjang_sgt  = '01';
+            $pegawai->formasi_jabatan_id  = FormasiJabatan::where('kode_olah', 'DITREG-JBB-1516730101.MM')->first()->id;
+            $pegawai->legacy_code  = '000';
+            $pegawai->talent_pool_position  = '';
+            $pegawai->company_code  = '';
+            $pegawai->personnel_area_id  = '000';
+            $pegawai->tanggal_grade = Carbon::parse('2017-12-10');
+            $pegawai->tanggal_lahir = Carbon::parse('1995-08-01');
+            $pegawai->tanggal_masuk = Carbon::parse('2010-07-07');
+            $pegawai->tanggal_capeg = Carbon::parse('2010-07-09');
+            $pegawai->tanggal_pegawai = Carbon::parse('2010-07-10');
+            $pegawai->start_date = Carbon::parse('2010-07-10');
+            $pegawai->end_date = Carbon::parse('2051-08-01');
+            $pegawai->email = 'superadmin@gmail.com';
+            $pegawai->telepon = '085725731444';
+            $pegawai->kali_jenjang = '1';
+            $pegawai->lama_jenjang = '1';
+            $pegawai->lama_jabat_di_unit_terakhir = '1';
+            $pegawai->sisa_masa_kerja = '1';
+            $pegawai->masa_kerja = '1';
+            $pegawai->save();
+        }
         // $pegawai = new Pegawai;
         // $pegawai->id = Uuid::generate();
         // $pegawai->perner = '12345321';

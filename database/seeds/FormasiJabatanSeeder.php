@@ -13,21 +13,23 @@ class FormasiJabatanSeeder extends Seeder
      */
     public function run()
     {
-        $forjab = new FormasiJabatan;
-        $forjab->id = Uuid::generate();
-        $forjab->kode_olah = '000';
-        $forjab->legacy_code = '000';
-        $forjab->posisi_pada_unit = 'Superadmin';
-        $forjab->formasi ='Superadmin';
-        $forjab->jabatan ='Superadmin';
-        $forjab->jenjang_main ='Superadmin';
-        $forjab->jenjang_sub ='Superadmin';
-        $forjab->pagu = 1;
-        $forjab->level = 'KP';
-        // $forjab->realisasi = 1;
-        $forjab->spfj ='Superadmin';
-        $forjab->personnel_area_id = PersonnelArea::where('user_role', 0)->first()->id;
-        $forjab->save();
+        if(FormasiJabatan::where('kode_olah','000')->count() < 1){
+            $forjab = new FormasiJabatan;
+            $forjab->id = Uuid::generate();
+            $forjab->kode_olah = '000';
+            $forjab->legacy_code = '000';
+            $forjab->posisi_pada_unit = 'Superadmin';
+            $forjab->formasi ='Superadmin';
+            $forjab->jabatan ='Superadmin';
+            $forjab->jenjang_main ='Superadmin';
+            $forjab->jenjang_sub ='Superadmin';
+            $forjab->pagu = 1;
+            $forjab->level = 'KP';
+            // $forjab->realisasi = 1;
+            $forjab->spfj ='Superadmin';
+            $forjab->personnel_area_id = PersonnelArea::where('user_role', 0)->first()->id;
+            $forjab->save();
+        }
 
         // $forjab = new FormasiJabatan;
         // $forjab->id = Uuid::generate();
