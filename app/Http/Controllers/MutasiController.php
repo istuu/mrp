@@ -40,7 +40,7 @@ class MutasiController extends Controller
                 $personnelarea = auth()->user();
                 $formasis = $personnelarea->formasi_jabatan()->select('formasi')->distinct()->get()->all();
             }else{
-                $personnelarea = PersonnelArea::where('user_role','<>','0')->get();
+                $personnelarea = PersonnelArea::select('personnel_area')->groupBy('personnel_area')->where('user_role','<>','0')->orderBy('personnel_area')->get();
                 $formasis = FormasiJabatan::select('formasi')->where('kode_olah','<>','000')->get();
             }
 
@@ -61,7 +61,7 @@ class MutasiController extends Controller
                 $personnelarea = auth()->user();
                 $formasis = $personnelarea->formasi_jabatan()->select('formasi')->distinct()->get()->all();
             }else{
-                $personnelarea = PersonnelArea::where('user_role','<>','0')->get();
+                $personnelarea = PersonnelArea::select('personnel_area')->groupBy('personnel_area')->where('user_role','<>','0')->orderBy('personnel_area')->get();
                 $formasis = FormasiJabatan::select('formasi')->where('kode_olah','<>','000')->get();
             }
 
@@ -87,9 +87,9 @@ class MutasiController extends Controller
             $pegawai->forja = $fj->formasi.' '.$fj->jabatan;
             $pegawai->posisi = $fj->posisi;
             $pegawai->personnel_area = $fj->personnel_area->personnel_area;
-            $pegawai->masa_kerja = $pegawai->year_diff_decimal(Carbon::parse($pegawai->tanggal_pegawai), Carbon::now('Asia/Jakarta')).' Tahun';
-            $pegawai->sisa_masa_kerja = $pegawai->year_diff_decimal(Carbon::now('Asia/Jakarta'), Carbon::parse($pegawai->tanggal_lahir)->addYears(56)).' Tahun';
-            $pegawai->lama_menjabat = $pegawai->year_diff_decimal(Carbon::parse($pegawai->start_date), Carbon::now('Asia/Jakarta')).' Tahun';
+            $pegawai->masa_kerja = $pegawai->year_diff_decimal(Carbon::now(),Carbon::parse($pegawai->tanggal_pegawai)).' Tahun';
+            $pegawai->sisa_masa_kerja = $pegawai->year_diff_decimal(Carbon::now(), Carbon::parse($pegawai->tanggal_lahir)->addYears(56)).' Tahun';
+            $pegawai->lama_menjabat = $pegawai->year_diff_decimal( Carbon::now(),Carbon::parse($pegawai->start_date)).' Tahun';
             $pegawai->kode_olah_forja = $fj->kode_olah;
 
             //Data diklat

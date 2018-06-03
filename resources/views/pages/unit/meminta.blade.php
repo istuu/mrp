@@ -70,7 +70,7 @@
 
 									<div class="row">
 										<div class="form-group">
-											<div class="col-md-6 col-sm-6">
+											<div class="col-md-12 col-sm-12">
 												<select class="form-control" id="rekom_formasi" disabled>
 													<option>---Pilih Formasi---</option>
 													@foreach($formasis as $formasi)
@@ -79,11 +79,11 @@
 												</select>
 											</div>
 
-											<div class="col-md-6 col-sm-6">
+											{{--<div class="col-md-6 col-sm-6">
 												<select class="form-control" name="kode_olah" id="rekom_jabatan" disabled>
 													<option>--- Jabatan ---</option>
 												</select>
-											</div>
+											</div>--}}
 										</div>
 									</div>
 								</div>
