@@ -51,7 +51,7 @@ class MutasiController extends Controller
             $units    = PersonnelArea::where('user_role','<>','0')->get();
             $keys     = KeyCompetencies::orderBy('sequence')->get();
             $dailys   = DailyCompetencies::orderBy('sequence')->get();
-            $jenjangs = FormasiJabatan::select('jenjang_txt')->groupBy('jenjang_txt')->get();
+            $jenjangs = FormasiJabatan::select('jenjang_sub')->groupBy('jenjang_sub')->get();
 
     		return view('pages.unit.bursa_pegawai', compact('units','keys', 'dailys', 'jenjangs'));
     	}
@@ -86,15 +86,15 @@ class MutasiController extends Controller
 
             $pegawai->forja = $fj->formasi.' '.$fj->jabatan;
             $pegawai->posisi = $fj->posisi;
-            $pegawai->personnel_area = $fj->personnel_area->nama;
+            $pegawai->personnel_area = $fj->personnel_area->personnel_area;
             $pegawai->masa_kerja = $pegawai->year_diff_decimal(Carbon::parse($pegawai->tanggal_pegawai), Carbon::now('Asia/Jakarta')).' Tahun';
             $pegawai->sisa_masa_kerja = $pegawai->year_diff_decimal(Carbon::now('Asia/Jakarta'), Carbon::parse($pegawai->tanggal_lahir)->addYears(56)).' Tahun';
             $pegawai->lama_menjabat = $pegawai->year_diff_decimal(Carbon::parse($pegawai->start_date), Carbon::now('Asia/Jakarta')).' Tahun';
             $pegawai->kode_olah_forja = $fj->kode_olah;
 
             //Data diklat
-            $diklat = InfoDiklat::where('nip',request('nip'))->orderBy('tanggal_sertifikat','desc')->first();
-            $pegawai->diklat = $diklat->jenis_nama;
+            $diklat = InfoDiklat::where('nip',request('nip'))->orderBy('tanggal_sertifikat','desc')->first()->judul_diklat ?? 'Tidak ada Diklat';
+            $pegawai->diklat = $diklat;
         }
 
         return response()->json($pegawai);

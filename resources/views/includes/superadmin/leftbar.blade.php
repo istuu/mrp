@@ -83,7 +83,7 @@
 		<li class="{{ checkParentActive(['legacies', 'formations', 'personnels']) }}">
 			<a href="#">
 				<i class="fa fa-menu-arrow pull-right"></i>
-				<i class="main-icon fa fa-briefcase"></i> <span>Jabatan</span>
+				<i class="main-icon fa fa-briefcase"></i> <span>Organisasi & Formasi</span>
 			</a>
 			<ul>
 				<li class="{{ checkChildActive('legacies') }}"><a href="{{ url('legacies') }}"><span>Legacy Codes</span></a></li>
