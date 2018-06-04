@@ -51,39 +51,48 @@
 
 
 
-								<div class="row">
-									<div class="form-group">
-										<div class="col-md-12 col-sm-12">
-											<label>Unit</label>
-											@if(auth()->user()->user_role !== '0')
-												<input type="text" class="form-control"  id="unit_id" class="form-control pointer required" required value="{{$personnelarea->nama}}" disabled>
-											@else
-												<select class="form-control select2" id="unit_id" required>
-													<option>---Pilih Unit---</option>
-													@foreach($personnelarea as $p)
-														<option value="{{$p->nama}}"> {{$p->nama }} </option>
-													@endforeach
-												</select>
-											@endif
+								<div id="rekom_proyeksi">
+									<div class="row">
+										<div class="form-group">
+											<div class="col-md-12 col-sm-12">
+												<label>Unit</label>
+												@if(auth()->user()->user_role !== '0')
+													<input type="text" class="form-control"  id="unit_id" class="form-control pointer required" required value="{{$personnelarea->personnel_area}}" disabled>
+												@else
+													<select class="form-control select2" id="unit_id" required>
+														<option>---Pilih Unit---</option>
+														@foreach($personnelarea as $p)
+															<option value="{{$p->id}}"> {{$p->personnel_area }} </option>
+														@endforeach
+													</select>
+												@endif
+											</div>
 										</div>
 									</div>
-								</div>
 
-								<div class="row">
-									<div class="form-group">
-										<div class="col-md-12 col-sm-12">
-											<label>Formasi</label>
-												<select class="form-control select2" name="formasi" id="formasi_id" required>
+									<div class="row">
+										<div class="form-group">
+											<div class="col-md-12 col-sm-12" >
+												<label>Formasi</label>
+												<select class="form-control" id="rekom_formasi">
 													<option>---Pilih Formasi---</option>
 													@foreach($formasis as $formasi)
 														<option value="{{$formasi->formasi}}"> {{$formasi->formasi }} </option>
 													@endforeach
 												</select>
+											</div>
+
+											{{--<div class="col-md-6 col-sm-6">
+												<select class="form-control" name="kode_olah" id="rekom_jabatan">
+													<option>--- Jabatan ---</option>
+												</select>
+											</div>--}}
 										</div>
 									</div>
 								</div>
+								<br/>
 
-								<div class="row">
+								{{--<div class="row">
 									<div class="form-group">
 										<div class="col-md-12 col-sm-12">
 											<label>Jabatan</label>
@@ -92,7 +101,7 @@
 												</select>
 										</div>
 									</div>
-								</div>
+								</div>--}}
 
 								<div class="row">
 									<div class="form-group">
@@ -453,6 +462,29 @@
 
 @section('includes-scripts')
 	@parent
+
+	@if(auth()->user()->user_role !== '0')
+		<script>
+
+		</script>
+	@else
+		<script>
+			$("#unit_id").change(function(){
+				var personnel_area_id = $(this).val();
+
+				$.ajax({
+					'url': '/mutasi/pengajuan/getFormasiJabs',
+					'type': 'GET',
+					'data': {
+						'personnel_area_id': personnel_area_id,
+					},
+					success: function(data){
+						$("#rekom_formasi").html(data);
+					}
+				});
+			})
+		</script>
+	@endif
 
 	<script>
 		$(function(){

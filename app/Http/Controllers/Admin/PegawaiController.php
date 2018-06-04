@@ -50,11 +50,7 @@ class PegawaiController extends AdminController
     public function __construct()
     {
         $this->model = Model::select($this->columns);
-        $this->query = $model = Model::select('image','legacy_code',
-                               'perner','nip','nama_pegawai','no_hp','email','kota_asal',
-                               'status_domisili','employee_subgroup','ps_group','talent_pool_position',
-                               'tanggal_grade','tanggal_lahir','tanggal_masuk','tanggal_capeg',
-                               'tanggal_pegawai','start_date','end_date','kali_jenjang');
+        $this->query = $model = Model::select('*');
         return $this->middleware('auth');
     }
 
@@ -237,6 +233,8 @@ class PegawaiController extends AdminController
                              // $model->lama_di_unit_induk_terakhir = $data->lama_di_unit_induk_terakhir;
                              $model->sisa_masa_kerja = $data->sisa_masa_kerja;
                              $model->masa_kerja = $data->masa_kerja;
+                             $model->nama_panjang_posisi = $data->nama_panjang_posisi;
+                             $model->pada_posisi = $data->pada_posisi;
                              $model->updated_at  = Carbon::now();
                              $model->save();
                          }else{
@@ -259,11 +257,11 @@ class PegawaiController extends AdminController
                              $model->personnel_area_id  = $this->getPersonnelAreaDapeg($data,'nama');
                              $model->tanggal_grade = Carbon::parse("$data->tanggal_grade");
                              $model->tanggal_lahir = Carbon::parse("$data->birth_date");
-                             // $model->tanggal_masuk = Carbon::parse("$data->tanggal_masuk");
-                             // $model->tanggal_capeg = Carbon::parse("$data->tanggal_capeg");
-                             // $model->tanggal_pegawai = Carbon::parse("$data->tanggal_pegawai_tetap");
-                             // $model->start_date = Carbon::parse("$data->start_date");
-                             // $model->end_date = Carbon::parse("$data->end_date");
+                             $model->tanggal_masuk = Carbon::parse("$data->tanggal_masuk");
+                             $model->tanggal_capeg = Carbon::parse("$data->tanggal_capeg");
+                             $model->tanggal_pegawai = Carbon::parse("$data->tanggal_pegawai_tetap");
+                             $model->start_date = Carbon::parse("$data->start_date");
+                             $model->end_date = Carbon::parse("$data->end_date");
                              $model->email = $data->email;
                              $model->telepon = $data->telepon;
                              $model->kali_jenjang = $data->kali_jenjang;
@@ -271,6 +269,8 @@ class PegawaiController extends AdminController
                              // $model->lama_di_unit_induk_terakhir = $data->lama_di_unit_induk_terakhir;
                              $model->sisa_masa_kerja = $data->sisa_masa_kerja;
                              $model->masa_kerja = $data->masa_kerja;
+                             $model->nama_panjang_posisi = $data->nama_panjang_posisi;
+                             $model->pada_posisi = $data->pada_posisi;
                              $model->created_at = Carbon::now();
                              $model->save();
                          }

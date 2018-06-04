@@ -68,8 +68,8 @@ class MutasiController extends Controller
                 $personnelarea = auth()->user();
                 $formasis = $personnelarea->formasi_jabatan()->select('formasi')->distinct()->get()->all();
             }else{
-                $personnelarea = PersonnelArea::select('personnel_area')->where('user_role','<>','0')->orderBy('personnel_area')->get();
-                $formasis = FormasiJabatan::select('formasi')->where('kode_olah','<>','000')->get();
+                $personnelarea = PersonnelArea::select('id','personnel_area')->where('user_role','<>','0')->orderBy('personnel_area')->get();
+                $formasis = FormasiJabatan::select('formasi')->groupBy('formasi')->where('kode_olah','<>','000')->get();
             }
 
     		return view('pages.unit.request_jabatan',compact('personnelarea','formasis'));
@@ -87,12 +87,10 @@ class MutasiController extends Controller
         if($pegawai)
         {
             $fj = $pegawai->formasi_jabatan;
-            if($fj->personnel_area->id != $user->id && !request('option'))
-                return response()->json(NULL);
 
-            $pegawai->forja = $fj->formasi.' '.$fj->jabatan;
-            $pegawai->posisi = $fj->posisi;
-            $pegawai->personnel_area = $fj->personnel_area->personnel_area;
+            $pegawai->forja = $fj->formasi.' '.$fj->jabatan ?? null;
+            $pegawai->posisi = $fj->posisi ?? null;
+            $pegawai->personnel_area = $fj->personnel_area->personnel_area ?? null;
             $pegawai->masa_kerja = $pegawai->year_diff_decimal(Carbon::now(),Carbon::parse($pegawai->tanggal_pegawai)).' Tahun';
             $pegawai->sisa_masa_kerja = $pegawai->year_diff_decimal(Carbon::now(), Carbon::parse($pegawai->tanggal_lahir)->addYears(56)).' Tahun';
             $pegawai->lama_menjabat = $pegawai->year_diff_decimal( Carbon::now(),Carbon::parse($pegawai->start_date)).' Tahun';

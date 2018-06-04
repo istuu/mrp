@@ -40,55 +40,6 @@
 							<fieldset>
 
 								<div class="row">
-									<div class="col-md-12 col-sm-12">
-										<label class="switch switch">
-											<input type="checkbox" name="rekom_checkbox" id="rekom_checkbox" value="0" autocomplete="off">
-											<span class="switch-label" data-on="YES" data-off="NO"></span>
-											<span> Rekomendasikan proyeksi jabatan? <small> - opsional</small></span>
-										</label>
-									</div>
-								</div>
-
-								<div id="rekom_proyeksi">
-									<div class="row">
-										<div class="form-group">
-											<div class="col-md-12 col-sm-12">
-												<label>Unit</label>
-												@if(auth()->user()->user_role !== '0')
-													<input type="text" class="form-control"  id="unit_id" class="form-control pointer required" required value="{{$personnelarea->personnel_area}}" disabled>
-												@else
-													<select class="form-control select2" id="unit_id" required>
-														<option>---Pilih Unit---</option>
-														@foreach($personnelarea as $p)
-															<option value="{{$p->id}}"> {{$p->personnel_area }} </option>
-														@endforeach
-													</select>
-												@endif
-											</div>
-										</div>
-									</div>
-
-									<div class="row">
-										<div class="form-group">
-											<div class="col-md-12 col-sm-12" >
-												<select class="form-control" id="rekom_formasi" disabled>
-													<option>---Pilih Formasi---</option>
-													@foreach($formasis as $formasi)
-														<option value="{{$formasi->formasi}}"> {{$formasi->formasi }} </option>
-													@endforeach
-												</select>
-											</div>
-
-											{{--<div class="col-md-6 col-sm-6">
-												<select class="form-control" name="kode_olah" id="rekom_jabatan" disabled>
-													<option>--- Jabatan ---</option>
-												</select>
-											</div>--}}
-										</div>
-									</div>
-								</div>
-								<br/>
-								<div class="row">
 									<div class="form-group">
 										<div class="col-md-6 col-sm-6">
 											<label>NIP *</label>
@@ -162,6 +113,56 @@
 										</div>
 									</div>
 								</div>
+
+								<div class="row">
+									<div class="col-md-12 col-sm-12">
+										<label class="switch switch">
+											<input type="checkbox" name="rekom_checkbox" id="rekom_checkbox" value="0" autocomplete="off">
+											<span class="switch-label" data-on="YES" data-off="NO"></span>
+											<span> Rekomendasikan proyeksi jabatan? <small> - opsional</small></span>
+										</label>
+									</div>
+								</div>
+
+								<div id="rekom_proyeksi">
+									<div class="row">
+										<div class="form-group">
+											<div class="col-md-12 col-sm-12">
+												<label>Unit</label>
+												@if(auth()->user()->user_role !== '0')
+													<input type="text" class="form-control"  id="unit_id" class="form-control pointer required" required value="{{$personnelarea->personnel_area}}" disabled>
+												@else
+													<select class="form-control select2" id="unit_id" required>
+														<option>---Pilih Unit---</option>
+														@foreach($personnelarea as $p)
+															<option value="{{$p->id}}"> {{$p->personnel_area }} </option>
+														@endforeach
+													</select>
+												@endif
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="form-group">
+											<div class="col-md-12 col-sm-12" >
+												<select class="form-control" id="rekom_formasi" disabled>
+													<option>---Pilih Formasi---</option>
+													@foreach($formasis as $formasi)
+														<option value="{{$formasi->formasi}}"> {{$formasi->formasi }} </option>
+													@endforeach
+												</select>
+											</div>
+
+											{{--<div class="col-md-6 col-sm-6">
+												<select class="form-control" name="kode_olah" id="rekom_jabatan" disabled>
+													<option>--- Jabatan ---</option>
+												</select>
+											</div>--}}
+										</div>
+									</div>
+								</div>
+
 							</fieldset>
 						</div>
 					</div>
@@ -215,21 +216,23 @@
 									<div class="form-group">
 										<div class="col-md-6 col-sm-6">
 											<label>Jenis Mutasi *</label>
-											<select name="mrp[jenis_mutasi]" class="form-control required" required>
+											<select name="mrp[jenis_mutasi]" class="form-control required" id="jenismutasi" required >
 												<option>--- Pilih ---</option>
 												<option value="Dinas" {{ old('mrp.jenis_mutasi') == 'Dinas' ? 'selected="selected"' : "" }}>Dinas</option>
-												{{-- <option value="APS" {{ old('mrp.jenis_mutasi') == 'APS' ? 'selected="selected"' : '' }}>APS</option> --}}
-												<option value="Non-dinas" {{ old('mrp.jenis_mutasi') == 'Non-dinas' ? 'selected="selected"' : "" }}>Non-dinas</option>
+												<option value="Non-Dinas" {{ old('mrp.jenis_mutasi') == 'Non-Dinas' ? 'selected="selected"' : "" }}>Non Dinas</option>
 											</select>
 										</div>
 
 										<div class="col-md-6 col-sm-6">
 											<label>Tipe *</label>
-											<select name="mrp[mutasi]" class="form-control required" required>
+											<select name="mrp[mutasi]" class="form-control required" value="{{ old('mrp.mutasi') }}" id="tipemutasi" required disabled>
 												<option>--- Pilih ---</option>
-												<option value="Tugas Belajar" {{ old('mrp.mutasi') == 'Tugas Belajar' ? 'selected="selected"' : "" }}>Tugas Belajar</option>
+												<!-- <option >Rotasi</option>
+												<option value="Promosi" {{ old('mrp.mutasi') == 'Promosi' ? 'selected="selected"' : "" }}>Promosi</option>
+												<option value="Demosi" {{ old('mrp.mutasi') == 'Demosi' ? 'selected="selected"' : "" }}>Demosi</option> -->
 											</select>
 										</div>
+
 									</div>
 								</div>
 
@@ -594,8 +597,8 @@
 						{
 							$("#nama_pegawai").val(data.nama_pegawai);
 							$("#personnel_area").val(data.personnel_area);
-							$("#formasi_jabatan").val(data.forja);
-							$("#posisi").val(data.posisi);
+							$("#formasi_jabatan").val(data.nama_panjang_posisi);
+							$("#posisi").val(data.pada_posisi);
 							$("#masa_kerja").val(data.masa_kerja);
 							$("#sisa_kerja").val(data.sisa_masa_kerja);
 							$("#lama_menjabat").val(data.lama_menjabat);
@@ -842,5 +845,31 @@
 				}
 			});
 		};
+	</script>
+	<script>
+		$("#jenismutasi").change(function(){
+			var jenismutasi = $(this).val();
+			if(jenismutasi == "Dinas"){
+				var tipemutasi = $("#tipemutasi")
+				tipemutasi.empty();
+				tipemutasi.append('<option>--- Tipe Mutasi ---</option>');
+				tipemutasi.removeAttr('disabled');
+				tipemutasi.append('<option>Rotasi</option>');
+				tipemutasi.append('<option>Promosi</option>');
+				tipemutasi.append('<option>Demosi</option>');
+				tipemutasi.append('<option>TK Diperbantukan</option>');
+				tipemutasi.append('<option>Tugas Belajar</option>');
+				tipemutasi.append('<option>Aktif dari Tugas Belajar</option>');
+			}
+			else if(jenismutasi == "Non-Dinas"){
+				var tipemutasi = $("#tipemutasi")
+				tipemutasi.empty();
+				tipemutasi.append('<option>--- Tipe Mutasi ---</option>');
+				tipemutasi.removeAttr('disabled');
+				tipemutasi.append('<option>Aktif dari IDT</option>');
+				tipemutasi.append('<option>Ct diluar Tanggungan</option>');
+				tipemutasi.append('<option>APS</option>');
+			}
+		});
 	</script>
 @endsection

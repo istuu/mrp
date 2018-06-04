@@ -40,55 +40,6 @@
 						<fieldset>
 							<!-- required [php action request] -->
 							<div class="panel-body">
-								<div class="row">
-									<div class="col-md-12 col-sm-12">
-										<label class="switch switch">
-											<input type="checkbox" name="rekom_checkbox" id="rekom_checkbox" value="0" autocomplete="off">
-											<span class="switch-label" data-on="YES" data-off="NO"></span>
-											<span> Rekomendasikan proyeksi jabatan? <small> - opsional</small></span>
-										</label>
-									</div>
-								</div>
-
-								<div id="rekom_proyeksi">
-									<div class="row">
-										<div class="form-group">
-											<div class="col-md-12 col-sm-12">
-												<label>Unit</label>
-												@if(auth()->user()->user_role !== '0')
-													<input type="text" class="form-control"  id="unit_id" class="form-control pointer required" required value="{{$personnelarea->personnel_area}}" disabled>
-												@else
-													<select class="form-control select2" id="unit_id" required>
-														<option>---Pilih Unit---</option>
-														@foreach($personnelarea as $p)
-															<option value="{{$p->id}}"> {{$p->personnel_area }} </option>
-														@endforeach
-													</select>
-												@endif
-											</div>
-										</div>
-									</div>
-
-									<div class="row">
-										<div class="form-group">
-											<div class="col-md-12 col-sm-12" >
-												<select class="form-control" id="rekom_formasi">
-													<option>---Pilih Formasi---</option>
-													@foreach($formasis as $formasi)
-														<option value="{{$formasi->formasi}}"> {{$formasi->formasi }} </option>
-													@endforeach
-												</select>
-											</div>
-
-											{{--<div class="col-md-6 col-sm-6">
-												<select class="form-control" name="kode_olah" id="rekom_jabatan" disabled>
-													<option>--- Jabatan ---</option>
-												</select>
-											</div>--}}
-										</div>
-									</div>
-								</div>
-								<br/>
 
 								<div class="row">
 									<div class="form-group">
@@ -156,8 +107,55 @@
 										</div>
 									</div>
 								</div>
+								<div class="row">
+									<div class="col-md-12 col-sm-12">
+										<label class="switch switch">
+											<input type="checkbox" name="rekom_checkbox" id="rekom_checkbox" value="0" autocomplete="off">
+											<span class="switch-label" data-on="YES" data-off="NO"></span>
+											<span> Rekomendasikan proyeksi jabatan? <small> - opsional</small></span>
+										</label>
+									</div>
+								</div>
 
-							</div>
+								<div id="rekom_proyeksi">
+									<div class="row">
+										<div class="form-group">
+											<div class="col-md-12 col-sm-12">
+												<label>Unit</label>
+												@if(auth()->user()->user_role !== '0')
+													<input type="text" class="form-control"  id="unit_id" class="form-control pointer required" required value="{{$personnelarea->personnel_area}}" disabled>
+												@else
+													<select class="form-control select2" id="unit_id" required>
+														<option>---Pilih Unit---</option>
+														@foreach($personnelarea as $p)
+															<option value="{{$p->id}}"> {{$p->personnel_area }} </option>
+														@endforeach
+													</select>
+												@endif
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="form-group">
+											<div class="col-md-12 col-sm-12" >
+												<select class="form-control" id="rekom_formasi" disabled>
+													<option>---Pilih Formasi---</option>
+													@foreach($formasis as $formasi)
+														<option value="{{$formasi->formasi}}"> {{$formasi->formasi }} </option>
+													@endforeach
+												</select>
+											</div>
+
+											{{--<div class="col-md-6 col-sm-6">
+												<select class="form-control" name="kode_olah" id="rekom_jabatan" disabled>
+													<option>--- Jabatan ---</option>
+												</select>
+											</div>--}}
+										</div>
+									</div>
+								</div>
+
 						</fieldset>
 					</div>
 
@@ -659,8 +657,7 @@
 
 			var on_off = $(this).val();
 			$(this).val( on_off == '0' ? '1' : '0');
-			$('#rekom_unit').prop('disabled', function(i, v) { return !v; });
-			$('#rekom_unit').prop('required', function(i, v) { return !v; });
+			$('#rekom_formasi').prop('disabled', function(i, v) { return !v; });
 			$('#rekom_formasi').prop('required', function(i, v) { return !v; });
 			$('#rekom_jabatan').prop('required', function(i, v) { return !v; });
 
@@ -746,8 +743,8 @@
 						{
 							$("#nama_pegawai").val(data.nama_pegawai);
 							$("#personnel_area").val(data.personnel_area);
-							$("#formasi_jabatan").val(data.forja);
-							$("#posisi").val(data.posisi);
+							$("#formasi_jabatan").val(data.nama_panjang_posisi);
+							$("#posisi").val(data.pada_posisi);
 							$("#masa_kerja").val(data.masa_kerja);
 							$("#sisa_kerja").val(data.sisa_masa_kerja);
 							$("#lama_menjabat").val(data.lama_menjabat);
