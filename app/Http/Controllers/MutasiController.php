@@ -82,7 +82,7 @@ class MutasiController extends Controller
             $pegawai->masa_kerja = $pegawai->year_diff_decimal(Carbon::now(),Carbon::parse($pegawai->tanggal_pegawai)).' Tahun';
             $pegawai->sisa_masa_kerja = $pegawai->year_diff_decimal(Carbon::now(), Carbon::parse($pegawai->tanggal_lahir)->addYears(56)).' Tahun';
             $pegawai->lama_menjabat = $pegawai->year_diff_decimal( Carbon::now(),Carbon::parse($pegawai->start_date)).' Tahun';
-            $pegawai->kode_olah_forja = $fj->kode_olah;
+            $pegawai->kode_olah_forja = $fj->kode_olah ?? null;
 
             //Data diklat
             $diklat = InfoDiklat::where('nip',request('nip'))->orderBy('tanggal_sertifikat','desc')->first()->judul_diklat ?? 'Tidak ada Diklat';
@@ -125,10 +125,10 @@ class MutasiController extends Controller
         $jenjang_id = request('jenjang_id');
 
         $formasis = FormasiJabatan::select('*');
-        if($jenjang_id !== ''){
+        if(isset($jenjang_id)){
             $formasis = $formasis->where('jenjang_sub',$jenjang_id);
         }
-        if($personnel_area_id !== ''){
+        if(isset($personnel_area_id)){
             $formasis = $formasis->where('personnel_area_id',$personnel_area_id);
         }
         $formasis = $formasis->orderBy('legacy_code')->get();

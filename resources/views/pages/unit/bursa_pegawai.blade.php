@@ -702,29 +702,6 @@
 	</script>
 
 	<script>
-		$("#rekom_checkbox").click(function(e){
-			if(!$("#kode_olah_pegawai").val())
-			{
-				alert('NIP tidak ditemukan, pastikan informasi pegawai telah muncul');
-				e.preventDefault();
-				return;
-			}
-
-			var on_off = $(this).val();
-			$(this).val( on_off == '0' ? '1' : '0');
-			$('#rekom_formasi').prop('disabled', function(i, v) { return !v; });
-			$('#rekom_formasi').prop('required', function(i, v) { return !v; });
-			$('#rekom_jabatan').prop('required', function(i, v) { return !v; });
-
-			if($(this).val() == '0')
-			{
-				$('#rekom_jabatan').attr('disabled', 'true');
-				$('#rekom_formasi').attr('disabled', 'true');
-			}
-		});
-	</script>
-
-	<script>
 		$("#nip_pengusul").on('keyup paste', function(){
 			var nip = $(this).val();
 			if(nip.length >= 6)
