@@ -67,9 +67,7 @@
 								<td>{{$mrps->pegawai->nip}}</td>
 								<td>{{$mrps->pegawai->nama_pegawai}}</td>
 								<td>
-									<strong>{{$mrps->formasi_jabatan_asal->formasi}} {{$mrps->formasi_jabatan_asal->jabatan}}</strong>
-									<br>{{$mrps->formasi_jabatan_asal->posisi}}<br>
-									<strong>{{$mrps->formasi_jabatan_asal->personnel_area->nama_pendek}}</strong>
+									{{ getFormasiJabatan($mrps->fj_asal) }}
 								</td>
 								@endif
 								<td>

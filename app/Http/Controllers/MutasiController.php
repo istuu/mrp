@@ -193,7 +193,8 @@ class MutasiController extends Controller
                 'mrp_id' => $mrp->id->string,
                 'nip' => $nip
             );
-            $pegawai->personnel_area->notify(new PegawaiDiminta($data));
+            if($pegawai->formasi_jabatan_id !== "0")
+                $pegawai->formasi_jabatan->personnel_area->notify(new PegawaiDiminta($data));
 
             return redirect('/status/detail/'.$mrp->registry_number)->with('success', 'Berhasil Meminta Pegawai');
         }

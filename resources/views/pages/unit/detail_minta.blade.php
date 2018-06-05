@@ -116,7 +116,7 @@ use Carbon\Carbon;
 											</ul>
 										</td>
 										<td>
-											<div>{{$detail->formasi_jabatan_asal->personnel_area->nama}}</div>
+											<div>{{$detail->formasi_jabatan_asal->personnel_area->personnel_area}}</div>
 										</td>
 										<td>
 											@if($detail->formasi_jabatan_tujuan)
@@ -146,7 +146,7 @@ use Carbon\Carbon;
 							<div class="col-md-6">
 								<h4><strong>Unit</strong> Peminta</h4>
 								<address>
-									<strong>{{$detail->personnel_area_pengusul->nama}}<br>{{$detail->personnel_area_pengusul->direktorat->nama}}</strong><!-- <br>
+									<strong>{{$detail->personnel_area_pengusul->personnel_area}}<br>{{$detail->personnel_area_pengusul->direktorat->nama}}</strong><!-- <br>
 									Jalan Trunojoyo Blok M – I No 135<br>
 									Kebayoran Baru, Jakarta 12160, Indonesia<br>
 									Telp : 021 – 7251234, 7261122<br>
