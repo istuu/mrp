@@ -124,30 +124,30 @@ class AdminController extends Controller
      public function getPersonnelArea($data,$column)
      {
          if(PersonnelArea::where($column,$data->personnel_area)->count() < 1){
-             $user = new PersonnelArea;
-             $user->id = \Uuid::generate();
-             $user->personnel_area = $data->personnel_area;
-             $user->sub_area = $data->personnel_subarea;
-             // $user->nama_panjang = $data->personnel_area;
-             $user->nama_pendek = '';
-             $user->username = strtolower($data->personnel_area);
-             $user->password = bcrypt($data->personnel_area);
-             $user->direktorat_id = isset($data->direktorat) ? $this->getDirektorat($data):'0';
-             $user->user_role = 1;
-             $user->save();
+             $model = new PersonnelArea;
+             $model->id = \Uuid::generate();
+             $model->personnel_area = $data->personnel_area;
+             $model->sub_area = $data->personnel_subarea;
+             // $model->nama_panjang = $data->personnel_area;
+             $model->nama_pendek = '';
+             $model->username = strtolower($data->personnel_area);
+             $model->password = bcrypt($data->personnel_area);
+             $model->direktorat_id = isset($data->direktorat) ? $this->getDirektorat($data):'0';
+             $model->user_role = 1;
+             $model->save();
          }else{
-             $user = PersonnelArea::where($column,$data->personnel_area)->first();
-             $user->personnel_area = $data->personnel_area;
-             $user->sub_area = $data->personnel_subarea;
-             // $user->nama_panjang = $data->personnel_area;
-             $user->nama_pendek = '';
-             $user->username = strtolower($data->personnel_area);
-             $user->password = bcrypt($data->personnel_area);
-             $user->direktorat_id = isset($data->direktorat) ? $this->getDirektorat($data):'0';
-             $user->user_role = 1;
-             $user->save();
+             $model = PersonnelArea::where($column,$data->personnel_area)->first();
+             $model->personnel_area = $data->personnel_area;
+             $model->sub_area = $data->personnel_subarea;
+             // $model->nama_panjang = $data->personnel_area;
+             $model->nama_pendek = '';
+             $model->username = strtolower($data->personnel_area);
+             $model->password = bcrypt($data->personnel_area);
+             $model->direktorat_id = isset($data->direktorat) ? $this->getDirektorat($data):'0';
+             $model->user_role = 1;
+             $model->save();
          }
-         return $user->id;
+         return $model->id;
      }
 
 
@@ -183,8 +183,8 @@ class AdminController extends Controller
          if(FormasiJabatan::where([['legacy_code',$data->legacy_code],['jenjang_sub',$data->jenjang_sgt],])->count() < 1){
              return "0";
          }else{
-             $user = FormasiJabatan::where([['legacy_code',$data->legacy_code],['jenjang_sub',$data->jenjang_sgt],])->first();
-             return $user->id;
+             $model = FormasiJabatan::where([['legacy_code',$data->legacy_code],['jenjang_sub',$data->jenjang_sgt],])->first();
+             return $model->id;
          }
      }
 
@@ -195,11 +195,11 @@ class AdminController extends Controller
       */
      public function getPersonnelAreaDapeg($data)
      {
-         if(PersonnelArea::where([['personnel_area_dapeg',$data->personnel_area_dapeg],['sub_area_dapeg',$data->personnel_subarea_dapeg],])->count() < 1){
+         if(PersonnelArea::where([['personnel_area_dapeg',$data->personnel_area],['sub_area_dapeg',$data->personnel_subarea],])->count() < 1){
              return "0";
          }else{
-             $user = PersonnelArea::where([['personnel_area_dapeg',$data->personnel_area_dapeg],['sub_area_dapeg',$data->personnel_subarea_dapeg],])->first();
-             return $user->id;
+             $model = PersonnelArea::where([['personnel_area_dapeg',$data->personnel_area],['sub_area_dapeg',$data->personnel_subarea],])->first();
+             return $model->id;
          }
      }
 }
