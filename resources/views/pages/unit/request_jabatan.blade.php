@@ -55,6 +55,19 @@
 									<div class="row">
 										<div class="form-group">
 											<div class="col-md-12 col-sm-12">
+												<label>Jenjang</label>
+												<select class="form-control" id="jenjang_id" required>
+													<option value="">---Pilih Jenjang---</option>
+													@foreach($jenjangs as $jenjang)
+														<option value="{{$jenjang->jenjang_sub}}"> {{$jenjang->jenjang_sub }} </option>
+													@endforeach
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<div class="col-md-12 col-sm-12">
 												<label>Unit</label>
 												@if(auth()->user()->user_role !== '0')
 													<input type="text" class="form-control"  id="unit_id" class="form-control pointer required" required value="{{$personnelarea->personnel_area}}" disabled>
@@ -471,12 +484,31 @@
 		<script>
 			$("#unit_id").change(function(){
 				var personnel_area_id = $(this).val();
+				var jenjang_id = $("#jenjang_id").val();
 
 				$.ajax({
 					'url': '/mutasi/pengajuan/getFormasiJabs',
 					'type': 'GET',
 					'data': {
 						'personnel_area_id': personnel_area_id,
+						'jenjang_id' : jenjang_id
+					},
+					success: function(data){
+						$("#rekom_formasi").html(data);
+					}
+				});
+			})
+
+			$("#jenjang_id").change(function(){
+				var jenjang_id = $(this).val();
+				var personnel_area_id = $("#unit_id").val();
+
+				$.ajax({
+					'url': '/mutasi/pengajuan/getFormasiJabs',
+					'type': 'GET',
+					'data': {
+						'personnel_area_id': personnel_area_id,
+						'jenjang_id' : jenjang_id
 					},
 					success: function(data){
 						$("#rekom_formasi").html(data);

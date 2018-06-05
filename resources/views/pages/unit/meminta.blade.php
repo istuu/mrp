@@ -125,6 +125,21 @@
 								</div>
 
 								<div id="rekom_proyeksi">
+
+									<div class="row">
+										<div class="form-group">
+											<div class="col-md-12 col-sm-12">
+												<label>Jenjang</label>
+												<select class="form-control" id="jenjang_id" required>
+													<option value="">---Pilih Jenjang---</option>
+													@foreach($jenjangs as $jenjang)
+														<option value="{{$jenjang->jenjang_sub}}"> {{$jenjang->jenjang_sub }} </option>
+													@endforeach
+												</select>
+											</div>
+										</div>
+									</div>
+
 									<div class="row">
 										<div class="form-group">
 											<div class="col-md-12 col-sm-12">
@@ -133,7 +148,7 @@
 													<input type="text" class="form-control"  id="unit_id" class="form-control pointer required" required value="{{$personnelarea->personnel_area}}" disabled>
 												@else
 													<select class="form-control select2" id="unit_id" required>
-														<option>---Pilih Unit---</option>
+														<option value="">---Pilih Unit---</option>
 														@foreach($personnelarea as $p)
 															<option value="{{$p->id}}"> {{$p->personnel_area }} </option>
 														@endforeach
@@ -147,7 +162,7 @@
 										<div class="form-group">
 											<div class="col-md-12 col-sm-12" >
 												<select class="form-control" id="rekom_formasi" disabled>
-													<option>---Pilih Formasi---</option>
+													<option value="">---Pilih Formasi---</option>
 													@foreach($formasis as $formasi)
 														<option value="{{$formasi->formasi}}"> {{$formasi->formasi }} </option>
 													@endforeach
@@ -492,12 +507,31 @@
 		<script>
 			$("#unit_id").change(function(){
 				var personnel_area_id = $(this).val();
+				var jenjang_id = $("#jenjang_id").val();
 
 				$.ajax({
 					'url': '/mutasi/pengajuan/getFormasiJabs',
 					'type': 'GET',
 					'data': {
 						'personnel_area_id': personnel_area_id,
+						'jenjang_id' : jenjang_id
+					},
+					success: function(data){
+						$("#rekom_formasi").html(data);
+					}
+				});
+			})
+
+			$("#jenjang_id").change(function(){
+				var jenjang_id = $(this).val();
+				var personnel_area_id = $("#unit_id").val();
+
+				$.ajax({
+					'url': '/mutasi/pengajuan/getFormasiJabs',
+					'type': 'GET',
+					'data': {
+						'personnel_area_id': personnel_area_id,
+						'jenjang_id' : jenjang_id
 					},
 					success: function(data){
 						$("#rekom_formasi").html(data);

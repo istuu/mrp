@@ -33,28 +33,24 @@ class MutasiController extends Controller
     {
     	$tipe = request('tipe');
 
+        $jenjangs = FormasiJabatan::select('jenjang_sub')
+                    ->where('kode_olah','<>','000')
+                    ->orderBy('jenjang_sub')->groupBy('jenjang_sub')->get();
+
+        if(auth()->user()->user_role !== "0"){
+            $personnelarea = auth()->user();
+            $formasis = $personnelarea->formasi_jabatan()->select('formasi')->distinct()->get()->all();
+        }else{
+            $personnelarea = PersonnelArea::select('id','personnel_area')->where('user_role','<>','0')->orderBy('personnel_area')->get();
+            $formasis = FormasiJabatan::select('formasi')->groupBy('formasi')->where('kode_olah','<>','000')->get();
+        }
+
     	if($tipe === '1')
     	{
-
-            if(auth()->user()->user_role !== "0"){
-                $personnelarea = auth()->user();
-                $formasis = $personnelarea->formasi_jabatan()->select('formasi')->distinct()->get()->all();
-            }else{
-                $personnelarea = PersonnelArea::select('id','personnel_area')->where('user_role','<>','0')->orderBy('personnel_area')->get();
-                $formasis = FormasiJabatan::select('formasi')->groupBy('formasi')->where('kode_olah','<>','000')->get();
-            }
-
-    		return view('pages.unit.meminta',compact('units','personnelarea','formasis'));
+    		return view('pages.unit.meminta',compact('units','personnelarea','formasis','jenjangs'));
     	}
     	else if($tipe === '2')
     	{
-            if(auth()->user()->user_role !== "0"){
-                $personnelarea = auth()->user();
-                $formasis = $personnelarea->formasi_jabatan()->select('formasi')->distinct()->get()->all();
-            }else{
-                $personnelarea = PersonnelArea::select('id','personnel_area')->where('user_role','<>','0')->orderBy('personnel_area')->get();
-                $formasis = FormasiJabatan::select('formasi')->groupBy('formasi')->where('kode_olah','<>','000')->get();
-            }
 
             $keys     = KeyCompetencies::orderBy('sequence')->get();
             $dailys   = DailyCompetencies::orderBy('sequence')->get();
@@ -64,15 +60,7 @@ class MutasiController extends Controller
     	}
     	else if($tipe === '3')
     	{
-            if(auth()->user()->user_role !== "0"){
-                $personnelarea = auth()->user();
-                $formasis = $personnelarea->formasi_jabatan()->select('formasi')->distinct()->get()->all();
-            }else{
-                $personnelarea = PersonnelArea::select('id','personnel_area')->where('user_role','<>','0')->orderBy('personnel_area')->get();
-                $formasis = FormasiJabatan::select('formasi')->groupBy('formasi')->where('kode_olah','<>','000')->get();
-            }
-
-    		return view('pages.unit.request_jabatan',compact('personnelarea','formasis'));
+    		return view('pages.unit.request_jabatan',compact('personnelarea','formasis','jenjangs'));
     	}
     	else
     	{
@@ -134,8 +122,16 @@ class MutasiController extends Controller
     public function getFormasiJabs()
     {
         $personnel_area_id = request('personnel_area_id');
+        $jenjang_id = request('jenjang_id');
 
-        $formasis = FormasiJabatan::where('personnel_area_id',$personnel_area_id)->orderBy('legacy_code')->get();
+        $formasis = FormasiJabatan::select('*');
+        if($jenjang_id !== ''){
+            $formasis = $formasis->where('jenjang_sub',$jenjang_id);
+        }
+        if($personnel_area_id !== ''){
+            $formasis = $formasis->where('personnel_area_id',$personnel_area_id);
+        }
+        $formasis = $formasis->orderBy('legacy_code')->get();
         return view('includes.option-formasi',compact('formasis'));
     }
 
