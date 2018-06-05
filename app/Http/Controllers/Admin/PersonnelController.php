@@ -33,7 +33,7 @@ class PersonnelController extends AdminController
      *
      * @doc ['create', 'edit', 'delete', 'detail', 'import', 'export']
      */
-    protected $actions = ['create', 'edit', 'delete', 'import'];
+    protected $actions = ['create', 'edit', 'delete', 'import','view'];
 
     /**
      * Initiate global variable and middleware
@@ -217,5 +217,22 @@ class PersonnelController extends AdminController
              DB::rollback();
              return array("success" => false, "uuid" => $uuid, "message" => $e->getMessage());
          }
+     }
+
+     /**
+      * action view
+      * @param  string $id uuid
+      * @return string html
+      */
+     public function view($id)
+     {
+         $model = Model::select('direktorat.nama as direktorat','personnel_area','sub_area','personnel_area_dapeg','sub_area_dapeg',
+                                'nama_panjang','personnel_area.nama_pendek','username','alamat','kota','provinsi')
+                        ->join('direktorat','direktorat.id','=','personnel_area.direktorat_id')
+                        ->find($id);
+         return view('pages.base.view',[
+             'title' => $this->title,
+             'model' => $model->toArray()
+         ]);
      }
 }

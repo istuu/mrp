@@ -89,6 +89,7 @@
 				<li class="{{ checkChildActive('legacies') }}"><a href="{{ url('legacies') }}"><span>Legacy Codes</span></a></li>
 				<li class="{{ checkChildActive('formations') }}"><a href="{{ url('formations') }}"><span>Formasi Jabatan</span></a></li>
 				<li class="{{ checkChildActive('personnels') }}"><a href="{{ url('personnels') }}"><span>Personnel Area</span></a></li>
+				<li class="{{ checkChildActive('direktorats') }}"><a href="{{ url('direktorats') }}"><span>Direktorat</span></a></li>
 			</ul>
 		</li>
 		<li class="{{ checkParentActive(['key_competencies', 'daily_competencies']) }}">

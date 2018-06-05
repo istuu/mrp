@@ -4,15 +4,15 @@ namespace App\Forms;
 
 use Kris\LaravelFormBuilder\Form;
 
-class DirektoratForm extends Form
+class RoleForm extends Form
 {
     public function buildForm()
     {
         $this
-            ->add('nama', 'text', [
+            ->add('role', 'text', [
                 'rules' => 'required'
             ])
-            ->add('nama_pendek', 'number', [
+            ->add('level', 'number', [
                 'rules' => 'required'
             ])
             ->add('submit', 'submit', [
