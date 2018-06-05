@@ -120,12 +120,25 @@
 								<div id="rekom_proyeksi">
 									<div class="row">
 										<div class="form-group">
-											<div class="col-md-12 col-sm-12">
+											<div class="col-md-6 col-sm-6">
 												<label>Jenjang</label>
 												<select class="form-control" id="jenjang_id" required>
 													<option value="">---Pilih Jenjang---</option>
 													@foreach($jenjangs as $jenjang)
 														<option value="{{$jenjang->jenjang_sub}}"> {{$jenjang->jenjang_sub }} </option>
+													@endforeach
+												</select>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="form-group">
+											<div class="col-md-6 col-sm-6">
+												<label>Level</label>
+												<select class="form-control" id="jenjang_id" required>
+													<option value="">---Pilih Level---</option>
+													@foreach(levels as $level)
+														<option value="{{$level->level}}"> {{$level->level }} </option>
 													@endforeach
 												</select>
 											</div>
@@ -301,7 +314,7 @@
 											<label>{{ $k->title }}</label>
 										</div>
 										<div class="col-md-3 col-sm-3">
-											<input type="number" value="{{ old('nilai.enthusiastic') }}" min="0" max="100" class="form-control required rating_number" required target="#rating1" placeholder="0-100">
+											<input type="number" name="key[]" min="0" max="100" class="form-control required rating_number" required target="#rating1" placeholder="0-100">
 										</div>
 										<div class="col-md-4 col-sm-4">
 											<div class="rating rating-0 size-13 width-100" id="rating1"><!-- rating-0 ... rating-5 --></div>
@@ -309,99 +322,6 @@
 									</div>
 								</div>
 							@endforeach
-							{{--
-							<div class="row">
-								<div class="form-group">
-									<div class="col-md-5 col-sm-5">
-										<label>Creative and Innovative *</label>
-									</div>
-									<div class="col-md-3 col-sm-3">
-										<input type="number" name="nilai[creative]" value="{{ old('nilai.creative') }}" min="0" max="100" class="form-control required rating_number" required target="#rating2" placeholder="0-100">
-									</div>
-									<div class="col-md-4 col-sm-4">
-										<div class="rating rating-0 size-13 width-100 " id="rating2"><!-- rating-0 ... rating-5 --></div>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="form-group">
-									<div class="col-md-5 col-sm-5">
-										<label>Building Business Partnership *</label>
-									</div>
-									<div class="col-md-3 col-sm-3">
-										<input type="number" name="nilai[building]" min="0" max="100" value="{{ old('nilai.building') }}" class="form-control required rating_number" required target="#rating3" placeholder="0-100">
-									</div>
-									<div class="col-md-4 col-sm-4">
-										<div class="rating rating-0 size-13 width-100 " id="rating3"><!-- rating-0 ... rating-5 --></div>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="form-group">
-									<div class="col-md-5 col-sm-5">
-										<label>Strategic Orientation *</label>
-									</div>
-									<div class="col-md-3 col-sm-3">
-										<input type="number" name="nilai[strategic]" min="0" max="100" value="{{ old('nilai.strategic') }}" class="form-control required rating_number" required target="#rating4" placeholder="0-100">
-									</div>
-									<div class="col-md-4 col-sm-4">
-										<div class="rating rating-0 size-13 width-100 " id="rating4"><!-- rating-0 ... rating-5 --></div>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="form-group">
-									<div class="col-md-5 col-sm-5">
-										<label>Customer Focus Oriented *</label>
-									</div>
-									<div class="col-md-3 col-sm-3">
-										<input type="number" name="nilai[customer]" min="0" max="100" value="{{ old('nilai.customer') }}" class="form-control required rating_number" required target="#rating5" placeholder="0-100">
-									</div>
-									<div class="col-md-4 col-sm-4">
-										<div class="rating rating-0 size-13 width-100 " id="rating5"><!-- rating-0 ... rating-5 --></div>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="form-group">
-									<div class="col-md-5 col-sm-5">
-										<label>Driving Execution *</label>
-									</div>
-									<div class="col-md-3 col-sm-3">
-										<input type="number" name="nilai[driving]" min="0" max="100" value="{{ old('nilai.driving') }}" class="form-control required rating_number" required target="#rating6" placeholder="0-100">
-									</div>
-									<div class="col-md-4 col-sm-4">
-										<div class="rating rating-0 size-13 width-100 " id="rating6"><!-- rating-0 ... rating-5 --></div>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="form-group">
-									<div class="col-md-5 col-sm-5">
-										<label>Visionary Leadership *</label>
-									</div>
-									<div class="col-md-3 col-sm-3">
-										<input type="number" name="nilai[visionary]" min="0" max="100" value="{{ old('nilai.visionary') }}" class="form-control required rating_number" required target="#rating7" placeholder="0-100">
-									</div>
-									<div class="col-md-4 col-sm-4">
-										<div class="rating rating-0 size-13 width-100" id="rating7"><!-- rating-0 ... rating-5 --></div>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="form-group">
-									<div class="col-md-5 col-sm-5">
-										<label>Empowering / Developing Others *</label>
-									</div>
-									<div class="col-md-3 col-sm-3">
-										<input type="number" name="nilai[empowering]" min="0" max="100" value="{{ old('nilai.empowering') }}" class="form-control required rating_number" required target="#rating8" placeholder="0-100">
-									</div>
-									<div class="col-md-4 col-sm-4">
-										<div class="rating rating-0 size-13 width-100" id="rating8"><!-- rating-0 ... rating-5 --></div>
-									</div>
-								</div>
-							</div>
-							--}}
 
 							<hr>
 							<p><strong>KOMPETENSI LAINNYA</strong></p>
@@ -412,7 +332,7 @@
 											<label>{{ $d->title }}</label>
 										</div>
 										<div class="col-md-3 col-sm-3">
-											<input type="number" name="" min="0" max="100" value="{{ old('nilai.komunikasi') }}" class="form-control required rating_number" required target="#rating9" placeholder="0-100">
+											<input type="number" name="" min="0" max="100" name="daily[]" class="form-control required rating_number" required target="#rating9" placeholder="0-100">
 										</div>
 										<div class="col-md-4 col-sm-4">
 											<div class="rating rating-0 size-13 width-100" id="rating9"><!-- rating-0 ... rating-5 --></div>
@@ -420,47 +340,7 @@
 									</div>
 								</div>
 							@endforeach
-							{{--
-							<div class="row">
-								<div class="form-group">
-									<div class="col-md-5 col-sm-5">
-										<label>Team Work *</label>
-									</div>
-									<div class="col-md-3 col-sm-3">
-										<input type="number" name="nilai[team_work]" min="0" max="100" value="{{ old('nilai.team_work') }}" class="form-control required rating_number" required target="#rating10" placeholder="0-100">
-									</div>
-									<div class="col-md-4 col-sm-4">
-										<div class="rating rating-0 size-13 width-100" id="rating10"><!-- rating-0 ... rating-5 --></div>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="form-group">
-									<div class="col-md-5 col-sm-5">
-										<label>Bahasa Indonesia *</label>
-									</div>
-									<div class="col-md-3 col-sm-3">
-										<input type="number" name="nilai[bahasa_1_nilai]" min="0" max="100" value="{{ old('nilai.bahasa_1_nilai') }}" class="form-control required rating_number" required target="#rating11" placeholder="0-100">
-									</div>
-									<div class="col-md-4 col-sm-4">
-										<div class="rating rating-0 size-13 width-100" id="rating11"><!-- rating-0 ... rating-5 --></div>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="form-group">
-									<div class="col-md-5 col-sm-5">
-										<label>Bahasa Inggris *</label>
-									</div>
-									<div class="col-md-3 col-sm-3">
-										<input type="number" name="nilai[bahasa_2_nilai]" min="0" max="100" value="{{ old('nilai.bahasa_2_nilai') }}" class="form-control required rating_number" required target="#rating12" placeholder="0-100">
-									</div>
-									<div class="col-md-4 col-sm-4">
-										<div class="rating rating-0 size-13 width-100" id="rating12"><!-- rating-0 ... rating-5 --></div>
-									</div>
-								</div>
-							</div>
-							--}}
+
 							<div class="row">
 								<div class="form-group">
 									<div class="col-md-5 col-sm-5">

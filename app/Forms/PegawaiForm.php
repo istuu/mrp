@@ -57,7 +57,7 @@ class PegawaiForm extends Form
             ])
             ->add('personnel_area_id', 'entity', [
                 'class' => 'App\PersonnelArea',
-                'property' => 'nama_panjang', //Formasi - Jabatan
+                'property' => 'personnel_area_dapeg', //Formasi - Jabatan
                 'query_builder' => function (PersonnelArea $lang) {
                     // If query builder option is not provided, all data is fetched
                     return $lang->where('user_role','<>','0');

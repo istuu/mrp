@@ -77,7 +77,7 @@ class MutasiController extends Controller
 
             $pegawai->forja = $pegawai->nama_panjang_posisi;
             $pegawai->posisi = $pegawai->pada_posisi;
-            $pegawai->personnel_area = $pegawai->personnel_area_id !== '0' ? PersonnelArea::find($pegawai->personnel_area_id)->personnel_area : 'Personnel Area tidak ditemukan';
+            $pegawai->personnel_area = $pegawai->personnel_area_id !== '0' ? PersonnelArea::find($pegawai->personnel_area_id)->personnel_area_dapeg : 'Personnel Area tidak ditemukan';
             $pegawai->masa_kerja = $pegawai->year_diff_decimal(Carbon::now(),Carbon::parse($pegawai->tanggal_pegawai)).' Tahun';
             $pegawai->sisa_masa_kerja = $pegawai->year_diff_decimal(Carbon::now(), Carbon::parse($pegawai->tanggal_lahir)->addYears(56)).' Tahun';
             $pegawai->lama_menjabat = $pegawai->year_diff_decimal( Carbon::now(),Carbon::parse($pegawai->start_date)).' Tahun';
@@ -225,13 +225,13 @@ class MutasiController extends Controller
             // dd(request('nilai')['hubungan_sesama']);
 
             $data_mrp = array_merge($tambahan_mrp, request('mrp'));
-            $data_nilai = array_merge(request('nilai'), array('pegawai_id' => $pegawai->id, 'mrp_id' => $data_mrp['id']));;
-            $data_nilai['hubungan_sesama'] = request('hds').'-'.$data_nilai['hubungan_sesama'];
-            $data_nilai['hubungan_atasan'] = request('hda').'-'.$data_nilai['hubungan_atasan'];
+            // $data_nilai = array_merge(request('nilai'), array('pegawai_id' => $pegawai->id, 'mrp_id' => $data_mrp['id']));;
+            // $data_nilai['hubungan_sesama'] = request('hds').'-'.$data_nilai['hubungan_sesama'];
+            // $data_nilai['hubungan_atasan'] = request('hda').'-'.$data_nilai['hubungan_atasan'];
             // dd($data_mrp, $data_nilai, request('hds'));
 
             $mrp = MRP::create($data_mrp);
-            $nilai = PenilaianPegawai::create($data_nilai);
+            // $nilai = PenilaianPegawai::create($data_nilai);
 
             $file = request('file_dokumen_mutasi');
             $foldername = $mrp->registry_number.'/';
