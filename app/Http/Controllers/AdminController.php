@@ -195,10 +195,10 @@ class AdminController extends Controller
       */
      public function getPersonnelAreaDapeg($data)
      {
-         if(PersonnelArea::where([['personnel_area_dapeg',$data->personnel_area],['sub_area_dapeg',$data->personnel_subarea],])->count() < 1){
+         if(PersonnelArea::where([['personnel_area_dapeg',$data->personnel_area_dapeg],['sub_area_dapeg',$data->personnel_subarea_dapeg],])->count() < 1){
              return "0";
          }else{
-             $user = PersonnelArea::where([['personnel_area_dapeg',$data->personnel_area],['sub_area_dapeg',$data->personnel_subarea],])->first();
+             $user = PersonnelArea::where([['personnel_area_dapeg',$data->personnel_area_dapeg],['sub_area_dapeg',$data->personnel_subarea_dapeg],])->first();
              return $user->id;
          }
      }

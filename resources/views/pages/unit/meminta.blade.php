@@ -161,10 +161,10 @@
 									<div class="row">
 										<div class="form-group">
 											<div class="col-md-12 col-sm-12" >
-												<select class="form-control" id="rekom_formasi" disabled>
+												<select name="rekom_formasi" class="form-control" id="rekom_formasi" disabled>
 													<option value="">---Pilih Formasi---</option>
 													@foreach($formasis as $formasi)
-														<option value="{{$formasi->formasi}}"> {{$formasi->formasi }} </option>
+														<option value="{{$formasi->id}}"> {{$formasi->formasi }} </option>
 													@endforeach
 												</select>
 											</div>

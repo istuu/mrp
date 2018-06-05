@@ -74,15 +74,14 @@ class MutasiController extends Controller
         $user = auth()->user();
         if($pegawai)
         {
-            $fj = $pegawai->formasi_jabatan;
 
-            $pegawai->forja = $fj->formasi.' '.$fj->jabatan ?? null;
-            $pegawai->posisi = $fj->posisi ?? null;
-            $pegawai->personnel_area = $fj->personnel_area->personnel_area ?? null;
+            $pegawai->forja = $pegawai->nama_panjang_posisi;
+            $pegawai->posisi = $pegawai->pada_posisi;
+            $pegawai->personnel_area = $pegawai->personnel_area_id !== '0' ? PersonnelArea::find($pegawai->personnel_area_id)->personnel_area : 'Personnel Area tidak ditemukan';
             $pegawai->masa_kerja = $pegawai->year_diff_decimal(Carbon::now(),Carbon::parse($pegawai->tanggal_pegawai)).' Tahun';
             $pegawai->sisa_masa_kerja = $pegawai->year_diff_decimal(Carbon::now(), Carbon::parse($pegawai->tanggal_lahir)->addYears(56)).' Tahun';
             $pegawai->lama_menjabat = $pegawai->year_diff_decimal( Carbon::now(),Carbon::parse($pegawai->start_date)).' Tahun';
-            $pegawai->kode_olah_forja = $fj->kode_olah ?? null;
+            $pegawai->kode_olah_forja = $pegawai->nama_panjang_posisi;
 
             //Data diklat
             $diklat = InfoDiklat::where('nip',request('nip'))->orderBy('tanggal_sertifikat','desc')->first()->judul_diklat ?? 'Tidak ada Diklat';
@@ -160,9 +159,10 @@ class MutasiController extends Controller
             $pegawai = Pegawai::where('nip', $nip)->first();
 
             if(request('rekom_checkbox') === '1')
-                $id_proyeksi = FormasiJabatan::select('id')->where('kode_olah', request('kode_olah'))->first()->id;
+                $id_proyeksi = request('rekom_formasi');
             else
                 $id_proyeksi = NULL;
+
 
             $tambahan_mrp = array(
                 'id' => Uuid::generate(),
@@ -171,7 +171,7 @@ class MutasiController extends Controller
                 'nip_operator' => request()->session()->get('nip_operator'),
                 'unit_pengusul' => $user->id,
                 'pegawai_id' => $pegawai->id,
-                'fj_asal' => $pegawai->formasi_jabatan->id,
+                'fj_asal' => $pegawai->formasi_jabatan_id !== "0" ? $pegawai->formasi_jabatan->id:$pegawai->nama_panjang_posisi,
                 'fj_tujuan' => $id_proyeksi,
             );
 
@@ -193,7 +193,7 @@ class MutasiController extends Controller
                 'mrp_id' => $mrp->id->string,
                 'nip' => $nip
             );
-            $pegawai->formasi_jabatan->personnel_area->notify(new PegawaiDiminta($data));
+            $pegawai->personnel_area->notify(new PegawaiDiminta($data));
 
             return redirect('/status/detail/'.$mrp->registry_number)->with('success', 'Berhasil Meminta Pegawai');
         }
@@ -207,7 +207,7 @@ class MutasiController extends Controller
             $pegawai = Pegawai::where('nip', $nip)->first();
 
             if(request('rekom_checkbox') === '1')
-                $id_proyeksi = FormasiJabatan::select('id')->where('kode_olah', request('kode_olah'))->first()->id;
+                $id_proyeksi = request('rekom_formasi');
             else
                 $id_proyeksi = NULL;
 
@@ -218,7 +218,7 @@ class MutasiController extends Controller
                 'nip_operator' => request()->session()->get('nip_operator'),
                 'unit_pengusul' => $user->id,
                 'pegawai_id' => $pegawai->id,
-                'fj_asal' => $pegawai->formasi_jabatan->id,
+                'fj_asal' => $pegawai->formasi_jabatan_id !== "0" ? $pegawai->formasi_jabatan->id:$pegawai->nama_panjang_posisi,
                 'fj_tujuan' => $id_proyeksi,
             );
             // dd(request('nilai')['hubungan_sesama']);
