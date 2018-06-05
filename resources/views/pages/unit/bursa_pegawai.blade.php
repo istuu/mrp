@@ -137,7 +137,7 @@
 												<label>Level</label>
 												<select class="form-control" id="jenjang_id" required>
 													<option value="">---Pilih Level---</option>
-													@foreach(levels as $level)
+													@foreach($levels as $level)
 														<option value="{{$level->level}}"> {{$level->level }} </option>
 													@endforeach
 												</select>

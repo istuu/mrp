@@ -55,8 +55,9 @@ class MutasiController extends Controller
             $keys     = KeyCompetencies::orderBy('sequence')->get();
             $dailys   = DailyCompetencies::orderBy('sequence')->get();
             $jenjangs = FormasiJabatan::select('jenjang_sub')->groupBy('jenjang_sub')->get();
+            $levels   = FormasiJabatan::select('level')->groupBy('level')->get();
 
-    		return view('pages.unit.bursa_pegawai', compact('personnelarea', 'formasis','keys', 'dailys', 'jenjangs'));
+    		return view('pages.unit.bursa_pegawai', compact('levels','personnelarea', 'formasis','keys', 'dailys', 'jenjangs'));
     	}
     	else if($tipe === '3')
     	{
