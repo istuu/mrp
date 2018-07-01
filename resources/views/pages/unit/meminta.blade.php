@@ -499,11 +499,7 @@
 	<script src="{{ asset('assets') }}/plugins/jquery-datatable/jquery.dataTables.js"></script>
     <script src="{{ asset('assets') }}/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
 
-	@if(auth()->user()->user_role !== '0')
-		<script>
 
-		</script>
-	@else
 		<script>
 			$("#unit_id").change(function(){
 				var personnel_area_id = $(this).val();
@@ -539,7 +535,6 @@
 				});
 			})
 		</script>
-	@endif
 
 	<script>
 		$(".rating_number").keyup(function(){

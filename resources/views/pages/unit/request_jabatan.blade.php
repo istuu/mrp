@@ -468,11 +468,6 @@
 @section('includes-scripts')
 	@parent
 
-	@if(auth()->user()->user_role !== '0')
-		<script>
-
-		</script>
-	@else
 		<script>
 			$("#unit_id").change(function(){
 				var personnel_area_id = $(this).val();
@@ -508,7 +503,6 @@
 				});
 			})
 		</script>
-	@endif
 
 	<script>
 		$(function(){
