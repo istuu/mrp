@@ -265,7 +265,7 @@
 
 										<div class="col-md-6 col-sm-6">
 											<label>NIP Operator</label>
-											<input type="text" name="mrp[nip_operator]" value="{{ $operator->nip }}" class="form-control col-md-6 nip_to_nama" target="#nama_operator">
+											<input type="text" name="mrp[nip_operator]" value="{{ $operator->nip ?? '' }}" class="form-control col-md-6 nip_to_nama" target="#nama_operator">
 										</div>
 									</div>
 								</div>
