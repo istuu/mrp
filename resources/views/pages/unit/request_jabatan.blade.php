@@ -70,7 +70,8 @@
 											<div class="col-md-12 col-sm-12">
 												<label>Unit</label>
 												@if(auth()->user()->user_role !== '0')
-													<input type="text" class="form-control"  id="unit_id" class="form-control pointer required" required value="{{$personnelarea->personnel_area}}" disabled>
+													<input type="text" class="form-control" class="form-control pointer required" required value="{{$personnelarea->personnel_area}}" disabled>
+													<input id="unit_id" value="{{$personnelarea->id}}" hidden>
 												@else
 													<select class="form-control select2" id="unit_id" required>
 														<option>---Pilih Unit---</option>
