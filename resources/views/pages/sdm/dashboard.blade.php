@@ -758,6 +758,7 @@ use Carbon\Carbon;
     </div>
 
 @endsection
+@include('includes.sdm.mrp-modal')
 
 @section('includes-scripts')
 	@parent
