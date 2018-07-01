@@ -116,14 +116,6 @@
 									</div>
 								</div>--}}
 
-								<div class="row">
-									<div class="form-group">
-										<div class="col-md-12 col-sm-12">
-											<label>Jenjang</label>
-											<input type="text" class="form-control required"  name="jenjang" id="jenjang_id" disabled>
-										</div>
-									</div>
-								</div>
 
 								<div class="row">
 									<div class="form-group">
@@ -190,11 +182,11 @@
 									<div class="form-group">
 										<div class="col-md-6 col-sm-6">
 											<label>Jurusan</label>
-											<input type="text" name="jrsn" value="" class="form-control required" disabled>
+											<input type="text" name="jrsn" value="" class="form-control required" >
 										</div>
 										<div class="col-md-6 col-sm-6">
 											<label>Konsentrasi</label>
-											<input type="text" name="kons" value="" class="form-control required" disabled>
+											<input type="text" name="kons" value="" class="form-control required" >
 										</div>
 									</div>
 								</div>
@@ -203,11 +195,11 @@
 									<div class="form-group">
 										<div class="col-md-6 col-sm-6">
 											<label>Pendidikan</label>
-											<input type="text" name="spfj" value="" class="form-control required" disabled>
+											<input type="text" name="spfj" value="" class="form-control required">
 										</div>
 										<div class="col-md-6 col-sm-6">
 											<label>Level Pendidikan</label>
-											<select name="lvpdn" class="form-control pointer required" disabled>
+											<select name="lvpdn" class="form-control pointer required" >
 												<option value="">--- Level Pendidikan ---</option>
 												<option value="smp">SMP</option>
 												<option value="sma">SMA</option>

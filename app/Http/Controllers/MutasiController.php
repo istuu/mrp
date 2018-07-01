@@ -137,7 +137,7 @@ class MutasiController extends Controller
 
     public function getJabatanInfo()
     {
-        $jabatans = FormasiJabatan::where('kode_olah', request('jabatan_id'))->first();
+        $jabatans = FormasiJabatan::where('id', request('jabatan_id'))->first();
 
         return response()->json($jabatans);
 

@@ -56,12 +56,17 @@ function actionTree($legacy)
 function getFormasiJabatan($id)
 {
     // return App\FormasiJabatan::where('id',$id)->count();
-    if(App\FormasiJabatan::where('id',$id)->count()){
-        $model = \App\FormasiJabatan::find($id);
-        return $model;
+    if(count(explode(' ',$id)) == 1){
+        if(App\FormasiJabatan::find($id)->count() > 0){
+            $model = \App\FormasiJabatan::find($id);
+            return $model;
+        }else{
+            return null;
+        }
     }else{
         return null;
     }
+
 }
 
 ?>
