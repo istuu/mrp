@@ -1,5 +1,23 @@
 <nav id="sideNav">
-	<!-- <h3>Form Mutasi</h3> -->
+	<h3>Monitoring</h3>
+	<ul class="nav nav-list">
+		<li><!-- dashboard -->
+			<a class="dashboard" href="{{ url('dashboard') }}"><!-- warning - url used by default by ajax (if eneabled) -->
+				<i class="main-icon fa fa-dashboard"></i> <span>Monitoring & Evaluasi</span>
+			</a>
+		</li>
+		<li>
+			<a href="{{ url('mrp') }}">
+				<i class="main-icon fa fa-table"></i> <span>Tabel MRP</span>
+			</a>
+		</li>
+		<li>
+			<a href="{{ url('sk') }}">
+				<i class="main-icon fa fa-book"></i> <span>Daftar SK</span>
+			</a>
+		</li>
+	</ul>
+	<h3>Form Mutasi</h3>
 	<ul class="nav nav-list">
 		<li>
 			<a href="{{ url('mutasi') }}/pengajuan?tipe=1">
@@ -18,7 +36,7 @@
 		</li>
 	</ul>
 
-	<!-- <h3>Status Proses Mutasi</h3> -->
+	<h3>Status Proses Mutasi</h3>
 	<ul class="nav nav-list">
 		<li>
 			<a href="#">
@@ -43,24 +61,6 @@
 			</ul>
 		</li>
 	</ul><!-- MAIN MENU -->
-	<!-- <h3>Monitoring</h3> -->
-	<ul class="nav nav-list">
-		<li><!-- dashboard -->
-			<a class="dashboard" href="{{ url('dashboard') }}"><!-- warning - url used by default by ajax (if eneabled) -->
-				<i class="main-icon fa fa-dashboard"></i> <span>Monitoring & Evaluasi</span>
-			</a>
-		</li>
-		<li>
-			<a href="{{ url('mrp') }}">
-				<i class="main-icon fa fa-table"></i> <span>Tabel MRP</span>
-			</a>
-		</li>
-		<li>
-			<a href="{{ url('sk') }}">
-				<i class="main-icon fa fa-book"></i> <span>Daftar SK</span>
-			</a>
-		</li>
-	</ul>
 	{{--<h3>Evaluasi</h3>
 	<nav id="sideNav"><!-- MAIN MENU -->
 		<ul class="nav nav-list">

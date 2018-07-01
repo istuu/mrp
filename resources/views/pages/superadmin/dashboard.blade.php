@@ -72,7 +72,7 @@ use Carbon\Carbon;
 
 									<div class="col-md-6">
 										<select class="form-control select2" id="unit_filter">
-											<option value="all">--- ALL PERSONNEL AREA ---</option>
+											<!-- <option value="all">--- ALL PERSONNEL AREA ---</option> -->
 											@foreach ($personnels as $pers)
 												<option value="{{ $pers->username }}">{{ $pers->nama_pendek }}</option>
 											@endforeach

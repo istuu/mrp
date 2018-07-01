@@ -16,7 +16,7 @@ class MonitoringController extends Controller
     	return $this->middleware('auth');
     }
 
-    /* 
+    /*
 	expected data output
 	$data
 		|_struktural
@@ -81,7 +81,10 @@ class MonitoringController extends Controller
     	if($selected_unit != 'all')
     	{
     		$units = $units->where('username', $selected_unit);
-    	}
+    	}else{
+            $first = PersonnelArea::where('user_role', 1)->first()->username;
+            $units = $units->where('username', $first);
+        }
 
     	// dd($units);
 
@@ -106,14 +109,14 @@ class MonitoringController extends Controller
 			{
 				$struks[$jenjang] = $val->groupBy('level')->all();
 
-				if (!isset($data['struktural'][$jenjang])) 
+				if (!isset($data['struktural'][$jenjang]))
 				{
 					$data['struktural'][$jenjang] = [];
 				}
 
 				foreach($struks[$jenjang] as $level => $nilai)
 				{
-					if (!isset($data['struktural'][$level])) 
+					if (!isset($data['struktural'][$level]))
 					{
 						$data['struktural'][$jenjang][$level] = [
 							'pagu' => 0,
@@ -161,7 +164,7 @@ class MonitoringController extends Controller
     {
     	$jumlah = 0;
 
-    	foreach ($formasi_jabatan as $key => $fj) 
+    	foreach ($formasi_jabatan as $key => $fj)
     	{
     		$jumlah += $fj->pegawai->count();
     	}
@@ -173,7 +176,7 @@ class MonitoringController extends Controller
     {
     	$jumlah = 0;
 
-    	foreach ($formasi_jabatan as $fj) 
+    	foreach ($formasi_jabatan as $fj)
     	{
     		$jumlah += $fj->mrp_tujuan->where('status', '<', 7)->count();
     	}
@@ -191,12 +194,12 @@ class MonitoringController extends Controller
             |_ 1
                 |_ formasi
                 |_ jabatan
-                |_ jumlah kosong            
+                |_ jumlah kosong
     */
 
     public function getTableData($forja_perunit, $unit, &$retval, $is_unit)
     {
-        foreach ($forja_perunit as $fj) 
+        foreach ($forja_perunit as $fj)
         {
     		$realisasi = $fj->pegawai->count();
 
@@ -228,12 +231,12 @@ class MonitoringController extends Controller
 
                 if($realisasi)
                 {
-                    if ($realisasi < $fj->pagu) 
+                    if ($realisasi < $fj->pagu)
                         $data['status'] = 'terisi';
                     else if ($realisasi >= $fj->pagu)
                         $data['status'] = 'penuh';
 
-                    foreach ($fj->pegawai as $pegawai) 
+                    foreach ($fj->pegawai as $pegawai)
                     {
                         $data['nip'] = $pegawai->nip;
                         $data['nama'] = $pegawai->nama_pegawai;
@@ -282,7 +285,7 @@ class MonitoringController extends Controller
     	$data['chart'] = [];
     	$data['table'] = [];
 
-    	foreach ($skstg as $sk) 
+    	foreach ($skstg as $sk)
     	{
     		$mrp = $sk->mrp;
     		$pegawai = $mrp->pegawai;
@@ -314,13 +317,13 @@ class MonitoringController extends Controller
 
     		array_push($data['table'], $temp_tabel);
     	}
-   
+
     	return response()->json($data);
     }
 
     public function getRealisasiPaguPerUnit()
     {
-        /* 
+        /*
         expected data output
         $data
             |_jenjang
@@ -337,7 +340,7 @@ class MonitoringController extends Controller
         $unit = auth()->user();
         $forja = $unit->formasi_jabatan->groupBy('jenjang_id')->all();
 
-        foreach ($forja as $jenjang => $nilai) 
+        foreach ($forja as $jenjang => $nilai)
         {
             if(!isset($data[$jenjang]))
             {

@@ -21,7 +21,6 @@ use Carbon\Carbon;
 	<link href="/assets/plugins/footable/css/footable.core.min.css" rel="stylesheet" type="text/css" />
 	<link href="/assets/plugins/footable/css/footable.standalone.css" rel="stylesheet" type="text/css" />
 	<link href="/assets/plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
-	<link href="/assets/css/sdm_dashboard.css" rel="stylesheet" type="text/css" />
 
 	<style>
 		canvas {
@@ -78,7 +77,7 @@ use Carbon\Carbon;
 
 									<div class="col-md-6">
 										<select class="form-control select2" id="unit_filter">
-											<option value="all">--- ALL PERSONNEL AREA ---</option>
+											<!-- <option value="all">--- ALL PERSONNEL AREA ---</option> -->
 											@foreach ($personnels as $pers)
 												<option value="{{ $pers->username }}">{{ $pers->nama_pendek }}</option>
 											@endforeach

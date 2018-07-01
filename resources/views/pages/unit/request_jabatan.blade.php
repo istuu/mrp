@@ -3,10 +3,12 @@
 @section('title', 'Request Jabatan')
 
 @section('leftbar')
-	@if(auth()->user()->user_role <> 0)
+	@if(auth()->user()->user_role == 0)
+		@include('includes.superadmin.leftbar')
+	@elseif(auth()->user()->user_role == 1)
 		@include('includes.unit.leftbar')
 	@else
-		@include('includes.superadmin.leftbar')
+		@include('includes.sdm.leftbar')
 	@endif
 @endsection
 

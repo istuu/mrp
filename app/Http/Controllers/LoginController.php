@@ -35,10 +35,13 @@ class LoginController extends Controller
 		}
 
         if($username !== 'superadmin'){
-            $pegawai = Pegawai::where('nip', request('nip'))->first();
+            if(Pegawai::where('nip', request('nip'))->count() > 0){
+                $pegawai = Pegawai::where('nip', request('nip'))->first();
+                session(['nip_operator' => $pegawai->nip]);
+            }else{
+                return $this->logout('NIP tidak ditemukan!');
+            }
             // if (!$pegawai || $pegawai->formasi_jabatan->personnel_area->username != $username)
-            // return $this->logout('Anda tidak berhak login di unit lain');
-            session(['nip_operator' => $pegawai->nip]);
         }else{
             session(['nip_operator' => '123456SU']);
         }

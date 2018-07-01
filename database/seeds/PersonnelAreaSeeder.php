@@ -28,6 +28,48 @@ class PersonnelAreaSeeder extends Seeder
             $user->save();
         }
 
+        if(PersonnelArea::where('user_role',2)->count() < 1){
+            $user = new PersonnelArea;
+            $user->id = Uuid::generate();
+            $user->personnel_area = 'Karir1';
+            $user->nama_panjang = 'Karir1';
+            $user->sub_area = 'Karir1';
+            $user->nama_pendek = 'Karir1';
+            $user->username = 'karir1';
+            $user->password = bcrypt('karir1');
+            $user->direktorat_id = Direktorat::first()->id;
+            $user->user_role = 2;
+            $user->save();
+        }
+
+        if(PersonnelArea::where('user_role',3)->count() < 1){
+            $user = new PersonnelArea;
+            $user->id = Uuid::generate();
+            $user->personnel_area = 'Karir2';
+            $user->nama_panjang = 'Karir2';
+            $user->sub_area = 'Karir2';
+            $user->nama_pendek = 'Karir2';
+            $user->username = 'karir2';
+            $user->password = bcrypt('karir2');
+            $user->direktorat_id = Direktorat::first()->id;
+            $user->user_role = 3;
+            $user->save();
+        }
+
+        if(PersonnelArea::where('user_role',4)->count() < 1){
+            $user = new PersonnelArea;
+            $user->id = Uuid::generate();
+            $user->personnel_area = 'KarirKP';
+            $user->nama_panjang = 'KarirKP';
+            $user->sub_area = 'KarirKP';
+            $user->nama_pendek = 'KarirKP';
+            $user->username = 'karirkp';
+            $user->password = bcrypt('karirkp');
+            $user->direktorat_id = Direktorat::first()->id;
+            $user->user_role = 4;
+            $user->save();
+        }
+
     //     // unit
     //     $user = new PersonnelArea;
     //     $user->id = Uuid::generate();
