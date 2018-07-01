@@ -29,7 +29,7 @@ class MRPController extends Controller
     public function showEdit()
     {
         $mrp = MRP::where('registry_number', request('reg_num'))->firstOrFail();
-        $all_unit = PersonnelArea::select('id', 'nama')->get()->all();
+        $all_unit = PersonnelArea::select('id', 'personnel_area')->get()->all();
         $pengusul = Pegawai::where('nip', $mrp->nip_pengusul)->first();
         $operator = Pegawai::where('nip', $mrp->nip_operator)->first();
         $fj_tujuan = $mrp->formasi_jabatan_tujuan;
