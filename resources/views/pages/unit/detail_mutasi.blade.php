@@ -124,6 +124,7 @@ use Carbon\Carbon;
 							</table>
 						</div>
 
+
 						<h4>Informasi<strong> Penilaian Pegawai</strong></h4>
 						<div class="row">
 							<div class="col-md-8">
@@ -131,37 +132,29 @@ use Carbon\Carbon;
 									<table class="table table-condensed nomargin">
 										<thead>
 											<tr>
-												<th>Key Competencies</th>
-												<th>Kompetensi Harian</th>
-												<th>Deskripsi Penilaian</th>
+												<th>Kompetensi Peran</th>
+												<th>Kompetensi Lainnya</th>
+												<th>Informasi Lainnya</th>
 											</tr>
 										</thead>
 										<tbody>
 											<tr>
 												<td>
 													<ul class="list-unstyled">
-														<li><strong>Enthusiastic For Challenge:</strong> {{$waktunilai->enthusiastic}}</li>
-														<li><strong>Creative and Innovative:</strong> {{$waktunilai->creative}}</li>
-														<li><strong>Building Business Partnership:</strong> {{$waktunilai->building}}</li>
-														<li><strong>Strategic Orientation:</strong> {{$waktunilai->strategic}}</li>
-														<li><strong>Customer Focus Oriented:</strong> {{$waktunilai->customer}}</li>
-														<li><strong>Driving Execution:</strong> {{$waktunilai->driving}}</li>
-														<li><strong>Visionary Leadership:</strong> {{$waktunilai->visionary}}</li>
-														<li><strong>Empowering / Developing Others:</strong> {{$waktunilai->empowering}}</li>
+														@foreach($keys as $k)
+															<li><strong>{{ $k->title }}:</strong> </li>
+														@endforeach
 													</ul>
 												</td>
 												<td>
 													<ul class="list-unstyled">
-														<li><strong>Komunikasi:</strong> {{$waktunilai->komunikasi}}</li>
-														<li><strong>Team Work:</strong> {{$waktunilai->team_work}}</li>
-														<li><strong>Bahasa Indonesia:</strong> {{$waktunilai->bahasa_1_nilai}}</li>
-														<li><strong>Bahasa Inggris:</strong> {{$waktunilai->bahasa_2_nilai}}</li>
-														@if(isset($waktunilai->bahasa_3))
-														<li><strong>{{$waktunilai->bahasa_3}}:</strong> {{$waktunilai->bahasa_3_nilai}}</li>
-														@endif
+														@foreach($dailys as $d)
+															<li><strong>{{ $d->title }}:</strong> </li>
+														@endforeach
 													</ul>
 												</td>
 												<td>
+													{{--
 													<ul class="list-unstyled">
 														<li>
 															<strong>Internal Readiness</strong>
@@ -174,6 +167,7 @@ use Carbon\Carbon;
 														<li><strong>Hubungan dengan Rekan Kerja:</strong> {{$waktunilai->hubungan_sesama}}</li>
 														<li><strong>Hubungan dengan Atasan:</strong> {{$waktunilai->hubungan_atasan}}</li>
 													</ul>
+													--}}
 												</td>
 											</tr>
 										</tbody>

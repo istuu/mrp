@@ -8,6 +8,9 @@ use App\Notifications\MutasiDitolak;
 use App\Notifications\ProsesEvaluasi;
 use App\Notifications\ButuhEvaluasi;
 
+use App\Models\KeyCompetencies;
+use App\Models\DailyCompetencies;
+
 use App\MRP;
 use App\Pegawai;
 use App\PenilaianPegawai;
@@ -86,7 +89,9 @@ class StatusController extends Controller
 
         else if($detail->tipe == '2')
         {
-    	   return view('pages.unit.detail_mutasi',compact('detail', 'waktunilai'));
+            $keys     = KeyCompetencies::orderBy('sequence')->get();
+            $dailys   = DailyCompetencies::orderBy('sequence')->get();
+    	   return view('pages.unit.detail_mutasi',compact('detail', 'waktunilai','keys','dailys'));
         }
     }
 

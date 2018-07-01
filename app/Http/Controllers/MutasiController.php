@@ -249,7 +249,7 @@ class MutasiController extends Controller
                 'mrp_id' => $mrp->id->string,
                 'nip' => $nip
             );
-            $user_sdm->notify(new PegawaiDibursakan($data));
+            // $user_sdm->notify(new PegawaiDibursakan($data));
 
             if($id_proyeksi)
             {
@@ -257,7 +257,7 @@ class MutasiController extends Controller
                 $data['formasi_jabatan'] = $fj_proyeksi->formasi.' '.$fj_proyeksi->jabatan;
 
                 $user_proyeksi = $fj_proyeksi->personnel_area;
-                $user_proyeksi->notify(new PegawaiDiproyeksikan($data));
+                // $user_proyeksi->notify(new PegawaiDiproyeksikan($data));
             }
 
             return redirect('/status/detail/'.$mrp->registry_number)->with('success', 'Pegawai berhasil dibursakan');
