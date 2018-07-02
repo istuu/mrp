@@ -7,10 +7,12 @@ use Carbon\Carbon;
 @section('title', 'MRP Dashboard')
 
 @section('leftbar')
-	@if(auth()->user()->user_role <> 0)
-		@include('includes.sdm.leftbar')
-	@else
+	@if(auth()->user()->user_role == 0)
 		@include('includes.superadmin.leftbar')
+	@elseif(auth()->user()->user_role == 1)
+		@include('includes.unit.leftbar')
+	@else
+		@include('includes.sdm.leftbar')
 	@endif
 @endsection
 
@@ -756,9 +758,9 @@ use Carbon\Carbon;
 			</div>
 		</div>
     </div>
+	@include('includes.sdm.mrp-modal')
 
 @endsection
-@include('includes.sdm.mrp-modal')
 
 @section('includes-scripts')
 	@parent
