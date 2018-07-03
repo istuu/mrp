@@ -300,8 +300,8 @@ class FormationController extends AdminController
     */
    public function view($id)
    {
-       $model = Model::select('kode_olah','legacy_code','level','posisi','kelas_unit','hgl','formasi','jenjang_main',
-                              'jenjang_txt','pagu','spfj')
+       $model = Model::select('legacy_code','level','posisi_pada_unit','kelas_unit','hgl','formasi','jenjang_main',
+                              'jenjang_sub','pagu','spfj')
                   ->find($id);
        return view('pages.base.view',[
            'title' => $this->title,
