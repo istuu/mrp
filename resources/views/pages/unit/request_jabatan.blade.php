@@ -197,8 +197,8 @@
 								<div class="row">
 									<div class="form-group">
 										<div class="col-md-6 col-sm-6">
-											<label>Pendidikan</label>
-											<input type="text" name="spfj" value="" class="form-control required">
+											<label>Bidang Profesi</label>
+											<input type="text" name="bidang_profesi" value="" class="form-control required">
 										</div>
 										<div class="col-md-6 col-sm-6">
 											<label>Level Pendidikan</label>

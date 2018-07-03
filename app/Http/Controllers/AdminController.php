@@ -202,4 +202,42 @@ class AdminController extends Controller
              return $model->id;
          }
      }
+     /**
+      * get formasi jabatan in karir 1
+      * @return array formasi jabatan
+      */
+     public function formasiJabatanK1()
+     {
+         $model = FormasiJabatan::select('id')
+                             ->where(function($query){
+                                    $query->where('jenjang_sub', '=', 'Manajemen Atas');
+                                    $query->orWhere('level', '=', 'UI');
+                                    $query->orWhere('level', '=', 'UP');
+                                    $query->orWhere('level', '=', 'KP');
+                             })
+                             ->where(function($query){
+                                    $query->where('jenjang_sub', '=', 'Manajemen Menengah');
+                                    $query->orWhere('level', '=', 'UI');
+                                    $query->orWhere('level', '=', 'UP');
+                                    $query->orWhere('level', '=', 'KP');
+                             })
+                             ->where(function($query){
+                                    $query->where('jenjang_sub', '=', 'Manajemen Dasar');
+                                    $query->orWhere('level', '=', 'UP');
+                             })
+                             ->where(function($query){
+                                    $query->where('jenjang_sub', '=', 'Fungsional I');
+                                    $query->orWhere('level', '=', 'UI');
+                                    $query->orWhere('level', '=', 'UP');
+                                    $query->orWhere('level', '=', 'KP');
+                             })
+                             ->where(function($query){
+                                    $query->where('jenjang_sub', '=', 'Fungsional II');
+                                    $query->orWhere('level', '=', 'UI');
+                                    $query->orWhere('level', '=', 'UP');
+                                    $query->orWhere('level', '=', 'KP');
+                             })
+                             ->get();
+         return $model;
+     }
 }

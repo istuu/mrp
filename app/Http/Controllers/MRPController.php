@@ -1,11 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use App\Http\Controllers\AdminController;
 use Illuminate\Http\Request;
 use App\Http\Middleware\SDM;
 use Carbon\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
+use Table;
 
 use App\MRP;
 use App\Pegawai;
@@ -14,7 +15,7 @@ use App\FormasiJabatan;
 use App\SKSTg;
 use Uuid;
 
-class MRPController extends Controller
+class MRPController extends AdminController
 {
     public function __construct()
     {
@@ -179,6 +180,7 @@ class MRPController extends Controller
     {
         $filename = 'MRP-export-'.Carbon::now('Asia/Jakarta');
         $mrps = MRP::all();
+
         $data = [];
 
         foreach ($mrps as $key => $mrp)
@@ -331,6 +333,120 @@ class MRPController extends Controller
                                     })
                                     // ->orWhere('created_at', $search)
                                     ->count();
+        }
+
+        if(auth()->user()->user_role == 2){
+            //Karir 1
+            $fj_asal  = FormasiJabatan::select('id')
+                                        ->where(function($query){
+                                               $query->where('jenjang_sub', '=', 'Manajemen Atas');
+                                               $query->orWhere('level', '=', 'UI');
+                                               $query->orWhere('level', '=', 'UP');
+                                               $query->orWhere('level', '=', 'KP');
+                                        })
+                                        ->where(function($query){
+                                               $query->where('jenjang_sub', '=', 'Manajemen Menengah');
+                                               $query->orWhere('level', '=', 'UI');
+                                               $query->orWhere('level', '=', 'UP');
+                                               $query->orWhere('level', '=', 'KP');
+                                        })
+                                        ->where(function($query){
+                                               $query->where('jenjang_sub', '=', 'Manajemen Dasar');
+                                               $query->orWhere('level', '=', 'UP');
+                                        })
+                                        ->where(function($query){
+                                               $query->where('jenjang_sub', '=', 'Fungsional I');
+                                               $query->orWhere('level', '=', 'UI');
+                                               $query->orWhere('level', '=', 'UP');
+                                               $query->orWhere('level', '=', 'KP');
+                                        })
+                                        ->where(function($query){
+                                               $query->where('jenjang_sub', '=', 'Fungsional II');
+                                               $query->orWhere('level', '=', 'UI');
+                                               $query->orWhere('level', '=', 'UP');
+                                               $query->orWhere('level', '=', 'KP');
+                                        })
+                                        ->get();
+
+            $fj_tujuan  = FormasiJabatan::select('id')
+                                        ->where(function($query){
+                                               $query->where('jenjang_sub', '=', 'Manajemen Atas');
+                                               $query->orWhere('level', '=', 'UI');
+                                               $query->orWhere('level', '=', 'UP');
+                                               $query->orWhere('level', '=', 'KP');
+                                        })
+                                        ->where(function($query){
+                                               $query->where('jenjang_sub', '=', 'Manajemen Menengah');
+                                               $query->orWhere('level', '=', 'UI');
+                                               $query->orWhere('level', '=', 'UP');
+                                               $query->orWhere('level', '=', 'KP');
+                                        })
+                                        ->where(function($query){
+                                               $query->where('jenjang_sub', '=', 'Manajemen Dasar');
+                                               $query->orWhere('level', '=', 'UP');
+                                        })
+                                        ->where(function($query){
+                                               $query->where('jenjang_sub', '=', 'Fungsional I');
+                                               $query->orWhere('level', '=', 'UI');
+                                               $query->orWhere('level', '=', 'UP');
+                                               $query->orWhere('level', '=', 'KP');
+                                        })
+                                        ->where(function($query){
+                                               $query->where('jenjang_sub', '=', 'Fungsional II');
+                                               $query->orWhere('level', '=', 'UI');
+                                               $query->orWhere('level', '=', 'UP');
+                                               $query->orWhere('level', '=', 'KP');
+                                        })
+                                        ->get();
+
+            $mrps = $mrps->whereIn('fj_asal',array_pluck($fj_asal,'id'))
+                         ->whereIn('fj_tujuan',array_prepend(array_pluck($fj_tujuan,'id'),null));
+
+        }elseif (auth()->user()->user_role == 3) {
+            //Karir 2
+            $fj_asal  = FormasiJabatan::select('id')
+                                        ->where('jenjang_sub','Fungsional III')
+                                        ->orWhere('jenjang_sub','Fungsional IV')
+                                        ->orWhere('jenjang_sub','Fungsional V')
+                                        ->orWhere('jenjang_sub','Fungsional VI')
+                                        ->get();
+
+            $fj_tujuan  = FormasiJabatan::select('id')
+                                        ->where('jenjang_sub','Fungsional III')
+                                        ->orWhere('jenjang_sub','Fungsional IV')
+                                        ->orWhere('jenjang_sub','Fungsional V')
+                                        ->orWhere('jenjang_sub','Fungsional VI')
+                                        ->get();
+
+            $mrps = $mrps->whereIn('fj_asal',array_pluck($fj_asal,'id'))
+                         ->whereIn('fj_tujuan',array_prepend(array_pluck($fj_tujuan,'id'),null));
+
+        }elseif (auth()->user()->user_role == 4) {
+            //Karir 2
+            $fj_asal  = FormasiJabatan::select('id')
+                                        ->where(function($query){
+                                               $query->where('jenjang_sub', '=', 'Manajemen Dasar');
+                                               $query->orWhere('level', '=', 'KP');
+                                        })
+                                        ->where('jenjang_sub','Fungsional III')
+                                        ->orWhere('jenjang_sub','Fungsional IV')
+                                        ->orWhere('jenjang_sub','Fungsional V')
+                                        ->orWhere('jenjang_sub','Fungsional VI')
+                                        ->get();
+
+            $fj_tujuan  = FormasiJabatan::select('id')
+                                        ->where(function($query){
+                                               $query->where('jenjang_sub', '=', 'Manajemen Dasar');
+                                               $query->orWhere('level', '=', 'KP');
+                                        })
+                                        ->where('jenjang_sub','Fungsional III')
+                                        ->orWhere('jenjang_sub','Fungsional IV')
+                                        ->orWhere('jenjang_sub','Fungsional V')
+                                        ->orWhere('jenjang_sub','Fungsional VI')
+                                        ->get();
+
+            $mrps = $mrps->whereIn('fj_asal',array_pluck($fj_asal,'id'))
+                         ->whereIn('fj_tujuan',array_prepend(array_pluck($fj_tujuan,'id'),null));
         }
 
         $data = array();

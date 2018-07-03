@@ -214,6 +214,7 @@ class FormationController extends AdminController
                              $model->kode_profesi  = $data->kode_profesi;
                              $model->legacy_code = $data->kodeorganak;
                              $model->spfj        = $data->spfj;
+                             $model->accountable = $data->accountable;
                              $model->updated_at  = Carbon::now();
                              $model->save();
                          }else{
@@ -238,6 +239,7 @@ class FormationController extends AdminController
                              $model->kode_profesi  = $data->kode_profesi;
                              $model->legacy_code = $data->kodeorganak;
                              $model->spfj        = $data->spfj;
+                             $model->accountable = $data->accountable;
                              $model->created_at = Carbon::now();
                              $model->save();
                          }
