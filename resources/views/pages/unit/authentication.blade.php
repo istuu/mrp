@@ -37,8 +37,8 @@
 						<div class="container">
 						  <div class="jumbotron">
 						    <h1>Peringatan!</h1>
-						    <p>Anda tidak mempunyai kewenangan untuk mengajukan proyeksi pada formasi jabatan tersebut! Untuk melanjutkan usulan silakan klik menu purpose.</p>
-							<a href="{{ url('mutasi/pengajuan?tipe=2') }}" class="btn btn-lg btn-primary"> <span class="fa fa-user-plus"></span>  Purpose</a>
+						    <p>Dear Admin {{ auth()->user()->nama_pendek }}, Anda tidak mempunyai kewenangan untuk mengajukan proyeksi pada Formasi Jabatan tersebut! Untuk melanjutkan usulan silakan klik menu Propose.</p>
+							<a href="{{ url('mutasi/pengajuan?tipe=2') }}" class="btn btn-lg btn-primary"> <span class="fa fa-user-plus"></span>  Propose</a>
 							<a href="{{ url('dashboard') }}" class="btn btn-lg btn-danger"> <span class="fa fa-home"></span> Beranda</a>
 						  </div>
 						</div>
