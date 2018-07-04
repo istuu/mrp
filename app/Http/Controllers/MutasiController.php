@@ -167,15 +167,12 @@ class MutasiController extends Controller
             else
                 $id_proyeksi = NULL;
 
-                dd($id_proyeksi);
             if(auth()->user()->user_role == 1){
                 $accountable = FormasiJabatan::find($id_proyeksi)->accountable;
                 if($accountable !== null)
                 {
-                    return redirect()->back()->withErrors(['Anda tidak mempunyai kewenangan untuk mengajukan request ini!']);
+                    return redirect('mutasi/pengajuan/authentication');
                 }
-            }else{
-
             }
 
             $tambahan_mrp = array(
@@ -320,5 +317,14 @@ class MutasiController extends Controller
             return redirect('/status/detail/'.$mrp->registry_number)->with('success', 'Berhasil Bursa Jabatan');
 
         }
+    }
+
+    /**
+     * view authentication
+     * @return string view
+     */
+    public function authentication()
+    {
+        return view('pages.unit.authentication');
     }
 }

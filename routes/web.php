@@ -47,6 +47,7 @@ Route::get('/mutasi/pengajuan/getFormasi', 'MutasiController@getFormasi');
 Route::get('/mutasi/pengajuan/getJabatan', 'MutasiController@getJabatan');
 Route::get('/mutasi/pengajuan/getFormasiJabs', 'MutasiController@getFormasiJabs');
 Route::get('/mutasi/pengajuan/getJabatanInfo', 'MutasiController@getJabatanInfo');
+Route::get('/mutasi/pengajuan/authentication', 'MutasiController@authentication');
 
 Route::get('/notifications', 'NotificationController@index');
 Route::post('/notifications/read', 'NotificationController@read');
