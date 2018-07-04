@@ -77,7 +77,11 @@ class MutasiController extends Controller
 
             $pegawai->forja = $pegawai->nama_panjang_posisi;
             $pegawai->posisi = $pegawai->pada_posisi;
-            $pegawai->personnel_area = $pegawai->personnel_area_id !== '0' ? PersonnelArea::find($pegawai->personnel_area_id)->personnel_area_dapeg : 'Personnel Area tidak ditemukan';
+            if($pegawai->personnel_area_id !== '0'){
+                $pegawai->personnel_area = PersonnelArea::find($pegawai->personnel_area_id)->personnel_area_dapeg ?? 'Personnel Area tidak ditemukan';
+            }else{
+                $pegawai->personnel_area = 'Personnel Area tidak ditemukan';
+            }
             $pegawai->masa_kerja = $pegawai->year_diff_decimal(Carbon::now(),Carbon::parse($pegawai->tanggal_pegawai)).' Tahun';
             $pegawai->sisa_masa_kerja = $pegawai->year_diff_decimal(Carbon::now(), Carbon::parse($pegawai->tanggal_lahir)->addYears(56)).' Tahun';
             $pegawai->lama_menjabat = $pegawai->year_diff_decimal( Carbon::now(),Carbon::parse($pegawai->start_date)).' Tahun';
@@ -163,6 +167,16 @@ class MutasiController extends Controller
             else
                 $id_proyeksi = NULL;
 
+                dd($id_proyeksi);
+            if(auth()->user()->user_role == 1){
+                $accountable = FormasiJabatan::find($id_proyeksi)->accountable;
+                if($accountable !== null)
+                {
+                    return redirect()->back()->withErrors(['Anda tidak mempunyai kewenangan untuk mengajukan request ini!']);
+                }
+            }else{
+
+            }
 
             $tambahan_mrp = array(
                 'id' => Uuid::generate(),
