@@ -105,8 +105,17 @@ use Carbon\Carbon;
 										</td>
 										<td>
 											@if($detail->formasi_jabatan_tujuan)
-											<div><strong>{{$detail->formasi_jabatan_tujuan->formasi}} {{$detail->formasi_jabatan_tujuan->jabatan}}</strong></div>
-											<small>{{$detail->formasi_jabatan_tujuan->posisi}}</small>
+												@if(auth()->user()->user_role == 1)
+													@if($detail->formasi_jabatan_tujuan->jenjang_sub == 'Manajemen Dasat')
+														<div><strong>{{$detail->formasi_jabatan_tujuan->formasi}}</strong></div>
+													@else
+														<div><strong>{{$detail->formasi_jabatan_tujuan->formasi}} {{$detail->formasi_jabatan_tujuan->jabatan}}</strong></div>
+														<small>{{$detail->formasi_jabatan_tujuan->posisi}}</small>
+													@endif
+												@else
+													<div><strong>{{$detail->formasi_jabatan_tujuan->formasi}} {{$detail->formasi_jabatan_tujuan->jabatan}}</strong></div>
+													<small>{{$detail->formasi_jabatan_tujuan->posisi}}</small>
+												@endif
 											@else
 												Perlu saran
 											@endif

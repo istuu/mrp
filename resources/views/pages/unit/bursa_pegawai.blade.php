@@ -137,7 +137,7 @@
 										<div class="form-group">
 											<div class="col-md-6 col-sm-6">
 												<label>Level</label>
-												<select class="form-control" id="jenjang_id" required>
+												<select class="form-control" id="level" required>
 													<option value="">---Pilih Level---</option>
 													@foreach($levels as $level)
 														<option value="{{$level->level}}"> {{$level->level }} </option>
@@ -335,7 +335,7 @@
 											<label>{{ $d->title }}</label>
 										</div>
 										<div class="col-md-3 col-sm-3">
-											<input type="number" name="" min="0" max="100" name="daily[]" class="form-control required rating_number" required target="#rating9" placeholder="0-100">
+											<input type="number" name="" min="0" max="100" name="daily[]" class="form-control rating_number" target="#rating9" placeholder="0-100">
 										</div>
 										<div class="col-md-4 col-sm-4">
 											<div class="rating rating-0 size-13 width-100" id="rating9"><!-- rating-0 ... rating-5 --></div>
@@ -374,14 +374,25 @@
 										<label>Career Willingness *</label>
 									</div>
 									<div class="col-md-8">
-										<input type="text" class="form-control" list="inre" name="nilai[career_willingness]" id="bahasa_3" min="0" max="100" value="{{ old('nilai.career_willingness') }}" class="form-control pointer" placeholder="Career Willingness">
+										{{--<input type="text" class="form-control" list="inre" name="nilai[career_willingness]" id="bahasa_3" min="0" max="100" value="{{ old('nilai.career_willingness') }}" class="form-control pointer" placeholder="Career Willingness">
 											<datalist id="inre">
 												@foreach($jenjangs as $j)
+
 													@if($j->jenjang_txt !== 'HOLDING')
 														<option value="{{ $j->jenjang_txt }}">
 													@endif
 												@endforeach
-											</datalist>
+											</datalist>--}}
+											<select name="career_willingness" class="form-control">
+												<option value="">-- Pilihan --</option>
+												<option value="BoD (Direktur)">BoD (Direktur)</option>
+												<option value="BoD -1 (Manajemen Atas)">BoD -1 (Manajemen Atas)</option>
+												<option value="BoD -2 (Manajemen Menengah)">BoD -2 (Manajemen Menengah)</option>
+												<option value="BoD -3 (Manajemen Dasar)">BoD -3 (Manajemen Dasar)</option>
+												<option value="BoD -4 (Supervisori Atas)">BoD -4 (Supervisori Atas)</option>
+												<option value="BoD -5 (Supervisori Dasar)">BoD -5 (Supervisori Dasar)</option>
+												<option value="Fgs (Fungsional)">Fgs (Fungsional)</option>
+											</select>
 									</div>
 								</div>
 							</div>
@@ -399,14 +410,14 @@
 											<input type="radio" name="nilai[kesehatan_option]" value="Tidak Kendala">
 											<i></i> Tidak Kendala
 										</label>
-										<textarea rows="2" name="nilai[kesehatan]" value="" class="form-control required col-md-6" placeholder="Kesehatan" required>{{ old('nilai.kesehatan') }}</textarea>
+										<textarea rows="2" name="nilai[kesehatan]" value="" class="form-control required col-md-6" placeholder="Deskripsi Kesehatan" required>{{ old('nilai.kesehatan') }}</textarea>
 									</div>
 								</div>
 							</div>
 							<div class="row">
 								<div class="form-group">
 									<div class="col-md-4">
-										<label>Readiness (Keluarga) *</label>
+										<label>Readiness (Eksternal) *</label>
 									</div>
 									<div class="col-md-8">
 										<label class="radio">
@@ -417,7 +428,7 @@
 											<input type="radio" name="nilai[keluarga_option]" value="Tidak Kendala">
 											<i></i> Tidak Kendala
 										</label>
-										<textarea rows="2" name="nilai[external_rediness]" value="" class="form-control required col-md-6" placeholder="From family, friends, etc" required>{{ old('nilai.external_rediness') }}</textarea>
+										<textarea rows="2" name="nilai[external_rediness]" value="" class="form-control required col-md-6" placeholder="Deskripsi kesiapan dari sisi eksternal Pegawai, misal : kondisi keluarga, kondisi sosial, dan lainnya." required>{{ old('nilai.external_rediness') }}</textarea>
 									</div>
 								</div>
 							</div>
