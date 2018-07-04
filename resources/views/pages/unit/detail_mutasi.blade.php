@@ -106,7 +106,7 @@ use Carbon\Carbon;
 										<td>
 											@if($detail->formasi_jabatan_tujuan)
 												@if(auth()->user()->user_role == 1)
-													@if($detail->formasi_jabatan_tujuan->jenjang_sub == 'Manajemen Dasat')
+													@if($detail->formasi_jabatan_tujuan->jenjang_sub == 'Manajemen Dasar')
 														<div><strong>{{$detail->formasi_jabatan_tujuan->formasi}}</strong></div>
 													@else
 														<div><strong>{{$detail->formasi_jabatan_tujuan->formasi}} {{$detail->formasi_jabatan_tujuan->jabatan}}</strong></div>
