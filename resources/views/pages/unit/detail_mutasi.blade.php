@@ -186,7 +186,7 @@ use Carbon\Carbon;
 							<div class="col-md-4 text-right">
 								<br><br><br><br><h4><strong>Unit</strong> Peminta</h4>
 								<address>
-									<strong>{{$detail->personnel_area_pengusul->nama}}<br>{{$detail->personnel_area_pengusul->direktorat->nama}}</strong>
+									<strong>{{$detail->personnel_area_pengusul->nama_panjang}}</strong>
 								</address>
 							</div>
 						</div>
