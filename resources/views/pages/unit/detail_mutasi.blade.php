@@ -110,11 +110,11 @@ use Carbon\Carbon;
 														<div><strong>{{$detail->formasi_jabatan_tujuan->formasi}}</strong></div>
 													@else
 														<div><strong>{{$detail->formasi_jabatan_tujuan->formasi}} {{$detail->formasi_jabatan_tujuan->jabatan}}</strong></div>
-														<small>{{$detail->formasi_jabatan_tujuan->posisi}}</small>
+														<b> pada </b><small>{{$detail->formasi_jabatan_tujuan->posisi_pada_unit}}</small>
 													@endif
 												@else
 													<div><strong>{{$detail->formasi_jabatan_tujuan->formasi}} {{$detail->formasi_jabatan_tujuan->jabatan}}</strong></div>
-													<small>{{$detail->formasi_jabatan_tujuan->posisi}}</small>
+													<b> pada </b><small>{{$detail->formasi_jabatan_tujuan->posisi_pada_unit}}</small>
 												@endif
 											@else
 												Perlu saran
