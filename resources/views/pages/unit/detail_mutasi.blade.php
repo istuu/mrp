@@ -108,6 +108,8 @@ use Carbon\Carbon;
 												@if(auth()->user()->user_role == 1)
 													@if($detail->formasi_jabatan_tujuan->jenjang_sub == 'Manajemen Dasar')
 														<div><strong>{{$detail->formasi_jabatan_tujuan->formasi}}</strong></div>
+													@elseif($detail->formasi_jabatan_tujuan->jenjang_sub == 'Manajemen Atas' || $detail->formasi_jabatan_tujuan->jenjang_sub == 'Manajemen Menengah')
+														<div><strong>{{$detail->formasi_jabatan_tujuan->formasi}} {{$detail->formasi_jabatan_tujuan->jabatan}}</strong></div>
 													@else
 														<div><strong>{{$detail->formasi_jabatan_tujuan->formasi}} {{$detail->formasi_jabatan_tujuan->jabatan}}</strong></div>
 														<b> pada </b><small>{{$detail->formasi_jabatan_tujuan->posisi_pada_unit}}</small>

@@ -47,13 +47,13 @@
 					<table class="table table-striped table-hover dataTable js-exportable" id="statusTable">
 	                    <thead>
 	                        <tr>
-	                            <th width="20%">Registry Number</th>
+	                            <th>Registry Number</th>
 	                            @if(request('act')!='reqjab')
 	                            <th>NIP</th>
 	                            <th>Nama</th>
-	                            <th>Posisi & Unit Asal</th>
+	                            <th width="25%">Posisi & Unit Asal</th>
 	                            @endif
-	                            <th>Posisi & Unit Tujuan</th>
+	                            <th width="25%">Posisi & Unit Tujuan</th>
 	                            @if(request('act')=='reqjab')
 	                            <th>Source</th>
 	                            @endif
@@ -79,9 +79,8 @@
 								@endif
 								<td>
 									@if($mrps->formasi_jabatan_tujuan)
-										<strong>{{$mrps->formasi_jabatan_tujuan->formasi}} {{$mrps->formasi_jabatan_tujuan->jabatan}}</strong>
-										<br>{{$mrps->formasi_jabatan_tujuan->posisi}}
-										<br><strong>{{$mrps->formasi_jabatan_tujuan->personnel_area->nama_pendek}}</strong>
+										<div><strong>{{$mrps->formasi_jabatan_tujuan->formasi}} {{$mrps->formasi_jabatan_tujuan->jabatan}}</strong></div>
+										<b> pada </b><small>{{$mrps->formasi_jabatan_tujuan->posisi_pada_unit}}</small>
 									@else
 										Perlu saran
 									@endif
