@@ -121,8 +121,8 @@ use Carbon\Carbon;
 											@endif
 										</td>
 										<td>
-											<div><strong>{{$detail->formasi_jabatan_asal->formasi}} {{$detail->formasi_jabatan_asal->jabatan}}</strong></div>
-											<small>{{$detail->formasi_jabatan_asal->posisi}}</small>
+											<div><strong>{{$detail->pegawai->nama_panjang_posisi}}</strong><b> pada </b></div>
+											<small>{{$detail->pegawai->pada_posisi}}</small>
 										</td>
 
 										<td>{{$detail->pegawai->time_diff(Carbon::parse($detail->pegawai->start_date), Carbon::now('Asia/Jakarta'))}}</td>
