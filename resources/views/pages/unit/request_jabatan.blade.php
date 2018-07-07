@@ -1,6 +1,6 @@
 @extends('layouts.master')
 
-@section('title', 'Request Jabatan')
+@section('title', 'Vacancies')
 
 @section('leftbar')
 	@if(auth()->user()->user_role == 0)
@@ -71,12 +71,12 @@
 										<div class="form-group">
 											<div class="col-md-12 col-sm-12">
 												<label>Unit</label>
-												@if(auth()->user()->user_role !== '0')
-													<input type="text" class="form-control" class="form-control pointer required" required value="{{$personnelarea->personnel_area}}" disabled>
+												@if(auth()->user()->user_role == '1')
 													<input id="unit_id" value="{{$personnelarea->id}}" hidden>
+													<input type="text" class="form-control" class="form-control pointer required" required value="{{$personnelarea->personnel_area}}" disabled>
 												@else
 													<select class="form-control select2" id="unit_id" required>
-														<option>---Pilih Unit---</option>
+														<option value="">---Pilih Unit---</option>
 														@foreach($personnelarea as $p)
 															<option value="{{$p->id}}"> {{$p->personnel_area }} </option>
 														@endforeach
