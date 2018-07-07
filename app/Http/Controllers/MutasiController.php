@@ -47,7 +47,9 @@ class MutasiController extends Controller
 
     	if($tipe === '1')
     	{
-    		return view('pages.unit.meminta',compact('units','personnelarea','formasis','jenjangs'));
+            $levels   = FormasiJabatan::select('level')->groupBy('level')->get();
+
+    		return view('pages.unit.meminta',compact('units','personnelarea','formasis','jenjangs','levels'));
     	}
     	else if($tipe === '2')
     	{
@@ -378,5 +380,11 @@ class MutasiController extends Controller
     public function authentication()
     {
         return view('pages.unit.authentication');
+    }
+
+    public function getRekomFormasi()
+    {
+        $formation = FormasiJabatan::find(request()->formasi_id)->posisi_pada_unit;
+        return $formation;
     }
 }

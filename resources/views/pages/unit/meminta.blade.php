@@ -144,6 +144,20 @@
 
 									<div class="row">
 										<div class="form-group">
+											<div class="col-md-6 col-sm-6">
+												<label>Level</label>
+												<select class="form-control" id="level" required>
+													<option value="">---Pilih Level---</option>
+													@foreach($levels as $level)
+														<option value="{{$level->level}}"> {{$level->level }} </option>
+													@endforeach
+												</select>
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="form-group">
 											<div class="col-md-12 col-sm-12">
 												<label>Unit</label>
 												@if(auth()->user()->user_role == '1')
@@ -171,12 +185,15 @@
 													@endforeach
 												</select>
 											</div>
+										</div>
+									</div>
 
-											{{--<div class="col-md-6 col-sm-6">
-												<select class="form-control" name="kode_olah" id="rekom_jabatan" disabled>
-													<option>--- Jabatan ---</option>
-												</select>
-											</div>--}}
+									<div class="row">
+										<div class="form-group">
+											<div class="col-md-12 col-sm-12">
+												<label>Posisi pada Unit</label>
+												<textarea id="posisi_pada_unit" class="form-control" disabled></textarea>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -503,41 +520,80 @@
     <script src="{{ asset('assets') }}/plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
 
 
-		<script>
-			$("#unit_id").change(function(){
-				var personnel_area_id = $(this).val();
-				var jenjang_id = $("#jenjang_id").val();
+	<script>
+		$("#unit_id").change(function(){
+			var personnel_area_id = $(this).val();
+			var level = $("#level").val();
+			var jenjang_id = $("#jenjang_id").val();
 
-				$.ajax({
-					'url': '/mutasi/pengajuan/getFormasiJabs',
-					'type': 'GET',
-					'data': {
-						'personnel_area_id': personnel_area_id,
-						'jenjang_id' : jenjang_id
-					},
-					success: function(data){
-						$("#rekom_formasi").html(data);
-					}
-				});
-			})
+			$.ajax({
+				'url': '/mutasi/pengajuan/getFormasiJabs',
+				'type': 'GET',
+				'data': {
+					'personnel_area_id': personnel_area_id,
+					'jenjang_id' : jenjang_id,
+					'level' : level,
+				},
+				success: function(data){
+					$("#rekom_formasi").html(data);
+				}
+			});
+		})
 
-			$("#jenjang_id").change(function(){
-				var jenjang_id = $(this).val();
-				var personnel_area_id = $("#unit_id").val();
+		$("#level").change(function(){
+			var level = $(this).val();
+			var personnel_area_id = $("#unit_id").val();
+			var jenjang_id = $("#jenjang_id").val();
 
-				$.ajax({
-					'url': '/mutasi/pengajuan/getFormasiJabs',
-					'type': 'GET',
-					'data': {
-						'personnel_area_id': personnel_area_id,
-						'jenjang_id' : jenjang_id
-					},
-					success: function(data){
-						$("#rekom_formasi").html(data);
-					}
-				});
-			})
-		</script>
+			$.ajax({
+				'url': '/mutasi/pengajuan/getFormasiJabs',
+				'type': 'GET',
+				'data': {
+					'personnel_area_id': personnel_area_id,
+					'jenjang_id' : jenjang_id,
+					'level' : level,
+				},
+				success: function(data){
+					$("#rekom_formasi").html(data);
+				}
+			});
+		})
+
+		$("#jenjang_id").change(function(){
+			var jenjang_id = $(this).val();
+			var personnel_area_id = $("#unit_id").val();
+			var level = $("#level").val();
+
+			$.ajax({
+				'url': '/mutasi/pengajuan/getFormasiJabs',
+				'type': 'GET',
+				'data': {
+					'personnel_area_id': personnel_area_id,
+					'jenjang_id' : jenjang_id,
+					'level' : level,
+				},
+				success: function(data){
+					$("#rekom_formasi").html(data);
+				}
+			});
+		})
+
+		$("#rekom_formasi").change(function(){
+			var formasi_id = $(this).val();
+
+			$.ajax({
+				'url': '/mutasi/pengajuan/getRekomFormasi',
+				'type': 'GET',
+				'data': {
+					'formasi_id': formasi_id,
+				},
+				success: function(data){
+					$("#posisi_pada_unit").text(data);
+				}
+			});
+		})
+
+	</script>
 
 	<script>
 		$(".rating_number").keyup(function(){
@@ -678,34 +734,6 @@
 		});
 	</script>
 
-	<script>
-		$("#rekom_formasi").change(function(){
-			var formasi = $(this).val();
-
-			$.ajax({
-				'url': '/mutasi/pengajuan/getFormasiJabs',
-				'type': 'GET',
-				'data': {
-					'formasi': formasi,
-					'kode_olah': $("#kode_olah_pegawai").val(),
-				},
-				'dataType': 'json',
-				error: function(){
-
-				},
-				success: function(data){
-					var jabatan = $("#rekom_jabatan");
-					jabatan.empty();
-					jabatan.append('<option>--- Jabatan ---</option>');
-					jabatan.removeAttr('disabled');
-					$.each(data, function(key, value){
-						console.log(value);
-						jabatan.append('<option value="'+key+'">'+value+'</option>');
-					});
-				}
-			});
-		})
-	</script>
 
 	<script>
 		// expected value parameter

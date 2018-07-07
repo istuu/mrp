@@ -183,12 +183,15 @@
 													@endforeach
 												</select>
 											</div>
+										</div>
+									</div>
 
-											{{--<div class="col-md-6 col-sm-6">
-												<select class="form-control" name="kode_olah" id="rekom_jabatan" disabled>
-													<option>--- Jabatan ---</option>
-												</select>
-											</div>--}}
+									<div class="row">
+										<div class="form-group">
+											<div class="col-md-12 col-sm-12">
+												<label>Posisi pada Unit</label>
+												<textarea id="posisi_pada_unit" class="form-control" disabled></textarea>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -576,6 +579,21 @@
 					},
 					success: function(data){
 						$("#rekom_formasi").html(data);
+					}
+				});
+			})
+
+			$("#rekom_formasi").change(function(){
+				var formasi_id = $(this).val();
+
+				$.ajax({
+					'url': '/mutasi/pengajuan/getRekomFormasi',
+					'type': 'GET',
+					'data': {
+						'formasi_id': formasi_id,
+					},
+					success: function(data){
+						$("#posisi_pada_unit").text(data);
 					}
 				});
 			})
