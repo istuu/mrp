@@ -37,16 +37,18 @@ class MutasiController extends Controller
                     ->where('kode_olah','<>','000')
                     ->orderBy('jenjang_sub')->groupBy('jenjang_sub')->get();
 
-        if(auth()->user()->user_role !== "0"){
-            $personnelarea = auth()->user();
-            $formasis = $personnelarea->formasi_jabatan()->select('formasi')->distinct()->get()->all();
-        }else{
-            $personnelarea = PersonnelArea::select('id','personnel_area')->where('user_role','<>','0')->orderBy('personnel_area')->get();
-            $formasis = FormasiJabatan::select('formasi')->groupBy('formasi')->where('kode_olah','<>','000')->get();
-        }
+
 
     	if($tipe === '1')
     	{
+            if(auth()->user()->user_role !== "0"){
+                $personnelarea = auth()->user();
+                $formasis = $personnelarea->formasi_jabatan()->select('formasi')->distinct()->get()->all();
+            }else{
+                $personnelarea = PersonnelArea::select('id','personnel_area')->where('user_role','<>','0')->orderBy('personnel_area')->get();
+                $formasis = FormasiJabatan::select('formasi')->groupBy('formasi')->where('kode_olah','<>','000')->get();
+            }
+
             $levels   = FormasiJabatan::select('level')->groupBy('level')->get();
 
     		return view('pages.unit.meminta',compact('units','personnelarea','formasis','jenjangs','levels'));
@@ -57,6 +59,8 @@ class MutasiController extends Controller
             $keys     = KeyCompetencies::orderBy('sequence')->get();
             $dailys   = DailyCompetencies::orderBy('sequence')->get();
             $levels   = FormasiJabatan::select('level')->groupBy('level')->get();
+            $personnelarea = PersonnelArea::select('id','personnel_area')->where('user_role','<>','0')->orderBy('personnel_area')->get();
+            $formasis = FormasiJabatan::select('formasi')->groupBy('formasi')->where('kode_olah','<>','000')->get();
 
     		return view('pages.unit.bursa_pegawai', compact('levels','personnelarea', 'formasis','keys', 'dailys', 'jenjangs'));
     	}

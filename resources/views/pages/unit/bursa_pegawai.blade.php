@@ -130,6 +130,20 @@
 								<div id="rekom_proyeksi">
 									<div class="row">
 										<div class="form-group">
+											<div class="col-md-12 col-sm-12">
+												<label>Unit</label>
+												<select class="form-control select2" id="unit_id" required>
+													<option>---Pilih Unit---</option>
+													@foreach($personnelarea as $p)
+														<option value="{{$p->id}}"> {{$p->personnel_area }} </option>
+													@endforeach
+												</select>
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="form-group">
 											<div class="col-md-6 col-sm-6">
 												<label>Jenjang</label>
 												<select class="form-control" id="jenjang_id" required>
@@ -141,6 +155,7 @@
 											</div>
 										</div>
 									</div>
+									
 									<div class="row">
 										<div class="form-group">
 											<div class="col-md-6 col-sm-6">
@@ -151,24 +166,6 @@
 														<option value="{{$level->level}}"> {{$level->level }} </option>
 													@endforeach
 												</select>
-											</div>
-										</div>
-									</div>
-									<div class="row">
-										<div class="form-group">
-											<div class="col-md-12 col-sm-12">
-												<label>Unit</label>
-												@if(auth()->user()->user_role !== '0')
-													<input id="unit_id" value="{{$personnelarea->id}}" hidden>
-													<input type="text" class="form-control" class="form-control pointer required" required value="{{$personnelarea->personnel_area}}" disabled>
-												@else
-													<select class="form-control select2" id="unit_id" required>
-														<option>---Pilih Unit---</option>
-														@foreach($personnelarea as $p)
-															<option value="{{$p->id}}"> {{$p->personnel_area }} </option>
-														@endforeach
-													</select>
-												@endif
 											</div>
 										</div>
 									</div>
