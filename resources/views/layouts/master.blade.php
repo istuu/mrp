@@ -24,6 +24,7 @@
 			<link href="{{ asset('assets') }}/css/color_scheme/green.css" rel="stylesheet" type="text/css" id="color_scheme" />
 			<link href="{{ asset('assets') }}/css/sdm_dashboard.css" rel="stylesheet" type="text/css" />
 			<link rel="stylesheet" href="{{ asset('css/loader.css') }}">
+			<link rel="stylesheet" href="{{ asset('vendor/sweetalert/sweetalert.min.css') }}">
 
 			@stack('styles')
 
@@ -62,6 +63,8 @@
 			<script type="text/javascript" src="{{ asset('assets') }}/plugins/jquery/jquery-2.2.3.min.js"></script>
 			<script type="text/javascript" src="{{ asset('assets') }}/js/app.js"></script>
 			<script type="text/javascript" src="{{ asset('assets') }}/js/notifications.js"></script>
+			<script type="text/javascript" src="{{ asset('vendor/sweetalert/sweetalert.min.js') }}"></script>
+
 			<script>
 				$(document).on({
 	                ajaxStart: function() { $('body').addClass("loading");    },

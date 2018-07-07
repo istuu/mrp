@@ -26,7 +26,7 @@ class PersonnelController extends AdminController
      * Column that will be shown in listing
      *
      */
-    protected $columns = ['personnel_area', 'sub_area', 'nama_panjang', 'nama_pendek'];
+    protected $columns = ['personnel_area', 'sub_area', 'nama_panjang', 'nama_pendek', 'legacy_code'];
 
     /**
      * Initiate actions
@@ -187,6 +187,7 @@ class PersonnelController extends AdminController
                              $user->sub_area_dapeg = $data->personnel_subarea_dapeg;
                              $user->nama_panjang = $data->nama_panjang;
                              $user->nama_pendek = $data->singkatan_pa;
+                             $user->legacy_code = $data->legacy_code;
                              $user->username = strtolower($data->singkatan_pa);
                              $user->password = bcrypt(strtolower($data->singkatan_pa));
                              $user->user_role = 1;
@@ -201,6 +202,7 @@ class PersonnelController extends AdminController
                                  $user->sub_area_dapeg = $data->personnel_subarea_dapeg;
                                  $user->nama_panjang = $data->nama_panjang;
                                  $user->nama_pendek = $data->singkatan_pa;
+                                 $user->legacy_code = $data->legacy_code;
                                  $user->username = strtolower($data->singkatan_pa);
                                  $user->password = bcrypt(strtolower($data->singkatan_pa));
                                  $user->direktorat_id = Direktorat::first()->id;
@@ -226,7 +228,7 @@ class PersonnelController extends AdminController
       */
      public function view($id)
      {
-         $model = Model::select('direktorat.nama as direktorat','personnel_area','sub_area','personnel_area_dapeg','sub_area_dapeg',
+         $model = Model::select('direktorat.nama as direktorat','personnel_area', 'legacy_code','sub_area','personnel_area_dapeg','sub_area_dapeg',
                                 'nama_panjang','personnel_area.nama_pendek','username','alamat','kota','provinsi')
                         ->join('direktorat','direktorat.id','=','personnel_area.direktorat_id')
                         ->find($id);

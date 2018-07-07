@@ -146,7 +146,7 @@
 										<div class="form-group">
 											<div class="col-md-12 col-sm-12">
 												<label>Unit</label>
-												@if(auth()->user()->user_role !== '0')
+												@if(auth()->user()->user_role == '1')
 													<input id="unit_id" value="{{$personnelarea->id}}" hidden>
 													<input type="text" class="form-control" class="form-control pointer required" required value="{{$personnelarea->personnel_area}}" disabled>
 												@else
@@ -627,16 +627,24 @@
 					success: function(data){
 						if(!!data)
 						{
-							$("#nama_pegawai").val(data.nama_pegawai);
-							$("#personnel_area").val(data.personnel_area);
-							$("#formasi_jabatan").val(data.nama_panjang_posisi);
-							$("#posisi").val(data.pada_posisi);
-							$("#masa_kerja").val(data.masa_kerja);
-							$("#sisa_kerja").val(data.sisa_masa_kerja);
-							$("#lama_menjabat").val(data.lama_menjabat);
-							$("#kali_jenjang").val(data.kali_jenjang);
-							$("#kode_olah_pegawai").val(data.kode_olah_forja);
-							$("#diklat_penjenjang").val(data.diklat);
+							if(data.result == 'true'){
+								$("#nama_pegawai").val(data.nama_pegawai);
+								$("#personnel_area").val(data.personnel_area);
+								$("#formasi_jabatan").val(data.nama_panjang_posisi);
+								$("#posisi").val(data.pada_posisi);
+								$("#masa_kerja").val(data.masa_kerja);
+								$("#sisa_kerja").val(data.sisa_masa_kerja);
+								$("#lama_menjabat").val(data.lama_menjabat);
+								$("#kali_jenjang").val(data.kali_jenjang);
+								$("#kode_olah_pegawai").val(data.kode_olah_forja);
+								$("#diklat_penjenjang").val(data.diklat);
+							}else{
+								swal({
+								  type: 'error',
+								  title: 'Oops...',
+								  text: 'Dear Admin '+ "{{ auth()->user()->nama_pendek }}" +', Form Request hanya berlaku untuk Pegawai di luar kewenangan Unit Anda!',
+								})
+							}
 						}
 						else
 						{

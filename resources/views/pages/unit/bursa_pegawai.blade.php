@@ -626,7 +626,7 @@
 			if(nip.length >= 6)
 			{
 				$.ajax({
-					'url': '/mutasi/pengajuan/get_pegawai_info',
+					'url': '/mutasi/pengajuan/get_pegawai_info_bursa',
 					'type': 'GET',
 					'data': {
 						'nip': nip
@@ -656,7 +656,7 @@
 			if(nip.length >= 6)
 			{
 				$.ajax({
-					'url': '/mutasi/pengajuan/get_pegawai_info',
+					'url': '/mutasi/pengajuan/get_pegawai_info_bursa',
 					'type': 'GET',
 					'data': {
 						'nip': nip,
@@ -669,16 +669,24 @@
 					success: function(data){
 						if(!!data)
 						{
-							$("#nama_pegawai").val(data.nama_pegawai);
-							$("#personnel_area").val(data.personnel_area);
-							$("#formasi_jabatan").val(data.nama_panjang_posisi);
-							$("#posisi").val(data.pada_posisi);
-							$("#masa_kerja").val(data.masa_kerja);
-							$("#sisa_kerja").val(data.sisa_masa_kerja);
-							$("#lama_menjabat").val(data.lama_menjabat);
-							$("#kali_jenjang").val(data.kali_jenjang);
-							$("#kode_olah_pegawai").val(data.kode_olah_forja);
-							$("#diklat_penjenjang").val(data.diklat);
+							if(data.result == 'true'){
+								$("#nama_pegawai").val(data.nama_pegawai);
+								$("#personnel_area").val(data.personnel_area);
+								$("#formasi_jabatan").val(data.nama_panjang_posisi);
+								$("#posisi").val(data.pada_posisi);
+								$("#masa_kerja").val(data.masa_kerja);
+								$("#sisa_kerja").val(data.sisa_masa_kerja);
+								$("#lama_menjabat").val(data.lama_menjabat);
+								$("#kali_jenjang").val(data.kali_jenjang);
+								$("#kode_olah_pegawai").val(data.kode_olah_forja);
+								$("#diklat_penjenjang").val(data.diklat);
+							}else{
+								swal({
+								  type: 'error',
+								  title: 'Oops...',
+								  text: 'Dear Admin '+ "{{ auth()->user()->nama_pendek }}" +', Pegawai tidak berada dalam kewenangan anda!',
+								})
+							}
 						}
 						else
 						{

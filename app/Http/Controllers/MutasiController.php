@@ -77,10 +77,20 @@ class MutasiController extends Controller
 
             $pegawai->forja = $pegawai->nama_panjang_posisi;
             $pegawai->posisi = $pegawai->pada_posisi;
-            if($pegawai->personnel_area_id !== '0'){
-                $pegawai->personnel_area = PersonnelArea::find($pegawai->personnel_area_id)->personnel_area_dapeg ?? 'Personnel Area tidak ditemukan';
-            }else{
-                $pegawai->personnel_area = 'Personnel Area tidak ditemukan';
+            // if($pegawai->personnel_area_id !== '0'){
+            //     $pegawai->personnel_area = PersonnelArea::find($pegawai->personnel_area_id)->personnel_area_dapeg ?? 'Personnel Area tidak ditemukan';
+            // }else{
+                $pegawai->personnel_area = PersonnelArea::where('legacy_code','LIKE',substr($pegawai->legacy_code,0,6).'%')->first()->personnel_area_dapeg ?? 'Personnel Area tidak ditemukan';
+            // }
+
+            $pegawai->result = 'true';
+
+            if(auth()->user()->user_role == '1')
+            {
+                if($pegawai->personnel_area == auth()->user()->personnel_area_dapeg)
+                {
+                    $pegawai->result = 'false';
+                }
             }
             $pegawai->masa_kerja = $pegawai->year_diff_decimal(Carbon::now(),Carbon::parse($pegawai->tanggal_pegawai)).' Tahun';
             $pegawai->sisa_masa_kerja = $pegawai->year_diff_decimal(Carbon::now(), Carbon::parse($pegawai->tanggal_lahir)->addYears(56)).' Tahun';
@@ -90,8 +100,46 @@ class MutasiController extends Controller
             //Data diklat
             $diklat = InfoDiklat::where('nip',request('nip'))->orderBy('tanggal_sertifikat','desc')->first()->judul_diklat ?? 'Tidak ada Diklat';
             $pegawai->diklat = $diklat;
+            return response()->json($pegawai);
         }
-        return response()->json($pegawai);
+    }
+
+    public function getPegawaiInfoBursa()
+    {
+        $pegawai = Pegawai::where('nip', request('nip'))->first();
+        $user = auth()->user();
+        if($pegawai)
+        {
+            $pegawai->forja = $pegawai->nama_panjang_posisi;
+            $pegawai->posisi = $pegawai->pada_posisi;
+            // if($pegawai->personnel_area_id !== '0'){
+            //     $pegawai->personnel_area = PersonnelArea::find($pegawai->personnel_area_id)->personnel_area_dapeg ?? 'Personnel Area tidak ditemukan';
+            // }else{
+                $pegawai->personnel_area = PersonnelArea::where('legacy_code','LIKE',substr($pegawai->legacy_code,0,6).'%')->first()->personnel_area_dapeg ?? 'Personnel Area tidak ditemukan';
+            // }
+            $pegawai->result = 'true';
+
+            if(auth()->user()->user_role == '1')
+            {
+                if($pegawai->personnel_area !== auth()->user()->personnel_area_dapeg)
+                {
+                    $pegawai->result = 'false';
+                }
+            }
+
+
+            $pegawai->masa_kerja = $pegawai->year_diff_decimal(Carbon::now(),Carbon::parse($pegawai->tanggal_pegawai)).' Tahun';
+            $pegawai->sisa_masa_kerja = $pegawai->year_diff_decimal(Carbon::now(), Carbon::parse($pegawai->tanggal_lahir)->addYears(56)).' Tahun';
+            $pegawai->lama_menjabat = $pegawai->year_diff_decimal( Carbon::now(),Carbon::parse($pegawai->start_date)).' Tahun';
+            $pegawai->kode_olah_forja = $pegawai->nama_panjang_posisi;
+
+            //Data diklat
+            $diklat = InfoDiklat::where('nip',request('nip'))->orderBy('tanggal_sertifikat','desc')->first()->judul_diklat ?? 'Tidak ada Diklat';
+            $pegawai->diklat = $diklat;
+
+            return response()->json($pegawai);
+
+        }
     }
 
     public function getFormasi()

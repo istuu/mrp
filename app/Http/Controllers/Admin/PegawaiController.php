@@ -254,7 +254,7 @@ class PegawaiController extends AdminController
                              $model->legacy_code     = $data->legacy_code;
                              $model->talent_pool_position  = $data->talent_pool_position;
                              $model->company_code  = $data->company_code;
-                             $model->personnel_area_id  = $this->getPersonnelAreaDapeg($data,'nama');
+                             $model->personnel_area_id  = $this->getPersonnelAreaDapeg($data);
                              $model->tanggal_grade = Carbon::parse("$data->tanggal_grade");
                              $model->tanggal_lahir = Carbon::parse("$data->birth_date");
                              $model->tanggal_masuk = Carbon::parse("$data->tanggal_masuk");
