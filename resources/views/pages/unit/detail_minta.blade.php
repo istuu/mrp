@@ -131,8 +131,8 @@ use Carbon\Carbon;
 											<small>{{$detail->formasi_jabatan_asal->posisi}}</small>
 										</td>
 
-										<td>{{$detail->pegawai->time_diff(Carbon::parse($detail->pegawai->start_date), Carbon::now('Asia/Jakarta'))}}</td>
-										<td>{{$detail->pegawai->time_diff(Carbon::now('Asia/Jakarta'), Carbon::parse($detail->pegawai->end_date))}}</td>
+										<td>{{$detail->pegawai->year_diff_decimal(Carbon::now(),Carbon::parse($detail->pegawai->tanggal_pegawai)).' Tahun'}}</td>
+										<td>{{$detail->pegawai->year_diff_decimal(Carbon::now(), Carbon::parse($detail->pegawai->tanggal_lahir)->addYears(56)).' Tahun'}}</td>
 
 									</tr>
 								</tbody>
