@@ -642,7 +642,7 @@
 								swal({
 								  type: 'error',
 								  title: 'Oops...',
-								  text: 'Dear Admin '+ "{{ auth()->user()->nama_pendek }}" +', Form Request hanya berlaku untuk Pegawai di luar kewenangan Unit Anda!',
+								  text: 'Dear Admin '+ "{{ auth()->user()->nama_pendek }}" +', Form Request hanya berlaku untuk Pegawai di luar Unit Anda!',
 								})
 							}
 						}
