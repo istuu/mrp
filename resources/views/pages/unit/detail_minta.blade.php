@@ -85,11 +85,11 @@ use Carbon\Carbon;
 							<table class="table table-condensed nomargin">
 								<thead>
 									<tr>
-										<th width="16%">Detail Mutasi</th>
-										<th width="12%">Detail Pegawai</th>
-										<th width="12%">Unit Asal</th>
-										<th width="22%">Proyeksi Jabatan</th>
-										<th width="22%">Jabatan Saat Ini</th>
+										<th width="">Detail Mutasi</th>
+										<th width="">Detail Pegawai</th>
+										<th width="">Unit Asal</th>
+										<th width="20%">Proyeksi Jabatan</th>
+										<th width="20%">Jabatan Saat Ini</th>
 										<th width="8%">Masa Kerja</th>
 										<th width="8%">Sisa Masa Kerja</th>
 									</tr>
