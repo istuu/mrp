@@ -77,10 +77,10 @@ use Carbon\Carbon;
 							<table class="table table-condensed nomargin">
 								<thead>
 									<tr>
-										<th width="12%">Detail Pegawai</th>
-										<th width="12%">Detail Mutasi</th>
-										<th width="30%">Proyeksi Jabatan</th>
-										<th width="30%">Jabatan Saat Ini</th>
+										<th width="">Detail Pegawai</th>
+										<th width="">Detail Mutasi</th>
+										<th width="20%">Proyeksi Jabatan</th>
+										<th width="20%">Jabatan Saat Ini</th>
 										<th width="8%">Masa Kerja</th>
 										<th width="8%">Sisa Masa Kerja</th>
 									</tr>
@@ -127,8 +127,8 @@ use Carbon\Carbon;
 											<small>{{$detail->pegawai->pada_posisi}}</small>
 										</td>
 
-										<td>{{$detail->pegawai->time_diff(Carbon::parse($detail->pegawai->start_date), Carbon::now('Asia/Jakarta'))}}</td>
-										<td>{{$detail->pegawai->time_diff(Carbon::now('Asia/Jakarta'), Carbon::parse($detail->pegawai->end_date))}}</td>
+										<td>{{$detail->pegawai->year_diff_decimal(Carbon::now(),Carbon::parse($detail->pegawai->tanggal_pegawai)).' Tahun'}}</td>
+										<td>{{$detail->pegawai->year_diff_decimal(Carbon::now(), Carbon::parse($detail->pegawai->tanggal_lahir)->addYears(56)).' Tahun'}}</td>
 
 									</tr>
 								</tbody>
