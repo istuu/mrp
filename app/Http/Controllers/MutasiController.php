@@ -126,6 +126,7 @@ class MutasiController extends Controller
     {
         $personnel_area_id = request('personnel_area_id');
         $jenjang_id = request('jenjang_id');
+        $level = request('level');
 
         $formasis = FormasiJabatan::select('*');
         if(isset($jenjang_id)){
@@ -133,6 +134,9 @@ class MutasiController extends Controller
         }
         if(isset($personnel_area_id)){
             $formasis = $formasis->where('personnel_area_id',$personnel_area_id);
+        }
+        if(isset($level)){
+            $formasis = $formasis->where('level',$level);
         }
         $formasis = $formasis->orderBy('legacy_code')->get();
         return view('includes.option-formasi',compact('formasis'));

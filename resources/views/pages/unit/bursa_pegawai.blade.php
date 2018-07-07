@@ -110,6 +110,14 @@
 									</div>
 								</div>
 								<div class="row">
+									<div class="form-group">
+										<div class="col-md-6 col-sm-6">
+											<label>Diklat Penjenjang</label>
+											<input type="text" id="diklat_penjenjang" value="" class="form-control" disabled>
+										</div>
+									</div>
+								</div>
+								<div class="row">
 									<div class="col-md-12 col-sm-12">
 										<label class="switch switch">
 											<input type="checkbox" name="rekom_checkbox" id="rekom_checkbox" value="0" autocomplete="off">
@@ -517,6 +525,7 @@
 		<script>
 			$("#unit_id").change(function(){
 				var personnel_area_id = $(this).val();
+				var level = $("#level").val();
 				var jenjang_id = $("#jenjang_id").val();
 
 				$.ajax({
@@ -524,7 +533,27 @@
 					'type': 'GET',
 					'data': {
 						'personnel_area_id': personnel_area_id,
-						'jenjang_id' : jenjang_id
+						'jenjang_id' : jenjang_id,
+						'level' : level,
+					},
+					success: function(data){
+						$("#rekom_formasi").html(data);
+					}
+				});
+			})
+
+			$("#level").change(function(){
+				var level = $(this).val();
+				var personnel_area_id = $("#unit_id").val();
+				var jenjang_id = $("#jenjang_id").val();
+
+				$.ajax({
+					'url': '/mutasi/pengajuan/getFormasiJabs',
+					'type': 'GET',
+					'data': {
+						'personnel_area_id': personnel_area_id,
+						'jenjang_id' : jenjang_id,
+						'level' : level,
 					},
 					success: function(data){
 						$("#rekom_formasi").html(data);
@@ -535,13 +564,15 @@
 			$("#jenjang_id").change(function(){
 				var jenjang_id = $(this).val();
 				var personnel_area_id = $("#unit_id").val();
+				var level = $("#level").val();
 
 				$.ajax({
 					'url': '/mutasi/pengajuan/getFormasiJabs',
 					'type': 'GET',
 					'data': {
 						'personnel_area_id': personnel_area_id,
-						'jenjang_id' : jenjang_id
+						'jenjang_id' : jenjang_id,
+						'level' : level,
 					},
 					success: function(data){
 						$("#rekom_formasi").html(data);
