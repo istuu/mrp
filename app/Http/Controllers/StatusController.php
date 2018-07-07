@@ -13,6 +13,7 @@ use App\Models\DailyCompetencies;
 
 use App\MRP;
 use App\Pegawai;
+use App\FormasiJabatan;
 use App\PenilaianPegawai;
 use App\PersonnelArea;
 use Carbon\Carbon;
@@ -47,11 +48,44 @@ class StatusController extends Controller
         }
         if(request('act')=='resjab')
         {
-            $fj = auth()->user()->formasi_jabatan->pluck('id')->toArray();
+            $fj_asal  = FormasiJabatan::select('id')
+                                        ->where(function($query){
+                                               $query->where('jenjang_sub', '=', 'Manajemen Atas');
+                                               $query->orWhere('level', '=', 'UI');
+                                               $query->orWhere('level', '=', 'UP');
+                                               $query->orWhere('level', '=', 'KP');
+                                        })
+                                        ->where(function($query){
+                                               $query->where('jenjang_sub', '=', 'Manajemen Menengah');
+                                               $query->orWhere('level', '=', 'UI');
+                                               $query->orWhere('level', '=', 'UP');
+                                               $query->orWhere('level', '=', 'KP');
+                                        })
+                                        ->where(function($query){
+                                               $query->where('jenjang_sub', '=', 'Manajemen Dasar');
+                                               $query->orWhere('level', '=', 'UP');
+                                        })
+                                        ->where(function($query){
+                                               $query->where('jenjang_sub', '=', 'Fungsional I');
+                                               $query->orWhere('level', '=', 'UI');
+                                               $query->orWhere('level', '=', 'UP');
+                                               $query->orWhere('level', '=', 'KP');
+                                        })
+                                        ->where(function($query){
+                                               $query->where('jenjang_sub', '=', 'Fungsional II');
+                                               $query->orWhere('level', '=', 'UI');
+                                               $query->orWhere('level', '=', 'UP');
+                                               $query->orWhere('level', '=', 'KP');
+                                        })
+                                        ->get();
+            if(auth()->user()->user_role == 2){
+                $fj = array_pluck($fj_asal,'id');
+                $mrp = MRP::where('tipe', 2)->whereIn('fj_tujuan', $fj)->get();
+            }else{
+                $fj = auth()->user()->formasi_jabatan->pluck('id')->toArray();
+                $mrp = MRP::where('tipe', 2)->whereIn('fj_tujuan', $fj)->whereNotIn('fj_tujuan',array_pluck($fj_asal,'id'))->get();
+            }
 
-            $mrp = MRP::where('tipe', 2)
-                        ->whereIn('fj_tujuan', $fj)
-                        ->get();
 
             return view('pages.unit.status_diterima',compact('mrp'));
             // dd($mrp);
