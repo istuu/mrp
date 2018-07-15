@@ -319,6 +319,12 @@
 		});
 	</script>
 	<script>
+		function rejectApproveFunct(id, reg_num){
+			$(".mrp_id").val(id);
+			$(".edit_link").attr('href', '/mrp/edit/'+reg_num);
+		};
+	</script>
+	<script>
 		$("#rekom_checkbox").click(function(e){
 			var on_off = $(this).val();
 			$(this).val( on_off == '0' ? '1' : '0');
