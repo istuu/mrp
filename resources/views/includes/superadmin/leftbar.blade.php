@@ -92,6 +92,18 @@
 				<li class="{{ checkChildActive('direktorats') }}"><a href="{{ url('direktorats') }}"><span>Direktorat</span></a></li>
 			</ul>
 		</li>
+		{{--
+		<li class="{{ checkParentActive(['renev_structures', 'restructures']) }}">
+			<a href="#">
+				<i class="fa fa-menu-arrow pull-right"></i>
+				<i class="main-icon fa fa-briefcase"></i> <span>Reorganisasi</span>
+			</a>
+			<ul>
+				<li class="{{ checkChildActive('renev_structures') }}"><a href="{{ url('renev_structures') }}"><span>Renev Struktur</span></a></li>
+				<li class="{{ checkChildActive('restructures') }}"><a href="{{ url('restructures') }}"><span>Restrukturisasi Organisasi dan Formasi</span></a></li>
+			</ul>
+		</li>
+		--}}
 		<li class="{{ checkParentActive(['key_competencies', 'daily_competencies']) }}">
 			<a href="#">
 				<i class="fa fa-menu-arrow pull-right"></i>

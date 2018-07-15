@@ -69,4 +69,27 @@ function getFormasiJabatan($id)
 
 }
 
+/**
+ * [getDataRenev description]
+ * @param  string $legacy_code [description]
+ * @return string text
+ */
+function getDataRenev($legacy_code)
+{
+    $fj = \App\FormasiJabatan::where('legacy_code',$legacy_code)->first();
+    return $fj->formasi." ".$fj->jabatan;
+
+    // return App\FormasiJabatan::where('id',$id)->count();
+    if(count(explode(' ',$id)) == 1){
+        if(App\FormasiJabatan::find($id)->count() > 0){
+            $model = \App\FormasiJabatan::find($id);
+            return $model;
+        }else{
+            return null;
+        }
+    }else{
+        return null;
+    }
+}
+
 ?>

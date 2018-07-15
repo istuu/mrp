@@ -48,7 +48,7 @@ class StatusController extends Controller
         }
         if(request('act')=='resjab')
         {
-            $fj_asal  = FormasiJabatan::select('id')
+            $fj_karir1  = FormasiJabatan::select('id')
                                         ->where(function($query){
                                                $query->where('jenjang_sub', '=', 'Manajemen Atas');
                                                $query->orWhere('level', '=', 'UI');
@@ -78,12 +78,48 @@ class StatusController extends Controller
                                                $query->orWhere('level', '=', 'KP');
                                         })
                                         ->get();
+
+            $fj_karir2  = FormasiJabatan::select('id')
+                                        ->where('jenjang_sub', '=', 'Fungsional III')
+                                        ->where('jenjang_sub', '=', 'Fungsional IV')
+                                        ->where('jenjang_sub', '=', 'Fungsional V')
+                                        ->where('jenjang_sub', '=', 'Fungsional VI')
+                                        ->get();
+
+            $fj_karirkp  = FormasiJabatan::select('id')
+                                        ->where(function($query){
+                                               $query->where('jenjang_sub', '=', 'Manajemen Dasar');
+                                               $query->orWhere('level', '=', 'UP');
+                                        })
+                                        ->where('jenjang_sub', '=', 'Fungsional III')
+                                        ->where('jenjang_sub', '=', 'Fungsional IV')
+                                        ->where('jenjang_sub', '=', 'Fungsional V')
+                                        ->where('jenjang_sub', '=', 'Fungsional VI')
+                                        ->get();
+
             if(auth()->user()->user_role == 2){
-                $fj = array_pluck($fj_asal,'id');
+                $fj = array_pluck($fj_karir1,'id');
                 $mrp = MRP::where('tipe', 2)->whereIn('fj_tujuan', $fj)->get();
-            }else{
+
+            }elseif(auth()->user()->user_role == 3) {
+                $fj = array_pluck($fj_karir2,'id');
+                $mrp = MRP::where('tipe', 2)->whereIn('fj_tujuan', $fj)->get();
+
+            }elseif(auth()->user()->user_role == 4) {
+                $fj = array_pluck($fj_karirkp,'id');
+                $mrp = MRP::where('tipe', 2)->whereIn('fj_tujuan', $fj)->get();
+
+            }
+            elseif(auth()->user()->user_role == 1){
                 $fj = auth()->user()->formasi_jabatan->pluck('id')->toArray();
-                $mrp = MRP::where('tipe', 2)->whereIn('fj_tujuan', $fj)->whereNotIn('fj_tujuan',array_pluck($fj_asal,'id'))->get();
+                $mrp = MRP::where('tipe', 2)
+                        ->whereIn('fj_tujuan', $fj)
+                        ->whereNotIn('fj_tujuan', $fj_karir1)
+                        ->whereNotIn('fj_tujuan', $fj_karir2)
+                        ->get();
+
+            }else{
+                $mrp = MRP::where('tipe', 2)->get();
             }
 
 
@@ -92,13 +128,22 @@ class StatusController extends Controller
         }
         if(request('act')=='resminta')
         {
-            $fj = auth()->user()->formasi_jabatan->pluck('id')->toArray();
-
-            $mrp = MRP::where('tipe', 1)
-                        ->whereHas('pegawai', function($q) use ($fj){
-                            $q->whereIn('fj_asal', $fj);
-                        })
+            if(auth()->user()->user_role == 4){
+                $fj = FormasiJabatan::where('legacy_code','LIKE','1516%')->limit(2000)->get();
+                $mrp = MRP::where('tipe', 1)
+                        ->whereIn('fj_asal', array_pluck($fj,'id'))
                         ->get();
+            }elseif(auth()->user()->user_role == 0){
+                $mrp = MRP::where('tipe', 1)->get();
+            }else{
+                $fj = auth()->user()->formasi_jabatan->pluck('id')->toArray();
+
+                $mrp = MRP::where('tipe', 1)
+                ->whereHas('pegawai', function($q) use ($fj){
+                    $q->whereIn('fj_asal', $fj);
+                })
+                ->get();
+            }
 
 
             return view('pages.unit.status_diterima',compact('mrp'));

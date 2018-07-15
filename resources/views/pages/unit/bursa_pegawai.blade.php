@@ -155,7 +155,7 @@
 											</div>
 										</div>
 									</div>
-									
+
 									<div class="row">
 										<div class="form-group">
 											<div class="col-md-6 col-sm-6">
@@ -318,6 +318,7 @@
 							<!-- required [php action request] -->
 						<div class="panel-body">
 							<p><strong>KOMPETENSI PERAN</strong></p>
+							@php($i=1)
 							@foreach($keys as $k)
 								<div class="row">
 									<div class="form-group">
@@ -325,13 +326,15 @@
 											<label>{{ $k->title }}</label>
 										</div>
 										<div class="col-md-3 col-sm-3">
-											<input type="number" name="key[]" min="0" max="100" class="form-control required rating_number" required target="#rating1" placeholder="0-100">
+											<input name="attribute_key" type="hidden" value="{{ $k->title }}">
+											<input type="number" name="value_key[]" min="0" max="100" class="form-control required rating_number" required target="#rating{{$i}}" placeholder="0-100">
 										</div>
 										<div class="col-md-4 col-sm-4">
-											<div class="rating rating-0 size-13 width-100" id="rating1"><!-- rating-0 ... rating-5 --></div>
+											<div class="rating rating-0 size-13 width-100" id="rating{{$i}}"><!-- rating-0 ... rating-5 --></div>
 										</div>
 									</div>
 								</div>
+								@php($i++)
 							@endforeach
 
 							<hr>
@@ -343,7 +346,8 @@
 											<label>{{ $d->title }}</label>
 										</div>
 										<div class="col-md-3 col-sm-3">
-											<input type="number" name="" min="0" max="100" name="daily[]" class="form-control rating_number" target="#rating9" placeholder="0-100">
+											<input name="attribute_daily" type="hidden" value="{{ $d->title }}">
+											<input type="number" name="" min="0" max="100" name="value_daily[]" class="form-control rating_number" target="#rating9" placeholder="0-100">
 										</div>
 										<div class="col-md-4 col-sm-4">
 											<div class="rating rating-0 size-13 width-100" id="rating9"><!-- rating-0 ... rating-5 --></div>
@@ -355,7 +359,7 @@
 							<div class="row">
 								<div class="form-group">
 									<div class="col-md-5 col-sm-5">
-										<input type="text" class="form-control" list="unitsi" name="nilai[bahasa_3]" id="bahasa_3" min="0" max="100" value="{{ old('nilai.bahasa_3') }}" class="form-control pointer required" placeholder="Bahasa .... (opsional)">
+										<input type="text" class="form-control" list="unitsi" name="attribute_other" id="attribute_other" min="0" max="100" value="{{ old('nilai_lain') }}" class="form-control pointer required" placeholder="Bahasa .... (opsional)">
 											<datalist id="unitsi">
 												<option value="Bahasa Mandarin">
 												<option value="Bahasa Jepang">
@@ -366,7 +370,7 @@
 										<!-- <input type="text" name="nilai[bahasa_3]" id="bahasa_3" min="0" max="100" value="{{ old('nilai.bahasa_3') }}" class="form-control" placeholder="Bahasa .... (opsional)"> -->
 									</div>
 									<div class="col-md-3 col-sm-3">
-										<input type="number" name="nilai[bahasa_3_nilai]" min="0" max="100" value="{{ old('nilai.bahasa_3_nilai') }}" class="form-control rating_number" target="#rating13" placeholder="0-100">
+										<input type="number" name="value_other" min="0" max="100" value="{{ old('nilai.bahasa_3_nilai') }}" class="form-control rating_number" target="#rating13" placeholder="0-100">
 									</div>
 									<div class="col-md-4 col-sm-4">
 										<div class="rating rating-0 size-13 width-100" id="rating13"><!-- rating-0 ... rating-5 --></div>
@@ -382,25 +386,16 @@
 										<label>Career Willingness *</label>
 									</div>
 									<div class="col-md-8">
-										{{--<input type="text" class="form-control" list="inre" name="nilai[career_willingness]" id="bahasa_3" min="0" max="100" value="{{ old('nilai.career_willingness') }}" class="form-control pointer" placeholder="Career Willingness">
-											<datalist id="inre">
-												@foreach($jenjangs as $j)
-
-													@if($j->jenjang_txt !== 'HOLDING')
-														<option value="{{ $j->jenjang_txt }}">
-													@endif
-												@endforeach
-											</datalist>--}}
-											<select name="career_willingness" class="form-control">
-												<option value="">-- Pilihan --</option>
-												<option value="BoD (Direktur)">BoD (Direktur)</option>
-												<option value="BoD -1 (Manajemen Atas)">BoD -1 (Manajemen Atas)</option>
-												<option value="BoD -2 (Manajemen Menengah)">BoD -2 (Manajemen Menengah)</option>
-												<option value="BoD -3 (Manajemen Dasar)">BoD -3 (Manajemen Dasar)</option>
-												<option value="BoD -4 (Supervisori Atas)">BoD -4 (Supervisori Atas)</option>
-												<option value="BoD -5 (Supervisori Dasar)">BoD -5 (Supervisori Dasar)</option>
-												<option value="Fgs (Fungsional)">Fgs (Fungsional)</option>
-											</select>
+										<select name="career_willingness" class="form-control">
+											<option value="">-- Pilihan --</option>
+											<option value="BoD (Direktur)">BoD (Direktur)</option>
+											<option value="BoD -1 (Manajemen Atas)">BoD -1 (Manajemen Atas)</option>
+											<option value="BoD -2 (Manajemen Menengah)">BoD -2 (Manajemen Menengah)</option>
+											<option value="BoD -3 (Manajemen Dasar)">BoD -3 (Manajemen Dasar)</option>
+											<option value="BoD -4 (Supervisori Atas)">BoD -4 (Supervisori Atas)</option>
+											<option value="BoD -5 (Supervisori Dasar)">BoD -5 (Supervisori Dasar)</option>
+											<option value="Fgs (Fungsional)">Fgs (Fungsional)</option>
+										</select>
 									</div>
 								</div>
 							</div>
@@ -411,14 +406,14 @@
 									</div>
 									<div class="col-md-8">
 										<label class="radio">
-											<input type="radio" name="nilai[kesehatan_option]" value="Kendala">
+											<input type="radio" name="condition_kesehatan" value="Kendala">
 											<i></i> Kendala
 										</label>
 										<label class="radio">
-											<input type="radio" name="nilai[kesehatan_option]" value="Tidak Kendala">
+											<input type="radio" name="condition_kesehatan" value="Tidak Kendala">
 											<i></i> Tidak Kendala
 										</label>
-										<textarea rows="2" name="nilai[kesehatan]" value="" class="form-control required col-md-6" placeholder="Deskripsi Kesehatan" required>{{ old('nilai.kesehatan') }}</textarea>
+										<textarea rows="2" name="value_kesehatan" value="" class="form-control required col-md-6" placeholder="Deskripsi Kesehatan" required>{{ old('nilai.kesehatan') }}</textarea>
 									</div>
 								</div>
 							</div>
@@ -429,14 +424,14 @@
 									</div>
 									<div class="col-md-8">
 										<label class="radio">
-											<input type="radio" name="nilai[keluarga_option]" value="Kendala">
+											<input type="radio" name="condition_eksternal" value="Kendala">
 											<i></i> Kendala
 										</label>
 										<label class="radio">
-											<input type="radio" name="nilai[keluarga_option]" value="Tidak Kendala">
+											<input type="radio" name="condition_eksternal" value="Tidak Kendala">
 											<i></i> Tidak Kendala
 										</label>
-										<textarea rows="2" name="nilai[external_rediness]" value="" class="form-control required col-md-6" placeholder="Deskripsi kesiapan dari sisi eksternal Pegawai, misal : kondisi keluarga, kondisi sosial, dan lainnya." required>{{ old('nilai.external_rediness') }}</textarea>
+										<textarea rows="2" name="value_eksternal" value="" class="form-control required col-md-6" placeholder="Deskripsi kesiapan dari sisi eksternal Pegawai, misal : kondisi keluarga, kondisi sosial, dan lainnya." required>{{ old('nilai.external_rediness') }}</textarea>
 									</div>
 								</div>
 							</div>
@@ -450,15 +445,15 @@
 									</div>
 									<div class="col-md-8">
 										<label class="radio">
-											<input type="radio" name="hds" value="Sangat Bagus" {{ old('hds') == 'Sangat Bagus' ? 'selected="selected"' : '' }}>
+											<input type="radio" name="condition_personal" value="Sangat Bagus" {{ old('hds') == 'Sangat Bagus' ? 'selected="selected"' : '' }}>
 											<i></i> Sangat Bagus
 										</label>
 
 										<label class="radio">
-											<input type="radio" name="hds" value="Bermasalah" {{ old('hds') == 'Bermasalah' ? 'selected="selected"' : '' }}>
+											<input type="radio" name="condition_personal" value="Bermasalah" {{ old('hds') == 'Bermasalah' ? 'selected="selected"' : '' }}>
 											<i></i> Bermasalah
 										</label>
-										<textarea rows="2" name="nilai[hubungan_sesama]" value="" class="form-control required col-md-6" placeholder="Deskripsi" required>{{ old('nilai.hubungan_sesama') }}</textarea>
+										<textarea rows="2" name="value_personal" value="" class="form-control required col-md-6" placeholder="Deskripsi" required>{{ old('nilai.hubungan_sesama') }}</textarea>
 									</div>
 								</div>
 							</div>
@@ -469,15 +464,15 @@
 									</div>
 									<div class="col-md-8">
 										<label class="radio">
-											<input type="radio" name="hda" value="Sangat Bagus" {{ old('hda') == 'Sangat Bagus' ? 'selected="selected"' : '' }}>
+											<input type="radio" name="condition_atasan" value="Sangat Bagus" {{ old('hda') == 'Sangat Bagus' ? 'selected="selected"' : '' }}>
 											<i></i> Sangat Bagus
 										</label>
 
 										<label class="radio">
-											<input type="radio" name="hda" value="Bermasalah" {{ old('hda') == 'Bermasalah' ? 'selected="selected"' : '' }}>
+											<input type="radio" name="condition_atasan" value="Bermasalah" {{ old('hda') == 'Bermasalah' ? 'selected="selected"' : '' }}>
 											<i></i> Bermasalah
 										</label>
-										<textarea rows="2" name="nilai[hubungan_atasan]" value="" class="form-control required col-md-6" placeholder="Deskripsi" required>{{ old('nilai.hubungan_atasan') }}</textarea>
+										<textarea rows="2" name="value_atasan" value="" class="form-control required col-md-6" placeholder="Deskripsi" required>{{ old('nilai.hubungan_atasan') }}</textarea>
 									</div>
 								</div>
 							</div>

@@ -88,7 +88,8 @@ Route::post('formations/legacy/update/{id}', 'Admin\FormationController@legacyUp
 
 
 //Superadmin
-$slugs = ['roles', 'legacies', 'formations', 'pegawais', 'personnels','key_competencies','daily_competencies','info_diklats','direktorats'];
+$slugs = ['roles', 'legacies', 'formations', 'pegawais', 'personnels','key_competencies',
+            'daily_competencies','info_diklats','direktorats', 'renev_structures'];
 foreach ($slugs as $slug) {
     $controller = "Admin\\".str_replace(' ','',ucwords(str_replace('_',' ',str_singular($slug))))."Controller";
     Route::get($slug,$controller.'@index');
