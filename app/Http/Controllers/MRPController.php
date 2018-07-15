@@ -120,9 +120,9 @@ class MRPController extends AdminController
             else if($status == 1)
                 $retval = '<span class="label label-primary">Diajukan</span>';
             else if($status == 2)
-                $retval = '<span class="label label-warning">Proses Evaluasi (SDM)</span>';
+                $retval = '<span class="label label-warning">Proses Evaluasi</span>';
             else if($status == 3)
-                $retval = '<span class="label label-info">Proses Evaluasi (Karir II)</span>';
+                $retval = '<span class="label label-warning">Proses Evaluasi</span>';
             else if($status == 4)
                 $retval = '<span class="label label-success">Proses SK</span>';
             else if($status == 5)
@@ -130,13 +130,13 @@ class MRPController extends AdminController
             else if($status == 6)
                 $retval = '<span class="label label-success">SK Pending</span>';
             else if($status == 7)
-                $retval = '<span class="label label-success">Lewat Masa Aktifasi (unconfirmed)</span>';
+                $retval = '<span class="label label-success">Lewat Masa Aktivasi (unconfirmed)</span>';
             else if($status == 8)
                 $retval = '<span class="label label-success">Clear</span>';
             else if($status == 99)
                 $retval = '<span class="label label-danger">Ditolak (SDM Pusat)</span>';
             else if($status == 98)
-                $retval = '<span class="label label-danger">Ditolak (Karir II Pusat)</span>';
+                $retval = '<span class="label label-danger">Ditolak (SDM Pusat)</span>';
             else if($status == 97)
                 $retval = '<span class="label label-danger">Ditolak (Unit)</span>';
             else
@@ -165,7 +165,7 @@ class MRPController extends AdminController
             else if($status == 99)
                 $retval = 'Ditolak (SDM Pusat)';
             else if($status == 98)
-                $retval = 'Ditolak (Karir II Pusat)';
+                $retval = 'Ditolak (SDM Pusat)';
             else if($status == 97)
                 $retval = 'Ditolak (Unit)';
             else

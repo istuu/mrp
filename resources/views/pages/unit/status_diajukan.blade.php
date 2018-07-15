@@ -94,7 +94,7 @@
 
 
 									@elseif(in_array($mrps->status, [2,3,4]))
-										<span class="label label-warning">Proses Evaluasi (Pusat)</span>
+										<span class="label label-warning">Proses Evaluasi</span>
 									@elseif($mrps->status == 4)
 										<span class="label label-success">Proses SK</span>
 									@elseif($mrps->status == 5)
@@ -102,13 +102,13 @@
 									@elseif($mrps->status == 6)
 										<span class="label label-success">SK Pending</span>
 									@elseif($mrps->status == 7)
-    									<span class="label label-success">Lewat Masa Aktifasi (unconfirmed)</span>
+    									<span class="label label-success">Lewat Masa Aktivasi (unconfirmed)</span>
 									@elseif($mrps->status == 8)
     									<span class="label label-success">Clear</span>
 									@elseif($mrps->status == 99)
 										<span class="label label-danger">Ditolak (SDM Pusat)</span>
 									@elseif($mrps->status == 98)
-										<span class="label label-danger">Ditolak (Karir II Pusat)</span>
+										<span class="label label-danger">Ditolak (SDM Pusat)</span>
 									@elseif($mrps->status == 97 && $mrps->tipe == 1)
 										<span class="label label-danger">Ditolak ({{ $mrps->pegawai->formasi_jabatan->personnel_area->nama_pendek }})</span>
 									@else

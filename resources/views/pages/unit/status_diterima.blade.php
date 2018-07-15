@@ -81,7 +81,7 @@
 									@elseif($mrps->status == 6)
 										<span class="label label-success">SK Pending</span>
 									@elseif($mrps->status == 7)
-    									<span class="label label-success">Lewat Masa Aktifasi (unconfirmed)</span>
+    									<span class="label label-success">Lewat Masa Aktivasi (unconfirmed)</span>
 									@elseif($mrps->status == 8)
     									<span class="label label-success">Clear</span>
 									@elseif(in_array($mrps->status, [97,98,99]))
