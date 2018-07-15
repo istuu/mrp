@@ -469,14 +469,14 @@ class MRPController extends AdminController
                     <div class="btn-group">
                     <button type="button" class="btn btn-primary dropdown-toggle btn-sm" data-toggle="dropdown">Action <span class="caret"></span></button>
                     <ul class="dropdown-menu" role="menu">
-                        <li>
-                            <a type="button" data-toggle="modal" data-target="#approveModal" onclick="rejectApproveFunct('.$mrp->id.', '.$mrp->registry_number.');">
+                        <li onclick="rejectApproveFunct('.$mrp->id.', '.$mrp->registry_number.');">
+                            <a type="button" data-toggle="modal" data-target="#approveModal">
                                 <i class="fa fa-check-circle"></i>
                                 <span>Approve</span>
                             </a>
                         </li>
-                        <li>
-                            <a type="button" data-toggle="modal" data-target="#rejectModal" onclick="rejectApproveFunct('.$mrp->id.', '.$mrp->registry_number.');">
+                        <li onclick="rejectApproveFunct('.$mrp->id.', '.$mrp->registry_number.');">
+                            <a type="button" data-toggle="modal" data-target="#rejectModal" >
                                 <i class="fa fa-minus-circle"></i>
                                 <span>Reject</span>
                             </a>
