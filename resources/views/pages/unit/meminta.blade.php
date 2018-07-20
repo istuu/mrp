@@ -144,7 +144,7 @@
 
 									<div class="row">
 										<div class="form-group">
-											<div class="col-md-6 col-sm-6">
+											<div class="col-md-12 col-sm-12">
 												<label>Level</label>
 												<select class="form-control" id="level" required>
 													<option value="">---Pilih Level---</option>
@@ -152,6 +152,7 @@
 														<option value="{{$level->level}}"> {{$level->level }} </option>
 													@endforeach
 												</select>
+												<span class="help-block">*UI: Unit Induk, UP: Unit Pelaksana, KP: Kantor Pusat</span>
 											</div>
 										</div>
 									</div>
