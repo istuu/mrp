@@ -75,7 +75,13 @@
 @section('includes-scripts')
 	@parent
 	<script>
+		function rejectApproveFunct(id, reg_num){
+			$(".mrp_id").val(id);
+			$(".edit_link").attr('href', '/mrp/edit/'+reg_num);
+		};
+		
         $(function(){
+
             $('#mrpTable').DataTable({
                 "processing": true,
                 "serverSide": true,
@@ -318,12 +324,7 @@
 
 		});
 	</script>
-	<script>
-		function rejectApproveFunct(id, reg_num){
-			$(".mrp_id").val(id);
-			$(".edit_link").attr('href', '/mrp/edit/'+reg_num);
-		};
-	</script>
+
 	<script>
 		$("#rekom_checkbox").click(function(e){
 			var on_off = $(this).val();
@@ -343,7 +344,7 @@
 						success: function(data){
 							var unit = $("#rekom_unit");
 							unit.empty();
-							unit.append('<option>--- Unit ---</option>');
+							unfit.append('<option>--- Unit ---</option>');
 							unit.removeAttr('disabled');
 							$.each(data, function(key, value){
 								unit.append('<option value="'+key+'">'+value+'</option>');
