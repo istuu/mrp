@@ -47,6 +47,7 @@
 					<table class="table table-striped table-hover dataTable js-exportable" id="statusTable">
 	                    <thead>
 	                        <tr>
+								<th>Tanggal</th>
 	                            <th>Registry Number</th>
 	                            @if(request('act')!='reqjab')
 	                            <th>NIP</th>
@@ -64,6 +65,7 @@
 	                    <tbody>
 	                    	@foreach ($mrp as $mrps)
 							<tr>
+								<td>{{$mrps->created_at}}</td>
 								<td>{{$mrps->registry_number}}</td>
 								@if(request('act')!='reqjab')
 								<td>{{$mrps->pegawai->nip}}</td>

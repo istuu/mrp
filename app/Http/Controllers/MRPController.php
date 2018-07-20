@@ -344,23 +344,23 @@ class MRPController extends AdminController
                                                $query->orWhere('level', '=', 'UP');
                                                $query->orWhere('level', '=', 'KP');
                                         })
-                                        ->where(function($query){
+                                        ->orWhere(function($query){
                                                $query->where('jenjang_sub', '=', 'Manajemen Menengah');
                                                $query->orWhere('level', '=', 'UI');
                                                $query->orWhere('level', '=', 'UP');
                                                $query->orWhere('level', '=', 'KP');
                                         })
-                                        ->where(function($query){
+                                        ->orWhere(function($query){
                                                $query->where('jenjang_sub', '=', 'Manajemen Dasar');
                                                $query->orWhere('level', '=', 'UP');
                                         })
-                                        ->where(function($query){
+                                        ->orWhere(function($query){
                                                $query->where('jenjang_sub', '=', 'Fungsional I');
                                                $query->orWhere('level', '=', 'UI');
                                                $query->orWhere('level', '=', 'UP');
                                                $query->orWhere('level', '=', 'KP');
                                         })
-                                        ->where(function($query){
+                                        ->orWhere(function($query){
                                                $query->where('jenjang_sub', '=', 'Fungsional II');
                                                $query->orWhere('level', '=', 'UI');
                                                $query->orWhere('level', '=', 'UP');
@@ -375,23 +375,23 @@ class MRPController extends AdminController
                                                $query->orWhere('level', '=', 'UP');
                                                $query->orWhere('level', '=', 'KP');
                                         })
-                                        ->where(function($query){
+                                        ->orWhere(function($query){
                                                $query->where('jenjang_sub', '=', 'Manajemen Menengah');
                                                $query->orWhere('level', '=', 'UI');
                                                $query->orWhere('level', '=', 'UP');
                                                $query->orWhere('level', '=', 'KP');
                                         })
-                                        ->where(function($query){
+                                        ->orWhere(function($query){
                                                $query->where('jenjang_sub', '=', 'Manajemen Dasar');
                                                $query->orWhere('level', '=', 'UP');
                                         })
-                                        ->where(function($query){
+                                        ->orWhere(function($query){
                                                $query->where('jenjang_sub', '=', 'Fungsional I');
                                                $query->orWhere('level', '=', 'UI');
                                                $query->orWhere('level', '=', 'UP');
                                                $query->orWhere('level', '=', 'KP');
                                         })
-                                        ->where(function($query){
+                                        ->orWhere(function($query){
                                                $query->where('jenjang_sub', '=', 'Fungsional II');
                                                $query->orWhere('level', '=', 'UI');
                                                $query->orWhere('level', '=', 'UP');
@@ -399,8 +399,8 @@ class MRPController extends AdminController
                                         })
                                         ->get();
 
-            $mrps = $mrps->whereIn('fj_asal',array_pluck($fj_asal,'id'))
-                         ->whereIn('fj_tujuan',array_prepend(array_pluck($fj_tujuan,'id'),null));
+            $mrps = $mrps->whereIn('fj_asal',array_pluck($fj_asal,'id'),'or');
+            $mrps = $mrps->whereIn('fj_tujuan',array_prepend(array_pluck($fj_tujuan,'id'),null),'or');
 
         }elseif (auth()->user()->user_role == 3) {
             //Karir 2
@@ -418,8 +418,8 @@ class MRPController extends AdminController
                                         ->orWhere('jenjang_sub','Fungsional VI')
                                         ->get();
 
-            $mrps = $mrps->whereIn('fj_asal',array_pluck($fj_asal,'id'))
-                         ->whereIn('fj_tujuan',array_prepend(array_pluck($fj_tujuan,'id'),null));
+            $mrps = $mrps->whereIn('fj_asal',array_pluck($fj_asal,'id'),'or');
+            $mrps = $mrps->whereIn('fj_tujuan',array_prepend(array_pluck($fj_tujuan,'id'),null),'or');
 
         }elseif (auth()->user()->user_role == 4) {
             //Karir 2
@@ -428,7 +428,7 @@ class MRPController extends AdminController
                                                $query->where('jenjang_sub', '=', 'Manajemen Dasar');
                                                $query->orWhere('level', '=', 'KP');
                                         })
-                                        ->where('jenjang_sub','Fungsional III')
+                                        ->orWhere('jenjang_sub','Fungsional III')
                                         ->orWhere('jenjang_sub','Fungsional IV')
                                         ->orWhere('jenjang_sub','Fungsional V')
                                         ->orWhere('jenjang_sub','Fungsional VI')
@@ -439,14 +439,14 @@ class MRPController extends AdminController
                                                $query->where('jenjang_sub', '=', 'Manajemen Dasar');
                                                $query->orWhere('level', '=', 'KP');
                                         })
-                                        ->where('jenjang_sub','Fungsional III')
+                                        ->orWhere('jenjang_sub','Fungsional III')
                                         ->orWhere('jenjang_sub','Fungsional IV')
                                         ->orWhere('jenjang_sub','Fungsional V')
                                         ->orWhere('jenjang_sub','Fungsional VI')
                                         ->get();
 
-            $mrps = $mrps->whereIn('fj_asal',array_pluck($fj_asal,'id'))
-                         ->whereIn('fj_tujuan',array_prepend(array_pluck($fj_tujuan,'id'),null));
+            $mrps = $mrps->whereIn('fj_asal',array_pluck($fj_asal,'id'),'or');
+            $mrps = $mrps->whereIn('fj_tujuan',array_prepend(array_pluck($fj_tujuan,'id'),null),'or');
         }
 
         $data = array();

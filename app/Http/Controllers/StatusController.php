@@ -114,8 +114,8 @@ class StatusController extends Controller
                 $fj = auth()->user()->formasi_jabatan->pluck('id')->toArray();
                 $mrp = MRP::where('tipe', 2)
                         ->whereIn('fj_tujuan', $fj)
-                        ->whereNotIn('fj_tujuan', $fj_karir1)
-                        ->whereNotIn('fj_tujuan', $fj_karir2)
+                        ->whereNotIn('fj_tujuan', array_pluck($fj_karir1,'id'))
+                        ->whereNotIn('fj_tujuan', array_pluck($fj_karir2,'id'))
                         ->get();
 
             }else{
