@@ -67,11 +67,16 @@
                                 <option>--- PILIH ---</option>
                                 <option value="Cetak SK Definitif">Cetak SK Definitif</option>
                                 <option value="Cetak SK Fungsional">Cetak SK Fungsional</option>
-                                <option value="Cetak SK Fungsional & Surat Tugas PLT">Cetak SK Fungsional & Surat Tugas PLT</option>
-                                <option value="Cetak SK Fungsional Pembatalan SK Lama">Cetak SK Fungsional Pembatalan SK Lama</option>
-                                <option value="Cetak SK Ijin di Luar Tanggungan">Cetak SK Ijin di Luar Tanggungan</option>
+                                <option value="Cetak SK & Surat Tugas PLT">Cetak SK & Surat Tugas PLT</option>
                                 <option value="Cetak Surat Tugas PLT">Cetak Surat Tugas PLT</option>
+                                <!-- <option value="Cetak SK Fungsional Pembatalan SK Lama">Cetak SK Fungsional Pembatalan SK Lama</option> -->
+                                <option value="Cetak SK Ijin di Luar Tanggungan">Cetak SK Ijin di Luar Tanggungan</option>
+                                <option value="Cetak SK Aktif dari IDT">Cetak SK Aktif dari IDT</option>
+                                <option value="Cetak SK Tugas Belajar">Cetak SK Tugas Belajar</option>
+                                <option value="Fit & Proper / Wawancara">Fit & Proper / Wawancara</option>
+                                <option value="Talent Pool">Talent Pool</option>
                                 <option value="Pending">Pending</option>
+                                <option value="Tidak disetujui">Tidak disetujui</option>
                             </select>
                             <i class="fancy-arrow"></i>
                         </div>
