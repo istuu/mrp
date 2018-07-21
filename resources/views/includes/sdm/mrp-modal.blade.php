@@ -48,6 +48,7 @@
                         </div>
                     </div>
 
+                    {{--
                     <div class="form-group">
                         <h4>Perintah Cetak SK *</h4>
                         <input class="custom-file-upload" type="file" id="file" name="dokumen_mutasi" id="contact:attachment" data-btn-text="Select a File" required="" />
@@ -58,6 +59,7 @@
                         <h4>No. Dokumen *</h4>
                         <input type="text" class="form-control" name="no_dokumen_respon_sdm" required="">
                     </div>
+                    --}}
 
                     <div class="form-group">
                         <h4>Tindak Lanjut *</h4>
@@ -81,6 +83,12 @@
                             <i class="fancy-arrow"></i>
                         </div>
                     </div>
+
+                    <div class="form-group">
+                        <h4>Tanggal Aktivasi Disetujui</h4>
+                        <input type="text" class="form-control datepicker" name="tanggal_aktivasi_disetujui" required="">
+                    </div>
+
                 </div>
 
                 <!-- Modal Footer -->
@@ -171,7 +179,7 @@
                 {{ csrf_field() }}
                 <input class="mrp_id" type="hidden" name="id" value="">
                 <div class="modal-body">
-
+                    {{--
                     <div class="form-group">
                         <h4>Surat Penolakan *</h4>
                         <input class="custom-file-upload" type="file" name="dokumen_mutasi" id="file" id="contact:attachment" data-btn-text="Select a File" required />
@@ -181,6 +189,11 @@
                     <div class="form-group">
                         <h4>No. Dokumen *</h4>
                         <input type="text" class="form-control" name="no_dokumen_respon_sdm" required>
+                    </div>
+                    --}}
+                    <div class="form-group">
+                        <h4>Catatan / Alasan Penolakan</h4>
+                        <textarea rows="5" class="form-control" name="catatan" required></textarea>
                     </div>
                 </div>
 

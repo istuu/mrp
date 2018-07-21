@@ -152,10 +152,10 @@ use Carbon\Carbon;
 							<td></td>
 
 							<td>
-								 {{ $mrp->pegawai->year_diff_decimal(Carbon::now('Asia/Jakarta'), Carbon::parse($mrp->pegawai->tanggal_lahir)->addYears(56)) }} Tahun <!-- sisa masa kerja -->
+								 {{ $mrp->pegawai->time_diff(Carbon::now('Asia/Jakarta'), Carbon::parse($mrp->pegawai->tanggal_lahir)->addYears(56)) }} <!-- sisa masa kerja -->
 							</td>
 							<td>
-								 s.d. {{ $mrp->pegawai->year_diff_decimal(Carbon::parse($mrp->pegawai->start_date), Carbon::now('Asia/Jakarta')) }} Tahun <!-- masa kerja di jab terakhir -->
+								 s.d. {{ $mrp->pegawai->time_diff(Carbon::parse($mrp->pegawai->start_date), Carbon::now('Asia/Jakarta')) }} <!-- masa kerja di jab terakhir -->
 							</td>
 							<td>
 								 {{$mrp->jenis_mutasi}} ({{$mrp->mutasi}}) <!-- jenis mutasi -->

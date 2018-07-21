@@ -15,6 +15,7 @@ use Carbon\Carbon;
 use App\Notifications\MutasiDitolak;
 use App\Notifications\ProsesEvaluasi;
 use App\Notifications\ButuhEvaluasi;
+use PDF;
 
 class DashboardController extends Controller
 {
@@ -133,24 +134,25 @@ class DashboardController extends Controller
 
     public function rejectMutasi()
     {
-        $this->validate(request(), [
-            'dokumen_mutasi' => 'required|mimes:pdf|max:10240'
-        ]);
+        // $this->validate(request(), [
+        //     'dokumen_mutasi' => 'required|mimes:pdf|max:10240'
+        // ]);
 
         $mrp = MRP::find(request('id'));
-        $mrp->no_dokumen_respon_sdm = request('no_dokumen_respon_sdm');
+        $mrp->no_dokumen_respon_sdm = date('ymdHis');
+        $mrp->catatan = request('catatan');
         $mrp->tgl_evaluasi = Carbon::now('Asia/Jakarta');
         $mrp->tindak_lanjut = 'BATAL';
         $mrp->status = 99;
 
-        $file = request('dokumen_mutasi');
-        $foldername = $mrp->registry_number.'/';
-        $filename = 'TOLAK_'.str_replace('/', '_', $mrp->no_dokumen_respon_sdm).'.'.$file->getClientOriginalExtension();
-        $mrp->filename_dokumen_respon_sdm = $filename;
+        // $file = request('dokumen_mutasi');
+        // $foldername = $mrp->registry_number.'/';
+        // $filename = 'TOLAK_'.str_replace('/', '_', $mrp->no_dokumen_respon_sdm).'.'.$file->getClientOriginalExtension();
+        // $mrp->filename_dokumen_respon_sdm = $filename;
         // dd($foldername, $filename);
         // $file->move(base_path(). '/storage/uploads/dok_asal/'.$foldername, $filename);
         $mrp->save();
-        $file->move(public_path().'/storage/uploads/', $filename);
+        // $file->move(public_path().'/storage/uploads/', $filename);
         $pengusul = $mrp->personnel_area_pengusul;
         $data = [
             'reg_num' => $mrp->registry_number,
@@ -165,9 +167,9 @@ class DashboardController extends Controller
 
     public function approveMutasi()
     {
-        $this->validate(request(), [
-            'dokumen_mutasi' => 'required|mimes:pdf|max:10240'
-        ]);
+        // $this->validate(request(), [
+        //     'dokumen_mutasi' => 'required|mimes:pdf|max:10240'
+        // ]);
 
         $mrp = MRP::find(request('id'));
 
@@ -177,7 +179,8 @@ class DashboardController extends Controller
         if(!$mrp->fj_tujuan)
             return back()->withErrors(['message' => 'FJ tujuan mutasi belum diisi']);
 
-        $mrp->no_dokumen_respon_sdm = request('no_dokumen_respon_sdm');
+        $mrp->no_dokumen_respon_sdm = date('ymdHis');
+        $mrp->tanggal_aktivasi_disetujui = request('tanggal_aktivasi_disetujui');
         $mrp->tgl_evaluasi = Carbon::now('Asia/Jakarta');
         $mrp->tindak_lanjut = request('tindak_lanjut');
         $mrp->status = 3;
@@ -194,15 +197,33 @@ class DashboardController extends Controller
                 return back()->withErrors(['message' => 'NIP '.request('nip').' tidak ditemukan!']);
         }
 
+        //Save PDF
+        // $pengusul = $mrp->personnel_area_pengusul;
+        // $skstg = $mrp->skstg;
+        //
+        // if ($mrp->tipe == 3)
+        // {
+        //     $jabatan = $mrp->formasi_jabatan;
+        //     return view('pages.sdm.mrp_detail_bursa_jabatan', compact('mrp', 'pengusul', 'skstg', 'jabatan'));
+        // }
+        //
+        // $proyeksi = $mrp->formasi_jabatan_tujuan;
+        // $pegawai = $mrp->pegawai;
+        // $sutri = $pegawai ? $pegawai->sutri : NULL;
+        //
+        // $pdf = PDF::loadView('pages.sdm.mrp_detail', compact('mrp', 'pegawai', 'sutri', 'proyeksi', 'pengusul', 'skstg'));
+        // return $pdf->setPaper('a2', 'landscape')->download('TERIMA_'.$mrp->no_dokumen_respon_sdm.'.pdf');
 
-        $file = request('dokumen_mutasi');
-        $foldername = $mrp->registry_number.'/';
-        $filename = 'TERIMA_'.str_replace('/', '_', $mrp->no_dokumen_respon_sdm).'.'.$file->getClientOriginalExtension();
-        $mrp->filename_dokumen_respon_sdm = $filename;
+        // $file = request('dokumen_mutasi');
+        // $foldername = $mrp->registry_number.'/';
+        // $filename = 'TERIMA_'.str_replace('/', '_', $mrp->no_dokumen_respon_sdm).'.'.$file->getClientOriginalExtension();
+        // $mrp->filename_dokumen_respon_sdm = $filename;
         // dd($foldername, $filename);
         // $file->move(base_path(). '/storage/uploads/dok_asal/'.$foldername, $filename);
+
+
         $mrp->save();
-        $file->move(public_path().'/storage/uploads/', $filename);
+        // $file->move(public_path().'/storage/uploads/', $filename);
 
         $pengusul = $mrp->personnel_area_pengusul;
 

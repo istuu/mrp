@@ -127,8 +127,8 @@ use Carbon\Carbon;
 											<small>{{$detail->pegawai->pada_posisi}}</small>
 										</td>
 
-										<td>{{$detail->pegawai->year_diff_decimal(Carbon::now(),Carbon::parse($detail->pegawai->tanggal_pegawai)).' Tahun'}}</td>
-										<td>{{$detail->pegawai->year_diff_decimal(Carbon::now(), Carbon::parse($detail->pegawai->tanggal_lahir)->addYears(56)).' Tahun'}}</td>
+										<td>{{$detail->pegawai->time_diff(Carbon::now(),Carbon::parse($detail->pegawai->tanggal_pegawai))'}}</td>
+										<td>{{$detail->pegawai->time_diff(Carbon::now(), Carbon::parse($detail->pegawai->tanggal_lahir)->addYears(56))'}}</td>
 
 									</tr>
 								</tbody>

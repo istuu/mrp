@@ -106,9 +106,9 @@ class MutasiController extends Controller
                     $pegawai->result = 'false';
                 }
             }
-            $pegawai->masa_kerja = $pegawai->year_diff_decimal(Carbon::now(),Carbon::parse($pegawai->tanggal_pegawai)).' Tahun';
-            $pegawai->sisa_masa_kerja = $pegawai->year_diff_decimal(Carbon::now(), Carbon::parse($pegawai->tanggal_lahir)->addYears(56)).' Tahun';
-            $pegawai->lama_menjabat = $pegawai->year_diff_decimal( Carbon::now(),Carbon::parse($pegawai->start_date)).' Tahun';
+            $pegawai->masa_kerja = $pegawai->time_diff(Carbon::now(),Carbon::parse($pegawai->tanggal_pegawai)).' Tahun';
+            $pegawai->sisa_masa_kerja = $pegawai->time_diff(Carbon::now(), Carbon::parse($pegawai->tanggal_lahir)->addYears(56)).' Tahun';
+            $pegawai->lama_menjabat = $pegawai->time_diff( Carbon::now(),Carbon::parse($pegawai->start_date)).' Tahun';
             $pegawai->kode_olah_forja = $pegawai->nama_panjang_posisi;
 
             //Data diklat
@@ -142,9 +142,9 @@ class MutasiController extends Controller
             }
 
 
-            $pegawai->masa_kerja = $pegawai->year_diff_decimal(Carbon::now(),Carbon::parse($pegawai->tanggal_pegawai)).' Tahun';
-            $pegawai->sisa_masa_kerja = $pegawai->year_diff_decimal(Carbon::now(), Carbon::parse($pegawai->tanggal_lahir)->addYears(56)).' Tahun';
-            $pegawai->lama_menjabat = $pegawai->year_diff_decimal( Carbon::now(),Carbon::parse($pegawai->start_date)).' Tahun';
+            $pegawai->masa_kerja = $pegawai->time_diff(Carbon::now(),Carbon::parse($pegawai->tanggal_pegawai));
+            $pegawai->sisa_masa_kerja = $pegawai->time_diff(Carbon::now(), Carbon::parse($pegawai->tanggal_lahir)->addYears(56));
+            $pegawai->lama_menjabat = $pegawai->time_diff( Carbon::now(),Carbon::parse($pegawai->start_date));
             $pegawai->kode_olah_forja = $pegawai->nama_panjang_posisi;
 
             //Data diklat

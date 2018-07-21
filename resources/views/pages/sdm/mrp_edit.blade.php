@@ -349,12 +349,37 @@
 										</div>
 									</div>
 								</div>
+								<div class="row">
+									<div class="form-group">
+										<div class="col-md-6 col-sm-6">
+											<label>Permintaan Tanggal Aktivasi</label>
+											<input type="text" class="form-control datepicker" name="mrp[requested_tgl_aktivasi]" data-format="yyyy-mm-dd" data-lang="en" data-RTL="false" value="{{ $mrp->requested_tgl_aktivasi->format('Y-m-d') }}">
+										</div>
+									</div>
+								</div>
 
 								<div class="row">
 									<div class="form-group">
 										<div class="col-md-12 col-sm-12">
 											<label>Tindak Lanjut</label>
-											<textarea rows="3" name="mrp[tindak_lanjut]" class="form-control">{{ $mrp->tindak_lanjut }}</textarea>
+											<div class="fancy-form fancy-form-select">
+					                            <select class="form-control" name="tindak_lanjut" required="">
+					                                <option>--- PILIH ---</option>
+					                                <option value="Cetak SK Definitif">Cetak SK Definitif</option>
+					                                <option value="Cetak SK Fungsional">Cetak SK Fungsional</option>
+					                                <option value="Cetak SK & Surat Tugas PLT">Cetak SK & Surat Tugas PLT</option>
+					                                <option value="Cetak Surat Tugas PLT">Cetak Surat Tugas PLT</option>
+					                                <!-- <option value="Cetak SK Fungsional Pembatalan SK Lama">Cetak SK Fungsional Pembatalan SK Lama</option> -->
+					                                <option value="Cetak SK Ijin di Luar Tanggungan">Cetak SK Ijin di Luar Tanggungan</option>
+					                                <option value="Cetak SK Aktif dari IDT">Cetak SK Aktif dari IDT</option>
+					                                <option value="Cetak SK Tugas Belajar">Cetak SK Tugas Belajar</option>
+					                                <option value="Fit & Proper / Wawancara">Fit & Proper / Wawancara</option>
+					                                <option value="Talent Pool">Talent Pool</option>
+					                                <option value="Pending">Pending</option>
+					                                <option value="Tidak disetujui">Tidak disetujui</option>
+					                            </select>
+					                            <i class="fancy-arrow"></i>
+					                        </div>
 										</div>
 									</div>
 								</div>

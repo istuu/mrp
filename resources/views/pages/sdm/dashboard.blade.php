@@ -451,7 +451,7 @@ use Carbon\Carbon;
 											@endif
 											</td>
 											<td>{{$mrp->pegawai->time_diff(Carbon::parse($mrp->pegawai->start_date), Carbon::now('Asia/Jakarta'))}}</td>
-											<td>{{$mrp->pegawai->time_diff(Carbon::now('Asia/Jakarta'), Carbon::parse($mrp->pegawai->end_date))}}</td>
+											<td>{{$mrp->pegawai->time_diff(Carbon::now('Asia/Jakarta'), Carbon::parse($mrp->pegawai->tanggal_lahir)->addYears(56))}}</td>
 											<td>{{$mrp->personnel_area_pengusul->nama}}</td>
 											<td>{{$mrp->alasan_mutasi}}</td>
 											<td class="text-center">

@@ -14,12 +14,12 @@ use Carbon\Carbon;
 		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,700,800&amp;subset=latin,latin-ext,cyrillic,cyrillic-ext" rel="stylesheet" type="text/css" />
 
 		<!-- CORE CSS -->
-		<link href="/assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" type="text/css" />
 
 		<!-- THEME CSS -->
-		<link href="/assets/css/essentials.css" rel="stylesheet" type="text/css" />
-		<link href="/assets/css/layout.css" rel="stylesheet" type="text/css" />
-		<link href="/assets/css/color_scheme/green.css" rel="stylesheet" type="text/css" id="color_scheme" />
+		<link href="{{ asset('') }}/assets/css/essentials.css" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('') }}/assets/css/layout.css" rel="stylesheet" type="text/css" />
+		<link href="{{ asset('') }}/assets/css/color_scheme/green.css" rel="stylesheet" type="text/css" id="color_scheme" />
 
 	</head>
 
@@ -40,7 +40,7 @@ use Carbon\Carbon;
 									<li><strong>Grade:</strong> {{ $pegawai->ps_group }} </li>
 									<li><strong>Subgroup:</strong> {{ $pegawai->employee_subgroup }}</li>
 									<li><strong>Jenjang:</strong> {{ $pegawai->formasi_jabatan->jenjang_txt }} ({{  $pegawai->formasi_jabatan->jenjang_id }})</li>
-									<li><strong>Sisa Masa Kerja:</strong> {{ $pegawai->time_diff(Carbon::now('Asia/Jakarta'), Carbon::parse($pegawai->end_date)) }}</li>
+									<li><strong>Sisa Masa Kerja:</strong> {{ $pegawai->time_diff(Carbon::now('Asia/Jakarta'), Carbon::parse($pegawai->tanggal_lahir)->addYears(56)) }}</li>
 									<li><strong>Lama & Kali Jenjang:</strong> {{ $pegawai->time_diff(Carbon::parse($pegawai->start_date), Carbon::now('Asia/Jakarta')) }}, {{ $pegawai->kali_jenjang }}x</li>
 									{{-- <li><strong>Diklat Penjenjangan:</strong> EE III</li> --}}
 								</ul>
@@ -61,16 +61,16 @@ use Carbon\Carbon;
 							<div class="col-md-6 col-xs-6 text-right">
 								<h4><strong>Download</strong> Dokumen</h4>
 								<ul class="list-unstyled ">
-									@if ($mrp->no_dokumen_unit_usul)
+									@if (isset($mrp->no_dokumen_unit_usul))
 										<a href="{{ asset('storage/uploads') }}/{{ $mrp->filename_dokumen_unit_usul }}" class="btn btn-sm btn-3d btn-blue">{{ $mrp->filename_dokumen_unit_usul }}</a>
 									@endif
-									@if ($mrp->no_dokumen_unit_jawab)
+									@if (isset($mrp->no_dokumen_unit_jawab))
 										<a href="{{ asset('storage/uploads') }}/{{ $mrp->filename_dokumen_unit_jawab }}" class="btn btn-sm btn-3d btn-info">{{ $mrp->filename_dokumen_unit_jawab }}</a>
 									@endif
-									@if ($mrp->no_dokumen_respon_sdm)
+									@if (isset($mrp->no_dokumen_respon_sdm))
 										<a href="{{ asset('storage/uploads') }}/{{ $mrp->filename_dokumen_respon_sdm }}" class="btn btn-sm btn-3d btn-red">{{ $mrp->filename_dokumen_respon_sdm }}</a>
 									@endif
-									@if ($mrp->sk_stg_id)
+									@if (isset($mrp->sk_stg_id))
 										<a href="{{ asset('storage/uploads') }}/{{ $mrp->skstg->filename_dokumen_sk }}" class="btn btn-sm btn-3d btn-red">{{ $mrp->skstg->filename_dokumen_sk }}</a>
 									@endif
 								</ul>
@@ -151,9 +151,7 @@ use Carbon\Carbon;
 							<div class="col-xs-6">
 								<h4><strong>Unit</strong> Peminta</h4>
 								<address>
-									<strong>{{ $pengusul->nama }}</strong><br>
-									{{ $pengusul->alamat }}<br>
-									{{ $pengusul->kota }} {{ $pengusul->provinsi }}<br>
+									<strong>{{ $pengusul->nama_pendek }}</strong><br>
 								</address>
 
 							</div>
@@ -168,9 +166,9 @@ use Carbon\Carbon;
 
 
 		<!-- JAVASCRIPT FILES -->
-		<script type="text/javascript">var plugin_path = '/assets/plugins/';</script>
-		<script type="text/javascript" src="/assets/plugins/jquery/jquery-2.2.3.min.js"></script>
-		<script type="text/javascript" src="/assets/js/app.js"></script>
+		<script type="text/javascript">var plugin_path = '{{ asset('') }}/assets/plugins/';</script>
+		<script type="text/javascript" src="{{ asset('') }}/assets/plugins/jquery/jquery-2.2.3.min.js"></script>
+		<script type="text/javascript" src="{{ asset('') }}/assets/js/app.js"></script>
 
 		<script type="text/javascript">
 			// window.print();
