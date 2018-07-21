@@ -79,7 +79,24 @@
 			$(".mrp_id").val(id);
 			$(".edit_link").attr('href', '/mrp/edit/'+reg_num);
 		};
-		
+
+		function deleteFunct(id){
+			swal({
+			  title: 'Apakah anda Yakin?',
+			  text: "Data yang sudah dihapus tidak dapat dikembalikan lagi.",
+			  type: 'warning',
+			  showCancelButton: true,
+			  confirmButtonColor: '#3085d6',
+			  cancelButtonColor: '#d33',
+			  confirmButtonText: 'Hapus',
+			  cancelButtonText: 'Batal'
+			}).then((result) => {
+			  	if(result){
+					window.location.replace("{{ url('mrp/delete') }}"+"/"+id);
+				}
+			})
+		};
+
         $(function(){
 
             $('#mrpTable').DataTable({

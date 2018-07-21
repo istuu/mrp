@@ -20,6 +20,7 @@ Route::get('/dashboard/get_all_unit', 'DashboardController@getAllUnit');
 Route::get('/dashboard/get_formasi', 'DashboardController@getFormasi');
 Route::get('/dashboard/get_jabatan', 'DashboardController@getJabatan');
 Route::post('/dashboard/karir2_respond', 'DashboardController@karir2Respond');
+Route::get('/evaluasi', 'DashboardController@evaluasi');
 
 // monitoring
 Route::get('/monitoring/ajax/getRealisasiPagu', 'MonitoringController@getRealisasiPagu');
@@ -59,7 +60,7 @@ Route::post('/notifications/delete/{id}', 'NotificationController@delete');
 // sdm
 Route::get('/mrp', 'MRPController@index');
 Route::get('/mrp/edit/{reg_num}', 'MRPController@showEdit');
-Route::post('/mrp/edit', 'MRPController@edit');
+Route::get('/mrp/delete/{id}', 'MRPController@delete');
 Route::get('/mrp/detail/{reg_num}', 'MRPController@showDetail');
 Route::post('/mrp/datatables/ajax', 'MRPController@ajaxDatatables');
 Route::get('/mrp/export', 'MRPController@export');

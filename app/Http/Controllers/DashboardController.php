@@ -92,6 +92,13 @@ class DashboardController extends Controller
     		return view('pages.superadmin.dashboard', compact('mrp_1', 'mrp_2', 'mrp_3', 'nilai', 'personnels', 'fj'));
         }
     }
+
+    public function evaluasi()
+    {
+        $mrp_e = MRP::where('status', 3)->get();
+        return view('pages.karir2.dashboard', compact('mrp_e'));
+    }
+
     public function getPenilaianPegawai()
     {
         $nilpegawai = NULL;

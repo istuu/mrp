@@ -61,17 +61,17 @@
 			</ul>
 		</li>
 	</ul><!-- MAIN MENU -->
-	{{--<h3>Evaluasi</h3>
+	<h3>Evaluasi</h3>
 	<nav id="sideNav"><!-- MAIN MENU -->
 		<ul class="nav nav-list">
-			<li><!-- dashboard -->
-				<a class="dashboard" href="{{ url('dashboard') }}"><!-- warning - url used by default by ajax (if eneabled) -->
+			<li class="{{ checkParentActive(['evaluasi']) }}"><!-- dashboard -->
+				<a class="dashboard" href="{{ url('evaluasi') }}"><!-- warning - url used by default by ajax (if eneabled) -->
 					<i class="main-icon fa fa-book"></i> <span>Daftar Evaluasi</span>
 				</a>
 			</li>
 
 		</ul>
-	</nav>--}}
+	</nav>
 
 	<h3>Superadmin</h3>
 	<ul class="nav nav-list">

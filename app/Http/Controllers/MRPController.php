@@ -82,7 +82,14 @@ class MRPController extends AdminController
             $file->move(public_path().'/storage/uploads/', $filename);
         }
 
-        return redirect('/mrp')->with('success', 'Data berhasil di update');
+        return redirect('/mrp')->with('success', 'Data berhasil diupdate');
+    }
+
+    public function delete(Request $request,$id)
+    {
+        $model = MRP::find($id);
+        $model->delete();
+        return redirect()->back()->with('success', 'Data MRP berhasil dihapus');
     }
 
     public function showDetail()
@@ -492,7 +499,7 @@ class MRPController extends AdminController
                             </a>
                         </li>
                         <li>
-                            <a>
+                            <a onclick="deleteFunct(\''.$mrp->id.'\');">
                                 <i class="fa fa-trash"></i> Hapus
                             </a>
                         </li>
@@ -516,7 +523,7 @@ class MRPController extends AdminController
                             </a>
                         </li>
                         <li>
-                            <a>
+                            <a onclick="deleteFunct(\''.$mrp->id.'\');">
                                 <i class="fa fa-trash"></i> Hapus
                             </a>
                         </li>
