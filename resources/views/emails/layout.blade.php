@@ -213,7 +213,7 @@
               <tr valign="top" style="vertical-align: top;">
                 <th class="column mobile-12" width="520" style="padding: 0 90px; color: #232323; font-weight: 400;">
                   <!-- <div style="font-size: 28px; font-weight: 700; line-height: 30px; margin-bottom: 30px;">Hi John Adams,</div> -->
-                  <div style="color: #666666; font-size: 18px; margin-bottom: 45px;" align="left"> @yield('content') </div>
+                  <div style="color: #666666; font-size: 18px; margin-bottom: 45px;" align="justify"> @yield('content') </div>
                   @stack('button')
                 </th>
               </tr>
