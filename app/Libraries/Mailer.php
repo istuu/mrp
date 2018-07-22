@@ -6,6 +6,7 @@ use URL;
 Class Mailer {
     public function actionMail($model,$type){
         $template = Template::select('email_templates.*')->find($type);
+        $template['subject'] = $this->actionReplace($model,$template->subject);
         $template['description'] = $this->actionReplace($model,$template->description);
         Mail::send('emails.base', [
               'template'  => $template,
