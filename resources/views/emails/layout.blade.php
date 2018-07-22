@@ -202,18 +202,18 @@
   </head>
   <body style="box-sizing: border-box; margin: 0; padding: 0; width: 100%;">
 
-    <table class="wrapper" align="left" bgcolor="#EEEEEE" cellpadding="0" width="100%" style="min-width: 700px;">
+    <table class="wrapper" align="center" bgcolor="#EEEEEE" cellpadding="0" width="100%" style="min-width: 700px;">
       <tr>
         <td style="padding: 30px 0;">
 			@include('emails.header')
-            <table class="row" align="left" bgcolor="#F4F4F4" cellpadding="0">
+            <table class="row" align="center" bgcolor="#F4F4F4" cellpadding="0">
               <tr>
                 <td class="spacer" height="80" style="font-size: 80px; line-height: 80px; mso-line-height-rule: exactly;">&nbsp;</td>
               </tr>
               <tr valign="top" style="vertical-align: top;">
                 <th class="column mobile-12" width="520" style="padding: 0 90px; color: #232323; font-weight: 400;">
                   <!-- <div style="font-size: 28px; font-weight: 700; line-height: 30px; margin-bottom: 30px;">Hi John Adams,</div> -->
-                  <div style="color: #666666; font-size: 18px; margin-bottom: 45px;"> @yield('content') </div>
+                  <div style="color: #666666; font-size: 18px; margin-bottom: 45px;" align="left"> @yield('content') </div>
                   @stack('button')
                 </th>
               </tr>
