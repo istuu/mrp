@@ -135,6 +135,8 @@ class StatusController extends Controller
                         ->get();
             }elseif(auth()->user()->user_role == 0){
                 $mrp = MRP::where('tipe', 1)->get();
+            }elseif(auth()->user()->user_role == 2){
+                $mrp = MRP::where('tipe', 1)->get();
             }else{
                 $fj = auth()->user()->formasi_jabatan->pluck('id')->toArray();
 
