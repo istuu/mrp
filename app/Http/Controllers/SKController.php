@@ -196,12 +196,11 @@ class SKController extends Controller
 	{
 		$induk   = Legacy::where('legacy_code',$legacy_code)->first()->legacy_code_induk;
 
-
 		$formasis = FormasiJabatan::where(function($query){
 							$query->where('jenjang_sub','Manajemen Atas')->orWhere('jenjang_sub','Manajemen Menengah');
 						})
-						->where('legacy_code',$induk)->get();
-		return $formasis;
+						->where('legacy_code','LIKE',substr($induk,0,6).'%')->get();
+		return array_pluck($formasis,'legacy_code');
 	}
 
 	public function sendEmail(Request $request)
