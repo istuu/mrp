@@ -13,7 +13,7 @@ Class Mailer {
               'model' => $model,
         ],function($m) use ($model, $template){
               $m->from($template->from_email, $template->from_name);
-              // $m->cc(explode(';',$template->cc));
+              $m->cc($model['cc']);
               // $m->bcc(explode(';',$template->cc));
               $m->subject($template->subject);
               $m->to($model['email']);

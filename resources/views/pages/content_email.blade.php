@@ -33,7 +33,7 @@
         </div>
         <div class="col-md-12 col-sm-12">
             <label>CC</label>
-            <select class="form-control" multiple>
+            <select name="cc" class="form-control" multiple>
                 @foreach($pegawais as $pegawai)
                     <option value="{{ $pegawai->email }}">
                         {{ $pegawai->nama_panjang_posisi.' - '.$pegawai->nama_pegawai }}</option>
