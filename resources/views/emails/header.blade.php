@@ -6,7 +6,7 @@
     <th class="column" width="640" style="padding-left: 30px; padding-right: 30px;">
       <center>
         <a href="{{ url('/') }}" target="_blank">
-          <img src="{{  $message->embed(public_path( 'assets/images/logo-header.png' )) }}" alt="Header Logo" style="border: 0; max-width: 125px;">
+          <img src="{{  $message->embed(public_path( 'assets/images/logo-header.png' )) }}" alt="Header Logo" style="border: 0; width: 125px;!important">
         </a>
       </center>
     </th>
