@@ -55,23 +55,23 @@ class StatusController extends Controller
                                                $query->orWhere('level', '=', 'UP');
                                                $query->orWhere('level', '=', 'KP');
                                         })
-                                        ->where(function($query){
+                                        ->orWhere(function($query){
                                                $query->where('jenjang_sub', '=', 'Manajemen Menengah');
                                                $query->orWhere('level', '=', 'UI');
                                                $query->orWhere('level', '=', 'UP');
                                                $query->orWhere('level', '=', 'KP');
                                         })
-                                        ->where(function($query){
+                                        ->orWhere(function($query){
                                                $query->where('jenjang_sub', '=', 'Manajemen Dasar');
                                                $query->orWhere('level', '=', 'UP');
                                         })
-                                        ->where(function($query){
+                                        ->orWhere(function($query){
                                                $query->where('jenjang_sub', '=', 'Fungsional I');
                                                $query->orWhere('level', '=', 'UI');
                                                $query->orWhere('level', '=', 'UP');
                                                $query->orWhere('level', '=', 'KP');
                                         })
-                                        ->where(function($query){
+                                        ->orWhere(function($query){
                                                $query->where('jenjang_sub', '=', 'Fungsional II');
                                                $query->orWhere('level', '=', 'UI');
                                                $query->orWhere('level', '=', 'UP');
@@ -81,9 +81,9 @@ class StatusController extends Controller
 
             $fj_karir2  = FormasiJabatan::select('id')
                                         ->where('jenjang_sub', '=', 'Fungsional III')
-                                        ->where('jenjang_sub', '=', 'Fungsional IV')
-                                        ->where('jenjang_sub', '=', 'Fungsional V')
-                                        ->where('jenjang_sub', '=', 'Fungsional VI')
+                                        ->orWhere('jenjang_sub', '=', 'Fungsional IV')
+                                        ->orWhere('jenjang_sub', '=', 'Fungsional V')
+                                        ->orWhere('jenjang_sub', '=', 'Fungsional VI')
                                         ->get();
 
             $fj_karirkp  = FormasiJabatan::select('id')
@@ -91,15 +91,15 @@ class StatusController extends Controller
                                                $query->where('jenjang_sub', '=', 'Manajemen Dasar');
                                                $query->orWhere('level', '=', 'UP');
                                         })
-                                        ->where('jenjang_sub', '=', 'Fungsional III')
-                                        ->where('jenjang_sub', '=', 'Fungsional IV')
-                                        ->where('jenjang_sub', '=', 'Fungsional V')
-                                        ->where('jenjang_sub', '=', 'Fungsional VI')
+                                        ->orWhere('jenjang_sub', '=', 'Fungsional III')
+                                        ->orWhere('jenjang_sub', '=', 'Fungsional IV')
+                                        ->orWhere('jenjang_sub', '=', 'Fungsional V')
+                                        ->orWhere('jenjang_sub', '=', 'Fungsional VI')
                                         ->get();
 
             if(auth()->user()->user_role == 2){
                 $fj = array_pluck($fj_karir1,'id');
-                $mrp = MRP::where('tipe', 2)->whereIn('fj_tujuan', $fj)->get();
+                $mrp = MRP::where('tipe', 2)->get();
 
             }elseif(auth()->user()->user_role == 3) {
                 $fj = array_pluck($fj_karir2,'id');
