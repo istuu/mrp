@@ -34,8 +34,8 @@ Class Mailer {
     }
 
     public function actionReplace($model,$description){
-        $before = array("{{name}}", "{{email}}",);
-        $after  = array($model['nama'], $model['email']);
+        $before = array("{{name}}", "{{email}}", "{{nip}}");
+        $after  = array($model['nama'], $model['email'], $model['nip']);
         $newphrase = str_replace($before, $after, $description);
         return $newphrase;
     }

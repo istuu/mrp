@@ -207,6 +207,8 @@ class SKController extends Controller
 	public function sendEmail(Request $request)
 	{
 		$inputs = $request->all();
+		$mrp    = MRP::where('id',$inputs['mrp_id'])->first();
+		$inputs['nip'] = $mrp->pegawai->nip;
 		$this->mail->actionMail($inputs,$inputs['type']);
 		return redirect('/sk')->with('success', 'Berhasil kirim email!');
 	}
