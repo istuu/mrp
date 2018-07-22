@@ -35,9 +35,9 @@ class PegawaiForm extends Form
             ->add('jenjang_mgt', 'text', [
                 'rules' => ''
             ])
-            ->add('sgt', 'text', [
-                'rules' => ''
-            ])
+            // ->add('sgt', 'text', [
+            //     'rules' => ''
+            // ])
             ->add('formasi_jabatan_id', 'entity', [
                 'class' => 'App\FormasiJabatan',
                 'property' => 'formasi', //Formasi - Jabatan

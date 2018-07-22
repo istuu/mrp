@@ -35,7 +35,8 @@
             <label>CC</label>
             <select class="form-control" multiple>
                 @foreach($pegawais as $pegawai)
-                    <option value="{{ $pegawai->email }}">{{ $pegawai->nama_pegawai }}</option>
+                    <option value="{{ $pegawai->email }}">
+                        {{ $pegawai->nama_pegawai.' ('.$pegawai->nama_panjang_posisi.') ' }}</option>
                 @endforeach
             </select>
         </div>
