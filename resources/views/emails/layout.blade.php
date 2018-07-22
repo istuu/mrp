@@ -217,9 +217,6 @@
                   @stack('button')
                 </th>
               </tr>
-              <tr>
-                <td class="spacer" height="40" style="font-size: 40px; line-height: 40px; mso-line-height-rule: exactly;">&nbsp;</td>
-              </tr>
             </table>
             @stack('include')
 			@include('emails.footer')
