@@ -73,7 +73,9 @@
 										{{ $mrp->formasi_jabatan_tujuan->posisi }}
 									</td>
 									<td style="text-align: center;">
-										<button type="button" class="btn btn-primary btnUpload" data-toggle="modal" data-target="#uploadSKModal" value="{{ $mrp->id }}"><i class="fa fa-upload"></i> Upload SK</button>
+										<button type="button"  class="btn btn-sm btn-info btn-ico fa fa-envelope btnEmail" data-toggle="modal" data-target="#sendEmail" title="Send Email" value="{{ $mrp->id }}"></button>
+										<button type="button" class="btn btn-sm btn-primary btn-ico fa fa-upload btnUpload" data-toggle="modal" data-target="#uploadSKModal" title="Upload SK" value="{{ $mrp->id }}"></button>
+										<a class="btn btn-sm btn-danger btn-ico fa fa-trash" data-toggle="tooltip" data-placement="top" title="Trash Bin"></a>
 									</td>
 								</tr>
 								@endforeach
@@ -86,6 +88,10 @@
 						<table class="table table-bordered table-striped table-hover dataTable" id="sk_table">
 							<thead>
 								<tr>
+									<th>Nip</th>
+									<th>Nama</th>
+									<th>Posisi & Unit Asal</th>
+									<th>Posisi & Unit Tujuan</th>
 									<th>Tgl. Kirim</th>
 									<th>No. SK</th>
 									<th>No. STg</th>
@@ -218,6 +224,34 @@
 			</div>
 		</div>
     </div>
+
+
+	<div id="sendEmail" class="modal right fade" tabindex="-1" role="dialog" aria-labelledby="sendEmailLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+
+				<!-- Modal Header -->
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="uploadSKModalLabel">Kirim Email Pada</h4>
+				</div>
+
+				<!-- Modal Body -->
+				<form action="{{ url('sk/send_email') }}" method="POST" enctype="multipart/form-data">
+					<div class="modal-body" id="contentEmail">
+
+					</div>
+
+					<!-- Modal Footer -->
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-primary">Kirim Email</button>
+						<button type="button" class="btn btn-default" data-dismiss="modal">Batal</button>
+					</div>
+				</form>
+			</div>
+		</div>
+    </div>
+
 @endsection
 
 @section('includes-scripts')
@@ -229,6 +263,20 @@
     <script>
     	$(".btnUpload").click(function(){
     		$("#mrp_id").val($(this).val());
+    	});
+		$(".btnEmail").click(function(){
+    		var mrp_id = $(this).val();
+
+			$.ajax({
+				'url': '/sk/getInfoMailer',
+				'type': 'GET',
+				'data': {
+					'mrp_id': mrp_id,
+				},
+				success: function(data){
+					$("#contentEmail").html(data);
+				}
+			});
     	});
     </script>
 
@@ -245,6 +293,10 @@
                 "data":{ _token: "{{ csrf_token() }}"}
             },
             "columns": [
+				{ "data": "nip" },
+				{ "data": "nama" },
+				{ "data": "asal" },
+				{ "data": "tujuan" },
                 { "data": "tgl_kirim_sk" },
                 { "data": "no_sk" },
                 { "data": "no_stg" },

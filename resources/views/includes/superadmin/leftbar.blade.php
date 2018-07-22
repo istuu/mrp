@@ -1,5 +1,5 @@
 <nav id="sideNav">
-	<h3>Monitoring</h3>
+	<!-- <h3>Monitoring</h3> -->
 	<ul class="nav nav-list">
 		<li><!-- dashboard -->
 			<a class="dashboard" href="{{ url('dashboard') }}"><!-- warning - url used by default by ajax (if eneabled) -->
@@ -17,7 +17,7 @@
 			</a>
 		</li>
 	</ul>
-	<h3>Form Mutasi</h3>
+	<!-- <h3>Form Mutasi</h3> -->
 	<ul class="nav nav-list">
 		<li>
 			<a href="{{ url('mutasi') }}/pengajuan?tipe=1">
@@ -36,7 +36,7 @@
 		</li>
 	</ul>
 
-	<h3>Status Proses Mutasi</h3>
+	<!-- <h3>Status Proses Mutasi</h3> -->
 	<ul class="nav nav-list">
 		<li>
 			<a href="#">
@@ -61,7 +61,7 @@
 			</ul>
 		</li>
 	</ul><!-- MAIN MENU -->
-	<h3>Evaluasi</h3>
+	<!-- <h3>Evaluasi</h3> -->
 	<nav id="sideNav"><!-- MAIN MENU -->
 		<ul class="nav nav-list">
 			<li class="{{ checkParentActive(['evaluasi']) }}"><!-- dashboard -->
@@ -73,7 +73,7 @@
 		</ul>
 	</nav>
 
-	<h3>Superadmin</h3>
+	<!-- <h3>Superadmin</h3> -->
 	<ul class="nav nav-list">
 		<li class="{{ checkParentActive(['pegawais']) }}">
 			<a href="{{ url('pegawais') }}">
@@ -104,6 +104,11 @@
 			</ul>
 		</li>
 		--}}
+		<li class="{{ checkParentActive(['email_templates']) }}">
+			<a href="{{ url('email_templates') }}">
+				<i class="main-icon fa fa-envelope"></i> <span>Email Template</span>
+			</a>
+		</li>
 		<li class="{{ checkParentActive(['key_competencies', 'daily_competencies']) }}">
 			<a href="#">
 				<i class="fa fa-menu-arrow pull-right"></i>

@@ -7,13 +7,19 @@ use App\Http\Middleware\SDM;
 use Uuid;
 use App\Notifications\SKTercetak;
 use App\MRP;
+use App\FormasiJabatan;
 use App\SKSTg;
+use App\Models\Legacy;
+use App\Models\EmailTemplate;
 use App\Pegawai;
+
+use App\Libraries\Mailer;
 
 class SKController extends Controller
 {
 	public function __construct()
 	{
+		$this->mail = new Mailer;
 		return $this->middleware(SDM::class);
 	}
 
@@ -173,4 +179,35 @@ class SKController extends Controller
         return json_encode($json_data);
         //<-- Gak Perlu Diubah END -->
     }
+
+	public function getInfoMailer(Request $request)
+	{
+		$mrp     = MRP::where('id',$request->mrp_id)->first();
+		$types   = EmailTemplate::all();
+
+		$formasis = $this->getPegawaiLead($mrp->pegawai->legacy_code);
+
+		$pegawais = Pegawai::whereIn('legacy_code',$formasis)->get();
+
+		return view('pages.content_email',compact('mrp','types','pegawais'));
+	}
+
+	public function getPegawaiLead($legacy_code)
+	{
+		$induk   = Legacy::where('legacy_code',$legacy_code)->first()->legacy_code_induk;
+
+
+		$formasis = FormasiJabatan::where(function($query){
+							$query->where('jenjang_sub','Manajemen Atas')->orWhere('jenjang_sub','Manajemen Menengah');
+						})
+						->where('legacy_code',$induk)->get();
+		return $formasis;
+	}
+
+	public function sendEmail(Request $request)
+	{
+		$inputs = $request->all();
+		$this->mail->actionMail($inputs,$inputs['type']);
+		return redirect('/sk')->with('success', 'Berhasil kirim email!');
+	}
 }

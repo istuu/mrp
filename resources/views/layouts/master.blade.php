@@ -64,7 +64,7 @@
 			<script type="text/javascript" src="{{ asset('assets') }}/js/app.js"></script>
 			<script type="text/javascript" src="{{ asset('assets') }}/js/notifications.js"></script>
 			<script type="text/javascript" src="{{ asset('vendor/sweetalert/sweetalert.min.js') }}"></script>
-
+			
 			<script>
 				$(document).on({
 	                ajaxStart: function() { $('body').addClass("loading");    },

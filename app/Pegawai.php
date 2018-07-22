@@ -20,6 +20,11 @@ class Pegawai extends Model
     	return $this->belongsTo('App\FormasiJabatan');
     }
 
+    public function personnels()
+    {
+    	return $this->belongsTo('App\PersonnelArea');
+    }
+
     public function diklat_penjenjangan()
     {
     	return $this->hasMany('App\DiklatPenjenjangan')->latest();

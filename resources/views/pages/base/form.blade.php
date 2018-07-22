@@ -16,18 +16,30 @@
 
 	<div id="content" class="padding-20">
 		<div class="row">
-			<div class="col-md-6" >
-				<!-- data pegawainya -->
+			<div class="col-md-12">
+					<!-- data pegawainya -->
 				<div class="panel panel-default">
 					<div class="panel-heading panel-heading-transparent">
 						<strong>{{ $action.' '.$title }}</strong>
 					</div>
 
 					<div class="panel-body">
-						{!! form($form) !!}
+						<div class="col-md-{{ request()->segment(1) == 'email_templates' ? '8':'6' }}" >
+							{!! form($form) !!}
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+@endsection
+
+@section('includes-scripts')
+<script src="{{ asset('vendor/ckeditor/ckeditor.js') }}"></script>
+
+<script>
+	$(function () {
+		CKEDITOR.replace( 'description' );
+	});
+</script>
 @endsection

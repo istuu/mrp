@@ -66,8 +66,10 @@ Route::post('/mrp/datatables/ajax', 'MRPController@ajaxDatatables');
 Route::get('/mrp/export', 'MRPController@export');
 Route::get('/mrp/download/{reg_num}/{no_dokumen}', 'MRPController@downloadDokumen');
 Route::get('/sk', 'SKController@index');
+Route::post('/sk/send_email', 'SKController@sendEmail');
 Route::post('/sk/upload', 'SKController@uploadSK');
 Route::post('/sk/datatables/ajax', 'SKController@ajaxDatatables');
+Route::get('/sk/getInfoMailer', 'SKController@getInfoMailer');
 
 Route::get('/download/{reg_num}/{filename}', 'DownloadController@downloader');
 
@@ -90,7 +92,7 @@ Route::post('formations/legacy/update/{id}', 'Admin\FormationController@legacyUp
 
 //Superadmin
 $slugs = ['roles', 'legacies', 'formations', 'pegawais', 'personnels','key_competencies',
-            'daily_competencies','info_diklats','direktorats', 'renev_structures'];
+            'daily_competencies','info_diklats','direktorats', 'renev_structures', 'email_templates'];
 foreach ($slugs as $slug) {
     $controller = "Admin\\".str_replace(' ','',ucwords(str_replace('_',' ',str_singular($slug))))."Controller";
     Route::get($slug,$controller.'@index');
