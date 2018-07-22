@@ -187,7 +187,7 @@ class SKController extends Controller
 
 		$formasis = $this->getPegawaiLead($mrp->pegawai->legacy_code);
 
-		$pegawais = Pegawai::whereIn('legacy_code',$formasis)->orderBy('nama_pegawai')->get();
+		$pegawais = Pegawai::whereIn('legacy_code',$formasis)->orderBy('legacy_code')->get();
 
 		return view('pages.content_email',compact('mrp','types','pegawais'));
 	}
@@ -197,9 +197,10 @@ class SKController extends Controller
 		$induk   = Legacy::where('legacy_code',$legacy_code)->first()->legacy_code_induk;
 
 		$formasis = FormasiJabatan::where(function($query){
-							$query->where('jenjang_sub','Manajemen Atas')->orWhere('jenjang_sub','Manajemen Menengah');
+							$query->where('jenjang_sub','Manajemen Atas')
+								  ->orWhere('jenjang_sub','Manajemen Menengah');
 						})
-						->where('legacy_code','LIKE',substr($induk,0,6).'%')->get();
+						->where('legacy_code','LIKE',substr($induk,0,8).'%')->get();
 		return array_pluck($formasis,'legacy_code');
 	}
 
