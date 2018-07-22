@@ -208,7 +208,7 @@
 			@include('emails.header')
             <table class="row" align="center" bgcolor="#F4F4F4" cellpadding="0">
               <tr>
-                <td class="spacer" height="40" style="font-size: 40px; line-height: 40px; mso-line-height-rule: exactly;">&nbsp;</td>
+                <td class="spacer" height="8" style="font-size: 8px; line-height: 8px; mso-line-height-rule: exactly;">&nbsp;</td>
               </tr>
               <tr valign="top" style="vertical-align: top;">
                 <th class="column mobile-12" width="520" style="padding: 0 90px; color: #232323; font-weight: 400;">
@@ -218,7 +218,7 @@
                 </th>
               </tr>
               <tr>
-                <td class="spacer" height="80" style="font-size: 80px; line-height: 80px; mso-line-height-rule: exactly;">&nbsp;</td>
+                <td class="spacer" height="40" style="font-size: 40px; line-height: 40px; mso-line-height-rule: exactly;">&nbsp;</td>
               </tr>
             </table>
             @stack('include')
