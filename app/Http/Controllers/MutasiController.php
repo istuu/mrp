@@ -250,6 +250,7 @@ class MutasiController extends Controller
                 'pegawai_id' => $pegawai->id,
                 'fj_asal' => $pegawai->formasi_jabatan_id !== "0" ? $pegawai->formasi_jabatan->id:$pegawai->nama_panjang_posisi,
                 'fj_tujuan' => $id_proyeksi,
+                'operator' => request()->session()->get('nip_operator'),
             );
 
             $data_mrp = array_merge($tambahan_mrp, request('mrp'));
@@ -298,6 +299,7 @@ class MutasiController extends Controller
                 'pegawai_id' => $pegawai->id,
                 'fj_asal' => $pegawai->formasi_jabatan_id !== "0" ? $pegawai->formasi_jabatan->id:$pegawai->nama_panjang_posisi,
                 'fj_tujuan' => $id_proyeksi,
+                'operator' => request()->session()->get('nip_operator'),
             );
             // dd(request('nilai')['hubungan_sesama']);
 
@@ -355,6 +357,7 @@ class MutasiController extends Controller
                 'nip_operator' => request()->session()->get('nip_operator'),
                 'unit_pengusul' => $user->id,
                 'fj_tujuan' => $jabatan->id,
+                'operator' => request()->session()->get('nip_operator'),
             );
 
             $data_mrp = array_merge($input_mrp, request('mrp'));

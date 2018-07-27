@@ -137,19 +137,26 @@ class StatusController extends Controller
                 $mrp = MRP::where('tipe', 1)->get();
             }elseif(auth()->user()->user_role == 2){
                 $mrp = MRP::where('tipe', 1)->get();
+            }elseif(auth()->user()->user_role == 3){
+                $mrp = MRP::where('tipe', 1)->get();
             }else{
                 $fj = auth()->user()->formasi_jabatan->pluck('id')->toArray();
-
+                //Tambahkan kondisi bila yang request dari karir 1 unit ngga bisa lihat
+                //pake unit asal
                 $mrp = MRP::where('tipe', 1)
-                ->whereHas('pegawai', function($q) use ($fj){
-                    $q->whereIn('fj_asal', $fj);
-                })
-                ->get();
+                        ->whereHas('pegawai', function($q) use ($fj){
+                            $q->whereIn('fj_asal', $fj);
+                        })
+                        ->where(function($q){
+                            $q->where('operator','<>','karir1')
+                                ->orWhere('operator','<>','karir2')
+                                ->orWhere('operator','<>','karirkp');
+                        })
+                        ->get();
             }
 
 
             return view('pages.unit.status_diterima',compact('mrp'));
-            // dd($mrp);
         }
 
     }
