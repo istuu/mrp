@@ -183,7 +183,7 @@
 
 								<div class="col-md-6 col-sm-6">
 									<label>Tahun STg</label>
-									<input type="text" name="tahun_sk" id="tahun_stg" value="{{ old('tahun_stg') }}" class="form-control">
+									<input type="text" name="tahun_stg" id="tahun_stg" value="{{ old('tahun_stg') }}" class="form-control">
 								</div>
 							</div>
 						</div>
