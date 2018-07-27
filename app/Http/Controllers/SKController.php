@@ -187,7 +187,7 @@ class SKController extends Controller
 
 		$formasis = $this->getPegawaiLead($mrp->pegawai->legacy_code);
 
-		$pegawais = Pegawai::whereIn('legacy_code',$formasis)->orderBy('nama_panjang_posisi')->get();
+		$pegawais = Pegawai::whereIn('legacy_code',$formasis)->orderBy('jenjang_sgid')->get();
 
 		return view('pages.content_email',compact('mrp','types','pegawais'));
 	}
