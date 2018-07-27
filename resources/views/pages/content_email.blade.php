@@ -38,7 +38,7 @@
                     @foreach($pegawais as $pegawai)
                         @if($pegawai->jenjang_mgt == 'Struktural')
                             <option value="{{ $pegawai->email }}">
-                                {{ $pegawai->formasi_jabatan->formasi.' '.$pegawai->formasi_jabatan->jabatan.' - '.$pegawai->nama_pegawai }}
+                                {{ $pegawai->nama_panjang_posisi.' - '.$pegawai->nama_pegawai }}
                             </option>
                         @endif
                     @endforeach
@@ -46,13 +46,8 @@
                 <optgroup label="Fungsional">
                     @foreach($pegawais as $pegawai)
                         @if($pegawai->jenjang_mgt == 'Fungsional')
-                            @if($pegawai->formasi_jabatan_id !== '0')
-                            <option value="{{ $pegawai->email }}">
-                                {{ $pegawai->formasi_jabatan->formasi.' '.$pegawai->formasi_jabatan->jabatan.' - '.$pegawai->nama_pegawai }}</option>
-                            @else
                             <option value="{{ $pegawai->email }}">
                                 {{ $pegawai->nama_panjang_posisi.' - '.$pegawai->nama_pegawai }}</option>
-                            @endif
                         @endif
                     @endforeach
                 </optgroup>
